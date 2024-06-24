@@ -1,91 +1,85 @@
 import { extendTheme } from "@chakra-ui/react";
+import { ButtonConfig } from "../../componets/atomic/button/ButtonConfig";
 
 export const themeCustom = extendTheme({
-  components: {
-    Button: {
-      baseStyle: {
-        fontWeight: "bold",
-        color: "purple",
-        borderRadius: "25px",
-      },
-      sizes: {
-        xl: {
-          h: "56px",
-          fontSize: "lg",
-          px: "32px",
-        },
-      },
-      // 3. We can add a new visual variant
-      variants: {
-        "with-shadow": {
-          bg: "red.400",
-          boxShadow: "0 0 2px 2px #efdfde",
-        },
-        // 4. We can override existing variants
-        solid: {
-          bg: "yellow.300",
-          color: "black",
-          fontSize: "lg",
-          border: "2px solid red",
-        },
-        "solid-full":{
-            bg: "pink.300",
-            color: "white",
-            fontSize: "xl",
-            border: "1px solid purple",
-            _hover:{
-                bg:"pink.900",
-                border:"2px solid black",
-                color:"yellow",
-            }
-        },
-        // 5. We can add responsive variants
-        sm: {
-          bg: "teal.500",
-          fontSize: "md",
-        },
-      },
-      // 6. We can overwrite defaultProps
-      defaultProps: {
-        size: "lg", // default is md
-        variant: "sm", // default is solid
-        colorScheme: "green", // default is gray
-      },
-    },
-    Input:{
-        baseStyle:{
-            field:{
-                fontSize:'2em',
-                color:'red',
-                borderRadius:'20px',
-                fontWeight:900,
-                
-            },
-        },
-        variants:{
-            nuevo:{
-                field:{
+  config: {
+    initialColorMode: "light",
+    useSystemColorMode: false,
+  },
 
-                    fontSize:'1em',
-                    color:'purple',
-                    border:'1px solid black',
-                    borderRadius:'15px',
-                    fontWeight:900,
-                },
-            }
+  breakpoints: {
+    base: "0em", // 0px
+    sm: "30em", // ~480px. em is a relative unit and is dependant on the font-size.
+    md: "48em", // ~768px
+    lg: "62em", // ~992px
+    xl: "80em", // ~1280px
+  },
+  styles: {
+    global: (props) => ({
+      body: {
+        bg: props.colorMode === "dark" ? "brand.dark" : "brand.light",
+        color: props.colorMode === "dark" ? "text.default" : "black",
+      },
+     
+    }),
+  },
+  components: {
+     Button:ButtonConfig,
+     Input: {
+      baseStyle: {
+        field: {
+          fontSize: "1.2em",
+          color: "#9B959F",
+          borderRadius: "5px",
+          fontWeight: 500,
+          _focus: {
+            border: "1px solid purple",
+          },
+          _hover: {
+            border: "1px solid purple",
+          },
         },
-            
+      },
+      variants: {
+        nuevo: {
+          field: {
+            fontSize: "1em",
+            color: "purple",
+            border: "1px solid black",
+            borderRadius: "15px",
+            fontWeight: 900,
+          },
+        },
+      },
     },
   },
-  colors: {
-    primary: {
-      100: "#f7fafc",
-      900: "#1a202c",
-    },
-    secondary: {
-      100: "#58295a",
-      500: "#3e0b3e",
-      900: "#1E011F",
+
+  semanticTokens: {
+    colors: {
+      primary: {
+        default: "#E8C888",
+        dark: "#DACFF6",
+      },
+      secondary: {
+        default: "#8C65AD",
+        dark: "#8C65FF",
+      },
+      text: {
+        dark: "#FFFFFF",
+        default: "primary.default",
+      },
+      buttonText: {
+        default: "#0C0AFF",
+        dark: "#0C0A47",
+      },
+      buttonBg: {
+        default: "primary.default",
+        dark: "#323154",
+      },
+      brand: {
+        light: "#0B265B",
+        dark: "#FFF1D6",
+      },
     },
   },
 });

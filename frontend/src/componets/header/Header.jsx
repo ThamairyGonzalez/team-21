@@ -1,76 +1,91 @@
-import { Box, Button, Center, Input } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import {
+  Box,
+  Button,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
+  Flex,
+  HStack,
+  IconButton,
+  Img,
+  Text,
+  VStack,
+  useColorMode,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { SunIcon, MoonIcon, HamburgerIcon } from "@chakra-ui/icons";
 
 export const Header = () => {
-  const [datos, setDatos] = useState([])
-  const fetchDatos = async () => {
-    try {
-      const response = await fetch(
-        "https://api.sheetapi.rest/api/v1/sheet/PY70Ql8JN4Re0Q2QUdte2"
-      );
-      const data = await response.json();
-      setDatos(data);
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  const fetchPostDatos = async () => {
-    try {
-      const data = {
-        id_content: "32",
-        type: "TV-Show",
-        title_content: "Mi nuevo titulo",
-        release_year: 2024,
-        cast: 'Kofi Ghanaba',
-        director: 'omar',
-        country: 'Argentina',
-        rating: 'PG-13',
-        duration: '90 min',
-        listed_id: 'Documentation',
-        runtime: 90,
-      };
-  
-      const response = await fetch('https://api.sheetapi.rest/api/v1/sheet/PY70Ql8JN4Re0Q2QUdte2', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-  
-      if (response.ok) {
-        console.log('Nuevo registro creado correctamente');
-      } else {
-        console.error('Error al crear el nuevo registro');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  useEffect(()=>{
-    //fetchPostDatos()
-    //fetchDatos()
-  },[])
+  const { colorMode, toggleColorMode } = useColorMode();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
- 
-  
   return (
-    <Center>
-      <Box bg="primary.900">
-        <p >Info de Sheet </p>
-        <ol >
-        <Box color="primary.100">
-        {datos.map(dato=><li key={dato.id_content} > {dato.type}--{dato.title_content}</li>)}
-        </Box>
-        </ol>
+    <Box>
+      <Box>
+        <Flex
+          as="nav"
+          align="center"
+          justify="space-between"
+          wrap="wrap"
+          padding="1.5rem"
+          bg={colorMode === "dark" ? "brand.light" : "brand.dark"}
+        >
+          <Flex align="center" mr={5}>
+            <Img src="/img/logo.jpg" alt="logo" w="130px" />
+          </Flex>
 
+          <HStack spacing={8} display={{ base: "none", sm: "flex" }}>
+            <Text>Sobre Nosotros</Text>
+            <Text>Habitaciones</Text>
+            <Text>Nuestros servicios</Text>
+            <Text>Sitios de interés</Text>
+            <Button>Reservar</Button>
+          </HStack>
+          <Box>
+            <IconButton
+              ml={4}
+              aria-label="Toggle Color Mode"
+              color={colorMode === "dark" ? "text.default" : "text.dark"}
+              bg={'transparent'}
+              icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+              onClick={toggleColorMode}
+            />
+          </Box>
+          <IconButton
+            size="md"
+            icon={<HamburgerIcon />}
+            aria-label="Open Menu"
+            display={{ sm: "none" }}
+            onClick={onOpen}
+            color={colorMode === "dark" ? "text.default" : "text.dark"}
+            bg={colorMode === "dark" ? "brand.default" : "brand.dark"}
+          />
+        </Flex>
+
+        <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+          <DrawerOverlay />
+          <DrawerContent
+            bg={colorMode === "dark" ? "brand.light" : "brand.dark"}
+            color={colorMode === "dark" ? "text.dark" : "text.default"}
+          >
+            <DrawerCloseButton />
+            <DrawerHeader>Menu</DrawerHeader>
+
+            <DrawerBody>
+              <VStack spacing={4}>
+                <Text>Sobre Nosotros</Text>
+                <Text>Habitaciones</Text>
+                <Text>Nuestros servicios</Text>
+                <Text>Sitios de interés</Text>
+                <Button>Reservar</Button>
+              </VStack>
+            </DrawerBody>
+          </DrawerContent>
+        </Drawer>
       </Box>
-    <Button>Mi boton 1</Button>
-    <Button size="xl" variant={'solid'} >Mi boton 1</Button>
-    <Button >Mi boton 1</Button>
-    <Input />
-    <Input variant={'nuevo'} />
-    </Center>
+    </Box>
   );
 };
