@@ -34,8 +34,10 @@ export const Header = () => {
           bg={colorMode === "dark" ? "brand.light" : "brand.dark"}
         >
           <Flex align="center" mr={5}>
-            <Img src="/img/logo.jpg" alt="logo" w="130px" />
-          </Flex>
+            {colorMode==='dark'
+            ?<Img src="/img/logo1.png" alt="logo" w="5em" />
+            :<Img src="/img/logo.png" alt="logo" w="5em"/>}
+            </Flex>
 
           <HStack spacing={8} display={{ base: "none", sm: "flex" }}>
             <Text>Sobre Nosotros</Text>
@@ -50,7 +52,7 @@ export const Header = () => {
               aria-label="Toggle Color Mode"
               color={colorMode === "dark" ? "text.default" : "text.dark"}
               bg={'transparent'}
-              icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+              icon={colorMode === "dark" ? <MoonIcon /> : <SunIcon />}
               onClick={toggleColorMode}
             />
           </Box>

@@ -1,5 +1,5 @@
 import { extendTheme } from "@chakra-ui/react";
-import { ButtonConfig } from "../../componets/atomic/button/ButtonConfig";
+import { ButtonConfig } from "./ButtonConfig";
 
 export const themeCustom = extendTheme({
   config: {
@@ -64,6 +64,7 @@ export const themeCustom = extendTheme({
         default: "#8C65AD",
         dark: "#8C65FF",
       },
+      
       text: {
         dark: "#FFFFFF",
         default: "primary.default",
