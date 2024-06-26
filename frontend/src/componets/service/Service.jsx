@@ -1,33 +1,26 @@
-import {Button, Center, Container, SimpleGrid, Text } from "@chakra-ui/react"
-
-import {FaMobile, FaCar, FaThermometerHalf} from 'react-icons/fa'
-import { ServiceCard } from "./ServiceCard"
-import { MdBakeryDining } from "react-icons/md"
-import { FaComputer, FaWineGlass } from "react-icons/fa6"
+import { FaWifi, FaCar, FaGlassMartiniAlt, FaThermometerHalf, FaCoffee, FaLaptop } from 'react-icons/fa';
+import { SimpleGrid, Button, VStack, Center } from '@chakra-ui/react';
+import { Feature } from './Feature';
 export const Service = () => {
- 
   return (
-    <Container bg="white" mb={2} >
-      <Text 
-      fontSize="xl"
-      fontWeight="bold" 
-      color="black" mb={1}
-      textAlign={'center'}
+    <VStack width="100%" maxWidth="600px" mx="auto">
+    <SimpleGrid columns={3}  width="100%">
+      <Feature icon={<FaLaptop size="24px" />} text="Espacio de Trabajo" />
+      <Feature icon={<FaCoffee size="24px" />} text="Desayuno" />
+      <Feature icon={<FaWifi size="24px" />} text="Free Wifi" />
+      <Feature icon={<FaCar size="24px" />} text="Estacionamiento" />
+      <Feature icon={<FaGlassMartiniAlt size="24px" />} text="Servicio bar" />
+      <Feature icon={<FaThermometerHalf size="24px" />} text="Climatización" />
+    </SimpleGrid>
+    
+    <Center width="100%">
+      <Button
+        variant={'solid'}
+        
       >
-        Servicios
-      </Text>
-      <SimpleGrid columns={3} spacing={1}>
-        <ServiceCard icon={FaComputer} label="Espacio de Trabajo" />
-        <ServiceCard icon={MdBakeryDining} label="Desayuno" />
-        <ServiceCard icon={FaMobile} label="Free Wifi" />
-        <ServiceCard icon={FaCar} label="Estacionamiento" />
-        <ServiceCard icon={FaWineGlass} label="Servicio bar" />
-        <ServiceCard icon={FaThermometerHalf} label="Climatización" />
-      </SimpleGrid>
-      <Center>
-
-      <Button >Reserva con nosotros</Button>
-      </Center>
-    </Container>
+        RESERVA CON NOSOTROS
+      </Button>
+    </Center>
+  </VStack>
   )
 }
