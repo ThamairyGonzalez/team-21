@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Box, Button, Text, Image, Flex } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
+import { RoomModal } from '../room/RoomModal';
 
 export const Carousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -63,6 +64,7 @@ export const Carousel = () => {
           <Button variant={'solid'} padding={'0 40px'}>
             {slides[currentSlide].buttonText}
           </Button>
+          
         </Box>
       </motion.div>
       <Flex position="absolute" bottom="20px" width="100%" justify="center">

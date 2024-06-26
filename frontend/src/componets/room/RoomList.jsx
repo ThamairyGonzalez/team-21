@@ -1,7 +1,8 @@
 import { Box, VStack, Text, Button, Image } from '@chakra-ui/react';
 import { FaPlus } from 'react-icons/fa';
+import { RoomModal } from './RoomModal';
 
-export const RoomList = ({image, name}) => {
+export const RoomList = ({image, name,service}) => {
   return (
     <Box position="relative" height="200px" width="100%" >
     <Image
@@ -29,11 +30,10 @@ export const RoomList = ({image, name}) => {
       <Text color="white" fontSize="2xl" fontWeight="bold" m={4}>
         {name}
       </Text>
-      <Button leftIcon={FaPlus}     
-        variant="outline"
-       >
-        + Ver más
-      </Button>
+     
+      <RoomModal name={name} img={image} service={service}/>
+     
+      
     </VStack>
   </Box>
   )

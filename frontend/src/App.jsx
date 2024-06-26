@@ -7,8 +7,6 @@ import { Banner } from "./componets/banner/Banner";
 import { Service } from "./componets/service/Service";
 import { Flex } from "@chakra-ui/react";
 
-
-
 function App() {
   return (
     <Flex minW={"300px"} width={["100","100","95","90","90"]} flexDir={"column"}>
