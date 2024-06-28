@@ -4,13 +4,12 @@ import { defineStyleConfig } from '@chakra-ui/react';
 export const ButtonConfig = defineStyleConfig({
   
   variants: {
-    base: {
+    filled: {
       fontWeight: 'bold',
-      textTransform: 'uppercase',
       borderRadius: '25px',
       transition: 'all 0.2s',
-      bg: 'orange',
-      color: 'buttonText',
+      bg: 'primary.default',
+      color: 'black',
       _hover: {
         opacity: 0.8,
       },
@@ -29,15 +28,47 @@ export const ButtonConfig = defineStyleConfig({
     }),
     outline: {
       borderRadius:'25px',
-      borderColor: 'yellow.400',
+      borderColor: 'primary.default',
       bg: 'transparent',
       size:'sm',
-      color: 'yellow.400',
+      color: 'primary.default',
       _hover: {
-        bg: 'yellow.400',
+        bg: 'yellow.300',
         color:'black',
       },
     },
+    "with-shadow": (props)=>({
+        boxShadow: props.colorMode === 'dark' ? '2px  4px 2px rgba(239, 223, 222, 0.5)' : '2px 4px 2px rgba(0, 0, 0, 0.2)',
+        // bg: props.colorMode==='dark'?"primary.default":'primary.dark',
+        border:'1px solid',
+        borderColor:'primary.default',
+        color:props.colorMode==='dark'? "white":'buttonText.default',
+        borderRadius:'25px',
+        _hover:{
+          color:'black',
+          bg:props.colorMode==='dark'?"primary.default":'primary.dark',
+        },
+      }),
+        "elevated": (props)=>({
+        boxShadow: props.colorMode === 'dark' ? '1px  1px 2px rgba(239, 223, 222, 0.9)' : '1px 1px 2px rgba(0, 0, 0, 0.9)',
+         bg: props.colorMode==='dark'?"primary.default":'primary.dark',
+      
+        color:props.colorMode==='dark'? "white":'buttonText.default',
+        borderRadius:'25px',
+        _hover:{
+          color:'black',
+          bg:props.colorMode==='dark'?"primary.default":'primary.dark',
+        },
+
+      }),
+    
+    combined:(props)=>({
+      ...ButtonConfig.variants.base,
+      ...ButtonConfig.variants.solid(props),
+      ...ButtonConfig.variants['with-shadow'](props),
+      //...ButtonConfig.variants.ghost,
+
+  }),
   
   },
   sizes: {
@@ -59,6 +90,6 @@ export const ButtonConfig = defineStyleConfig({
   },
   defaultProps: {
     size: 'md',
-    variant: 'solid',
+    variant: 'filled',
   },
 });
