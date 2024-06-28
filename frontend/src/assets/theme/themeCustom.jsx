@@ -1,6 +1,7 @@
 import { extendTheme } from "@chakra-ui/react";
 import { ButtonConfig } from "./ButtonConfig";
 
+
 export const themeCustom = extendTheme({
   config: {
     initialColorMode: "light",
@@ -24,7 +25,8 @@ export const themeCustom = extendTheme({
     }),
   },
   components: {
-     Button:ButtonConfig,
+ 
+    Button: ButtonConfig,
      Input: {
       baseStyle: {
         field: {

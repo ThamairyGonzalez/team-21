@@ -1,6 +1,7 @@
 import { FaWifi, FaCar, FaGlassMartiniAlt, FaThermometerHalf, FaCoffee, FaLaptop } from 'react-icons/fa';
 import { SimpleGrid, Button, VStack, Center } from '@chakra-ui/react';
 import { Feature } from './Feature';
+import { Link } from 'react-router-dom';
 export const Service = () => {
   return (
     <VStack width="100%" maxWidth="600px" mx="auto">
@@ -18,7 +19,7 @@ export const Service = () => {
         variant={'solid'}
         
       >
-        RESERVA CON NOSOTROS
+       <Link to={"/consulta"}>RESERVA CON NOSOTROS</Link> 
       </Button>
     </Center>
   </VStack>

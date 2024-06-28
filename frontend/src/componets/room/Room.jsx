@@ -37,6 +37,7 @@ export const Room = () => {
           comodidades, conocelas.
         </Text>
       </Box>
+      
       {rooms.map((room, index) => (
         <RoomList key={index} {...room} />
       ))}

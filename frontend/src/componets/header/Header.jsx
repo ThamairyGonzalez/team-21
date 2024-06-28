@@ -17,6 +17,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { SunIcon, MoonIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { Link } from "react-router-dom";
 
 export const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -40,11 +41,11 @@ export const Header = () => {
             </Flex>
 
           <HStack spacing={8} display={{ base: "none", sm: "flex" }}>
-            <Text>Sobre Nosotros</Text>
-            <Text>Habitaciones</Text>
-            <Text>Nuestros servicios</Text>
-            <Text>Sitios de interés</Text>
-            <Button>Reservar</Button>
+            <Link to={'/nosotros'}>Sobre Nosotros</Link>
+            <Link to={'/nosotros'}>Habitaciones</Link>
+            <Link to={'/nosotros'}>Nuestros servicios</Link>
+            <Link to={'/consulta'}>Reservar</Link>
+            
           </HStack>
           <Box>
             <IconButton

@@ -13,14 +13,13 @@ import {
   HStack,
   Icon,
   Box,
-  Link,
   Flex,
-  Divider,
 } from "@chakra-ui/react";
 import { FaUser, FaBed, FaRulerCombined, FaSnowflake } from "react-icons/fa";
-import { ChevronLeftIcon } from "@chakra-ui/icons";
+import { ArrowDownIcon, ArrowUpIcon } from "@chakra-ui/icons";
 import { FaPlus } from "react-icons/fa6";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export const RoomModal = ({ name, img, service }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -34,13 +33,10 @@ export const RoomModal = ({ name, img, service }) => {
       <Modal isOpen={isOpen} onClose={onClose} size="full">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader bg="brand.light" color="white">
-            <HStack>
-              <ChevronLeftIcon boxSize={6} />
-              <Text>Volver</Text>
-            </HStack>
+          <ModalHeader bg="brand.light" color="white" minH={"50px"}>
+            <Image src="/img/logo.png" />
           </ModalHeader>
-          <ModalCloseButton color="white" />
+          <ModalCloseButton />
           <ModalBody p={0} color={"black"} bg={"white"}>
             <VStack align="stretch" spacing={4}>
               <Text fontSize="2xl" fontWeight="bold" p={4}>
@@ -86,27 +82,28 @@ export const RoomModal = ({ name, img, service }) => {
                 <Text
                   m={2}
                   color={"brand.light"}
-                  fontWeight={500}
+                  fontWeight={900}
                   _hover={{ cursor: "pointer" }}
                   onClick={() => setShow(!show)}
                 >
                   Ver más características
+                  {show ? <ArrowUpIcon /> : <ArrowDownIcon />}
                 </Text>
                 {show && (
                   <Box padding={4}>
                     <VStack align="stretch" spacing={2}>
-                      {service.map((servi, index) => 
-                        <HStack key={index} >
-                          <Text >{servi}</Text>
+                      {service.map((servi, index) => (
+                        <HStack key={index}>
+                          <Text>{servi}</Text>
                         </HStack>
-                      )}
-
-                     
+                      ))}
                     </VStack>
                   </Box>
                 )}
                 <Flex w={"100%"} justifyContent={"flex-end"}>
-                  <Button m={2}>Reservar</Button>
+                  <Button m={2}>
+                    <Link to={`/consulta`}>Reserva</Link>
+                  </Button>
                 </Flex>
               </Flex>
             </VStack>
