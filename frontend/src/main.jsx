@@ -7,7 +7,8 @@ import { themeCustom } from "./assets/theme/themeCustom.jsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Consulta } from "./componets/consulta/Consulta.jsx";
 import { Admin } from "./componets/admin/Admin.jsx";
-import { Nosotros } from "./componets/nosotros.jsx/Nosotros.jsx";
+import { Nosotros } from "./componets/nosotros/Nosotros.jsx";
+
 
 const router=createBrowserRouter([
   { 
