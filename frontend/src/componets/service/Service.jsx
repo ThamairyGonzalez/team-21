@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export const Service = () => {
   return (
     <VStack width="100%" maxWidth="600px" mx="auto">
-    <SimpleGrid columns={3}  width="100%">
+    <SimpleGrid columns={3}  width="100%" >
       <Feature icon={<FaLaptop size="24px" />} text="Espacio de Trabajo" />
       <Feature icon={<FaCoffee size="24px" />} text="Desayuno" />
       <Feature icon={<FaWifi size="24px" />} text="Free Wifi" />
@@ -15,7 +15,8 @@ export const Service = () => {
     </SimpleGrid>
     
     <Center width="100%">
-      <Button
+      <Button 
+      mb={2}
         variant={'solid'}
         
       >

@@ -2,7 +2,7 @@ import { Box, Button, Flex, Image, Stack, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa6";
-import { GiAzulFlake } from "react-icons/gi";
+
 
 export const Room = () => {
   const slides = [
@@ -71,6 +71,7 @@ export const Room = () => {
           src={slides[currentSlide].image}
           alt={`Slide ${currentSlide + 1}`}
           objectFit="cover"
+          borderRadius={'16px'}
           m='auto'
           w={["295px","500px"]}
           // h="400px"
@@ -90,9 +91,9 @@ export const Room = () => {
             {slides[currentSlide].title}
           </Text>
           <Button leftIcon={<FaPlus/>} variant={"outline"} 
-          borderColor={"azul.500"} 
+          borderColor={"primary.500"} 
           // padding={"0 40px"}
-          color={"azul.500"}
+          color={"primary.500"}
           >
             {slides[currentSlide].buttonText}
           </Button>

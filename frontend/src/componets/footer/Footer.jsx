@@ -22,12 +22,10 @@ export const Footer = () => {
       px={4}
     >
       <Center>
-        <VStack spacing={4} align="flex-start" maxW="container.lg" mx="auto">
+        <VStack spacing={4}  align="flex-start" maxW="container.lg" mx="auto">
           <HStack spacing={2}>
             <Img src="/img/logo1.png" width={"100px"} />
-            <Text fontSize="2xl" fontWeight="bold" color="primary.default">
-              OCEANO HOTEL
-            </Text>
+           
           </HStack>
 
           <VStack align="flex-start" spacing={2}>

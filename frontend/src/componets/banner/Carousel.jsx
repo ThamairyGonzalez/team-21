@@ -38,11 +38,11 @@ export const Carousel = ({ slides }) => {
         />
         <Box
           display="flex"
-          flexDir={"row-reverse"}
+          flexDir={"column"}
           position="absolute"
           top="50%"
-          left="50%"
-          transform="translate(-50%, -50%)"
+          left="15%"
+         transform="translate(5%, 5%)"
           textAlign="center"
           color="white"
         >
