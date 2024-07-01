@@ -45,9 +45,7 @@ export const Header = () => {
             <Link to={'/nosotros'}>Habitaciones</Link>
             <Link to={'/nosotros'}>Nuestros servicios</Link>
             <Link to={'/consulta'}>Reservar</Link>
-            
-          </HStack>
-          <Box>
+            <Box>
             <IconButton
               ml={4}
               aria-label="Toggle Color Mode"
@@ -57,6 +55,8 @@ export const Header = () => {
               onClick={toggleColorMode}
             />
           </Box>
+          </HStack>
+         
           <IconButton
             size="md"
             icon={<HamburgerIcon />}
@@ -84,6 +84,16 @@ export const Header = () => {
                 <Text>Nuestros servicios</Text>
                 <Text>Sitios de interés</Text>
                 <Button>Reservar</Button>
+                <Box>
+            <IconButton
+              ml={4}
+              aria-label="Toggle Color Mode"
+              color={colorMode === "dark" ? "text.default" : "text.dark"}
+              bg={'transparent'}
+              icon={colorMode === "dark" ? <MoonIcon /> : <SunIcon />}
+              onClick={toggleColorMode}
+            />
+          </Box>
               </VStack>
             </DrawerBody>
           </DrawerContent>

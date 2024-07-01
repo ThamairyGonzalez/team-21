@@ -3,7 +3,7 @@ import {  Center, Img, Text } from '@chakra-ui/react'
 
 export const About = () => {
   return (
-   <Center color='black' w={'100%'} flexDir={'column'} p={[1,3]}>
+   <Center color='black' w={'100%'} flexDir={'column'} p={[2,4]}>
     <Text as='h1' 
     fontSize={'1.2em'}
     fontWeight={900}
