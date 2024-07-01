@@ -2,11 +2,11 @@ import {
   Box,
   VStack,
   Text,
-  Button,
+
   Image,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { FaPlus } from "react-icons/fa";
+
 import { RoomModal } from "./RoomModal";
 
 export const RoomList = ({ image, name, service }) => {

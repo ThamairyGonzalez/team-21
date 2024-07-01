@@ -59,10 +59,14 @@ export const themeCustom = extendTheme({
   semanticTokens: {
     colors: {
       primary: {
+        200:'#6D99ED',
+        500:'#0B265B',
         default: "#E8C888",
         dark: "#DACFF6",
       },
       secondary: {
+        500:'#FFDE9D',
+        600:'#FFC34D',
         default: "#8C65AD",
         dark: "#8C65FF",
       },
@@ -80,8 +84,8 @@ export const themeCustom = extendTheme({
         dark: "#323154",
       },
       brand: {
-        light: "#0B265B",
-        dark: "#FFF1D6",
+        light: "primary.500",
+        dark: "#FFFfD6",
       },
     },
   },
