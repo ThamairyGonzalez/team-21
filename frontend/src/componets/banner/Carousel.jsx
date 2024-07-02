@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Box, Button, Text, Image, Flex } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { RoomModal } from "../room/RoomModal";
+import { Link } from "react-router-dom";
 
 export const Carousel = ({ slides }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -18,10 +19,10 @@ export const Carousel = ({ slides }) => {
       nextSlide();
     }, 3000);
     return () => clearInterval(intervalId);
-  },[nextSlide]);
+  }, [nextSlide]);
 
   return (
-    <Box position="relative" height="400px" overflow="hidden">
+    <Box position="relative" height="320px" overflow="hidden">
       <motion.div
         key={currentSlide}
         initial={{ opacity: 0 }}
@@ -34,23 +35,25 @@ export const Carousel = ({ slides }) => {
           alt={`Slide ${currentSlide + 1}`}
           objectFit="cover"
           w="100%"
-          h="400px"
+          h="350px"
         />
         <Box
           display="flex"
           flexDir={"column"}
           position="absolute"
-          top="50%"
-          left="15%"
-         transform="translate(5%, 5%)"
-          textAlign="center"
+          top="20%"
+          left="5%"
+          //  transform="translate(5%, 5%)"
+          
           color="white"
         >
           <Text fontSize="3xl" fontWeight="bold" mb={4}>
             {slides[currentSlide].title}
           </Text>
-          <Button variant={"solid"} padding={"0 40px"}>
+          <Button variant={"solid"} padding={"0 40px"} width={"40%"}>
+            <Link to='/consulta'>
             {slides[currentSlide].buttonText}
+            </Link>
           </Button>
         </Box>
       </motion.div>
@@ -68,10 +71,10 @@ export const Carousel = ({ slides }) => {
           />
         ))}
       </Flex>
-      <Button position="absolute" left="10px" top="50%" onClick={prevSlide}>
+      <Button position="absolute" left="10px" top="85%" onClick={prevSlide}>
         &#8249;
       </Button>
-      <Button position="absolute" right="10px" top="50%" onClick={nextSlide}>
+      <Button position="absolute" right="10px" top="85%" onClick={nextSlide}>
         &#8250;
       </Button>
     </Box>
