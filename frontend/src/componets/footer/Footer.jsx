@@ -10,9 +10,11 @@ import {
   Center,
   Divider,
 } from "@chakra-ui/react";
-import { BsMailbox, BsTwitterX } from "react-icons/bs";
+import { IconContext } from "react-icons";
+import { BsGeoAlt, BsMailbox, BsTwitterX } from "react-icons/bs";
 import { FaInstagram, FaFacebook } from "react-icons/fa";
 import { FaAddressBook, FaPhone } from "react-icons/fa6";
+import { MdEmail } from "react-icons/md";
 
 export const Footer = () => {
   const { colorMode } = useColorMode();
@@ -39,9 +41,15 @@ export const Footer = () => {
             <Link>Formulario de reservas</Link>
           </VStack>
           <Divider/>
-          <Text p={2}><Icon as={FaAddressBook}/>Mendoza, Argentina</Text>
-          <Text p={2}><Icon as={BsMailbox} /> contacto@oceanohotels.com.ar</Text>
-          <Text p={2}><Icon as={FaPhone} />(0261)-123-4567</Text>
+          <Text p={5}>
+            <Icon as={BsGeoAlt}  mr={2}/> Mendoza, Argentina
+            </Text>
+          <Text p={5}>
+            <Icon as={MdEmail} mr={2}/> contacto@oceanohotels.com.ar
+            </Text>
+          <Text p={5}>
+            <Icon as={FaPhone} mr={2}/> (0261)-123-4567
+            </Text>
           <Divider/>
           <Box pt={4}>
             <Text fontWeight="bold" mb={2}>

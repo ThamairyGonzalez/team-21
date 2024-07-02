@@ -35,28 +35,27 @@ export const Header = () => {
           bg={colorMode === "dark" ? "brand.light" : "brand.dark"}
         >
           <Flex align="center" mr={5}>
-            {colorMode==='dark'
-            ?<Img src="/img/logo1.png" alt="logo" w="5em" />
-            :<Img src="/img/logo.png" alt="logo" w="5em"/>}
-            </Flex>
+            <Link to="/">
+              <Img src="/img/logo1.png" alt="logo" w="5em" />
+            </Link>
+          </Flex>
 
           <HStack spacing={8} display={{ base: "none", sm: "flex" }}>
-            <Link to={'/nosotros'}>Sobre Nosotros</Link>
-            <Link to={'/nosotros'}>Habitaciones</Link>
-            <Link to={'/nosotros'}>Nuestros servicios</Link>
-            <Link to={'/consulta'}>Reservar</Link>
+            <Link to={"/nosotros"}>Sobre Nosotros</Link>
+            <Link to={"/interes"}>Sitios de Interes</Link>
+            <Link to={"/consulta"}>Reservar</Link>
             <Box>
-            <IconButton
-              ml={4}
-              aria-label="Toggle Color Mode"
-              color={colorMode === "dark" ? "text.default" : "text.dark"}
-              bg={'transparent'}
-              icon={colorMode === "dark" ? <MoonIcon /> : <SunIcon />}
-              onClick={toggleColorMode}
-            />
-          </Box>
+              <IconButton
+                ml={4}
+                aria-label="Toggle Color Mode"
+                color={colorMode === "dark" ? "text.default" : "text.dark"}
+                bg={"transparent"}
+                icon={colorMode === "dark" ? <MoonIcon /> : <SunIcon />}
+                onClick={toggleColorMode}
+              />
+            </Box>
           </HStack>
-         
+
           <IconButton
             size="md"
             icon={<HamburgerIcon />}
@@ -78,22 +77,33 @@ export const Header = () => {
             <DrawerHeader>Menu</DrawerHeader>
 
             <DrawerBody>
-              <VStack spacing={4}>
-                <Text>Sobre Nosotros</Text>
-                <Text>Habitaciones</Text>
-                <Text>Nuestros servicios</Text>
-                <Text>Sitios de interés</Text>
-                <Button>Reservar</Button>
+              <VStack spacing={4} alignItems={'left'} >
+                <Box borderLeft={"2px solid"} borderColor={" secondary.200"} pl={25}>
+                  <Link to={"/nosotros"}  >Sobre Nosotros</Link>
+                </Box>
+                <Box borderLeft={"2px solid"} borderColor={" secondary.200"}pl={25}>
+                  <Link to={"/room"}>Habitaciones</Link>
+                </Box>
+                <Box borderLeft={"2px solid"} borderColor={" secondary.200"}pl={25}>
+                  <Link to={"/servicios"}>Nuestros Servicios</Link>
+                </Box>
+                <Box borderLeft={"2px solid"} borderColor={" secondary.200"}pl={25}>
+                  <Link to={"/interes"}>Sitios de Interes</Link>
+                </Box>
+
+                <Button>
+                  <Link to={"/consulta"}>Reservar</Link>
+                </Button>
                 <Box>
-            <IconButton
-              ml={4}
-              aria-label="Toggle Color Mode"
-              color={colorMode === "dark" ? "text.default" : "text.dark"}
-              bg={'transparent'}
-              icon={colorMode === "dark" ? <MoonIcon /> : <SunIcon />}
-              onClick={toggleColorMode}
-            />
-          </Box>
+                  <IconButton
+                    ml={4}
+                    aria-label="Toggle Color Mode"
+                    color={colorMode === "dark" ? "text.default" : "text.dark"}
+                    bg={"transparent"}
+                    icon={colorMode === "dark" ? <MoonIcon /> : <SunIcon />}
+                    onClick={toggleColorMode}
+                  />
+                </Box>
               </VStack>
             </DrawerBody>
           </DrawerContent>
