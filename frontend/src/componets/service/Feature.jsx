@@ -7,7 +7,7 @@ export const Feature = ({icon,text}) => {
     borderWidth={1} 
     borderRadius="md" p={1} m={1} 
     borderColor={'primary.500'}
-    bg='#F7F7F8'
+   
     minH={'80px'}
     >
     <VStack>

@@ -4,7 +4,7 @@ import { Icon, Text, VStack } from "@chakra-ui/react"
 export const ServiceCard = ({icon,label}) => {
   return (
     <VStack
-    bg="transparent"
+    // bg="transparent"
     border={'2px solid grey'}
     borderRadius="xl"
     p={3}

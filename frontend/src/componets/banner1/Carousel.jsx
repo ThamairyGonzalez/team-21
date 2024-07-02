@@ -58,8 +58,8 @@ export const Carousel = () => {
           <Box 
             position="absolute" 
             top="50%" 
-            left="50%" 
-            transform="translate(-50%, -50%)"
+            left="20%" 
+            // transform="translate(-50%, -50%)"
             textAlign="center"
             color="white"
           >

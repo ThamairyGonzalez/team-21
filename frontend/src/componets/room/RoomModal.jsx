@@ -21,12 +21,17 @@ import { FaPlus } from "react-icons/fa6";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export const RoomModal = ({ name, img, service }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+export const RoomModal = ({ name, img, service, isOpen, onClose, onOpen }) => {
   const [show, setShow] = useState(false);
   return (
     <>
-      <Button onClick={onOpen} variant={"outline"} leftIcon={<FaPlus />}>
+      <Button 
+      onClick={onOpen} 
+      variant={"outline"} 
+      leftIcon={<FaPlus />}
+      borderColor={'primary.500'}
+      color={'primary.500'}
+      >
         Ver más
       </Button>
 
