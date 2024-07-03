@@ -9,6 +9,7 @@ import { Consulta } from "./componets/consulta/Consulta.jsx";
 import { Admin } from "./componets/admin/Admin.jsx";
 import { Nosotros } from "./componets/nosotros/Nosotros.jsx";
 import { Interes } from "./componets/sitioInteres/Interes.jsx";
+import { Global, css } from "@emotion/react";
 
 
 const router=createBrowserRouter([
@@ -38,6 +39,16 @@ const router=createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <ChakraProvider theme={themeCustom}>
+    <Global
+    styles={css`
+      @font-face{
+      font-family:'MiFuente';
+      src:url('/fonts/poppins/Poppins-Regular.ttf);
+      font-weight:normal;
+      font-style:normal;
+      
+      }
+      `}/>
     <React.StrictMode>
      <RouterProvider router={router}/>
      

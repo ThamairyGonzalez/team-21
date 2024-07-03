@@ -4,7 +4,7 @@ import { ButtonConfig } from "./ButtonConfig";
 
 export const themeCustom = extendTheme({
   config: {
-    initialColorMode: "light",
+    initialColorMode: "dark",
     useSystemColorMode: false,
   },
 
@@ -15,12 +15,19 @@ export const themeCustom = extendTheme({
     lg: "62em", // ~992px
     xl: "80em", // ~1280px
   },
+  
   styles: {
     global: (props) => ({
-      body: {
-        bg: props.colorMode === "dark" ? "brand.dark" : "brand.light",
-        color: props.colorMode === "dark" ? "text.default" : "black",
+      fonts: {
+        heading: `'Poppins','MiFuente'`,
+        body:`'MiFuente','sans-serif`,
       },
+      body: {
+        bg:  "#fff",
+        fontFamily:`'MiFuente',sans-serif`,
+        // color: props.colorMode === "dark" ? "text.default" : "black",
+      },
+    
      
     }),
   },

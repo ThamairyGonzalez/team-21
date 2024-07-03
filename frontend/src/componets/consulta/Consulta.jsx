@@ -1,5 +1,4 @@
-import { Flex, Text } from "@chakra-ui/react"
-import { Link } from "react-router-dom"
+import { Flex } from "@chakra-ui/react"
 import { Header } from "../header/Header"
 import { Footer } from "../footer/Footer"
 import { FormConsulta } from "./FormConsulta"

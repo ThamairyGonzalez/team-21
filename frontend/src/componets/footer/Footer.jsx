@@ -28,8 +28,8 @@ export const Footer = () => {
     >
       <Center>
         <VStack spacing={4}  align="flex-start" maxW="container.lg" mx="auto">
-          <HStack spacing={2}>
-            <Img src="/img/logo1.png" width={"100px"} />
+          <HStack>
+            <Img src="/icons/logo.svg" width={"250px"} />
            
           </HStack>
 

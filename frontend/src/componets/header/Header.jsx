@@ -31,12 +31,12 @@ export const Header = () => {
           align="center"
           justify="space-between"
           wrap="wrap"
-          padding="1.5rem"
+          paddingRight="1.5rem"
           bg={colorMode === "dark" ? "brand.light" : "brand.dark"}
         >
           <Flex align="center" mr={5}>
             <Link to="/">
-              <Img src="/img/logo1.png" alt="logo" w="5em" />
+              <Img src="/icons/logo.svg" alt="logo" w="150px" />
             </Link>
           </Flex>
 
@@ -44,7 +44,7 @@ export const Header = () => {
             <Link to={"/nosotros"}>Sobre Nosotros</Link>
             <Link to={"/interes"}>Sitios de Interes</Link>
             <Link to={"/consulta"}>Reservar</Link>
-            <Box>
+            {/* <Box>
               <IconButton
                 ml={4}
                 aria-label="Toggle Color Mode"
@@ -53,7 +53,7 @@ export const Header = () => {
                 icon={colorMode === "dark" ? <MoonIcon /> : <SunIcon />}
                 onClick={toggleColorMode}
               />
-            </Box>
+            </Box> */}
           </HStack>
 
           <IconButton
@@ -94,7 +94,7 @@ export const Header = () => {
                 <Button>
                   <Link to={"/consulta"}>Reservar</Link>
                 </Button>
-                <Box>
+                {/* <Box>
                   <IconButton
                     ml={4}
                     aria-label="Toggle Color Mode"
@@ -103,7 +103,7 @@ export const Header = () => {
                     icon={colorMode === "dark" ? <MoonIcon /> : <SunIcon />}
                     onClick={toggleColorMode}
                   />
-                </Box>
+                </Box> */}
               </VStack>
             </DrawerBody>
           </DrawerContent>
