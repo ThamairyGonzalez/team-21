@@ -3,16 +3,16 @@ from apps.abstracts.models import AbstractModel
 
 
 BED_TYPE = [
-    ('Q', 'Queen'),
-    ('S', 'Single'),
-    ('T', 'Twin')
+    ('Queen', 'Queen'),
+    ('Single', 'Single'),
+    ('Twin', 'Twin')
 ]
   
 class RoomType(AbstractModel):
     type = models.CharField(max_length=50)
     description = models.TextField()
     capacity = models.PositiveSmallIntegerField()
-    beds = models.CharField(max_length=1, choices=BED_TYPE)
+    beds = models.CharField(max_length=10, choices=BED_TYPE)
     surface = models.PositiveSmallIntegerField()
     safe_deposit_box = models.BooleanField(default=False)
     air_conditioner = models.BooleanField(default=False)
@@ -23,7 +23,7 @@ class RoomType(AbstractModel):
 
 class Photo(AbstractModel):
     room_type_id  = models.ForeignKey(RoomType, on_delete=models.CASCADE)
-    photo_url = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='images/')
     
 class RoomStatus(AbstractModel):
     status = models.CharField(max_length=50)
