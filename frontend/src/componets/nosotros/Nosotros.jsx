@@ -11,10 +11,10 @@ function Nosotros() {
       <Header />
       <Box p={4} className="custom-box">
         <VStack spacing={4} align="stretch">
-          <Heading as="h1" fontsize="32px" textAlign="center">
+          <Heading as="h1" fontsize={["32px", "45px"]} textAlign={["center", "left"]}>
             Sobre nosotros
           </Heading>
-          <Box width="139.22px" height="4px" gap="4px" mx="auto">
+          <Box width="139.22px" height="4px" gap="4px" ml={["auto", "0"]}>
           <Image src="/img/lines.png" alt="Lines" width="100%" height="100%" />
         </Box>
           <Text fontSize="14px" fontWeight="bold" fontFamily="heading">
