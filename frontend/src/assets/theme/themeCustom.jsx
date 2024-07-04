@@ -28,7 +28,17 @@ export const themeCustom = extendTheme({
         // color: props.colorMode === "dark" ? "text.default" : "black",
       },
     
-     
+      'html, body': {
+        backgroundColor: '#FFFFFF',
+        color: 'black',
+        padding: 0,
+        margin: 0,
+        boxSizing: 'border-box',
+        fontFamily: 'Poppins, sans-serif', 
+      },
+      '.custom-box': {
+       margin: '24px 20px 20px 40px', 
+      }
     }),
   },
   components: {

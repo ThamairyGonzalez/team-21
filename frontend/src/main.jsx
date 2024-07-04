@@ -1,13 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-
+import  Nosotros  from "./componets/nosotros/Nosotros.jsx";
 import { ChakraProvider } from "@chakra-ui/react";
 import { themeCustom } from "./assets/theme/themeCustom.jsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Consulta } from "./componets/consulta/Consulta.jsx";
 import { Admin } from "./componets/admin/Admin.jsx";
-import { Nosotros } from "./componets/nosotros/Nosotros.jsx";
 import { Interes } from "./componets/sitioInteres/Interes.jsx";
 import { Global, css } from "@emotion/react";
 import { Bienvenida } from "./componets/admin/Bienvenida.jsx";
@@ -55,6 +54,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       }
       `}/>
     <React.StrictMode>
+      
      <RouterProvider router={router}/>
      
     </React.StrictMode>
