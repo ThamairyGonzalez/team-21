@@ -17,10 +17,10 @@ export const Interes = () => {
       <Header />
       <Center p="5%">
         <Box color="black" p={5}>
-          <AspectRatio maxW="100%" ratio={1}>
+          <AspectRatio maxW="100%" ratio={2}>
             <iframe
               title="naruto"
-              src="https://www.youtube.com/embed/QhBnZ6NPOY0"
+              src="https://www.youtube.com/embed/po-KkU_iBSE"
               allowFullScreen
             />
           </AspectRatio>

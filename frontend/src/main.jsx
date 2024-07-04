@@ -10,6 +10,7 @@ import { Admin } from "./componets/admin/Admin.jsx";
 import { Nosotros } from "./componets/nosotros/Nosotros.jsx";
 import { Interes } from "./componets/sitioInteres/Interes.jsx";
 import { Global, css } from "@emotion/react";
+import { Bienvenida } from "./componets/admin/Bienvenida.jsx";
 
 
 const router=createBrowserRouter([
@@ -23,8 +24,12 @@ const router=createBrowserRouter([
     element:<Consulta/>,
   },
   {
-    path:'/cadmin',
+    path:'/admin',
     element:<Admin/>,
+  },
+  {
+    path:'/admin/home',
+    element:<Bienvenida/>,
   },
   {
     path:'/nosotros',
