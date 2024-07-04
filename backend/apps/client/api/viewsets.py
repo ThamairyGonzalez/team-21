@@ -8,6 +8,7 @@ from ..models import Client, CompanyClient, IndividualClient
 class ClientViewSet(ModelViewSet):
     serializer_class = CompleteClientSerializer
     queryset = Client.active_objects.all()
+    http_method_names = ['get', 'post', 'put', 'delete']
     
     def destroy(self, request, *args, **kwargs):
         

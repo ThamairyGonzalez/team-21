@@ -10,7 +10,8 @@ urlpatterns = [
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     path('api-room/', include('apps.room.api.routers')),
-    path('api-client/', include('apps.client.api.routers'))
+    path('api-client/', include('apps.client.api.routers')),
+    path('api-reservation/', include('apps.reservation.api.routers'))
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -3,7 +3,7 @@ from .viewsets import ServiceViewSet
 
 router = routers.SimpleRouter()
 router.register('service', ServiceViewSet)
-router.register('reservationservice', )
-router.register('reservationroom', )
+#router.register('reservationservice', )
+#router.register('reservationroom', )
 
 urlpatterns = router.urls

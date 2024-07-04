@@ -55,21 +55,33 @@ class CompleteClientSerializer(serializers.ModelSerializer):
             individual = IndividualClient.objects.create(client_id=client, **individual_data)
             response['individual'] = IndividualClientSerializer(individual).data
             return response
-    
-    """def to_representation(self, instance):
+    def update(self, instance, validate_data):
+        
+        company_data = validate_data.pop('company', None)
+        individual_data = validate_data.pop('individual', None)
+        
+        Client.objects.filter(id=instance.id).update(**validate_data)
+        
+        if instance.is_company:
+            if company_data is not None:
+                CompanyClient.objects.update_or_create(client_id=instance, defaults=company_data)
+            IndividualClient.objects.filter(client_id=instance).delete()
+        else:
+            if individual_data is not None:
+                IndividualClient.objects.update_or_create(client_id=instance, defaults=individual_data)
+            CompanyClient.objects.filter(client_id=instance).delete()
+        instance.refresh_from_db()
+        return instance
+        
+        
+        
+    def to_representation(self, instance):
         if isinstance(instance, dict):
             # Si es un diccionario (resultado de create), lo devolvemos directamente
             return instance
         # Si es una instancia de Client (para GET requests), usamos la representación normal
         representation = super().to_representation(instance)
-        if instance.is_company:
-            representation['company'] = CompanyClientSerializer(instance.companyclient).data
-        else:
-            representation['individual'] = IndividualClientSerializer(instance.individualclient).data
-        return representation"""
-    def to_representation(self, instance):
-        representation = super().to_representation(instance)
-
+        
         if instance.is_company:
             company = CompanyClient.objects.get(client_id=instance)
             company_representation = CompanyClientSerializer(company).data
