@@ -28,12 +28,12 @@ export const ButtonConfig = defineStyleConfig({
     }),
     outline: {
       borderRadius:'25px',
-      borderColor: 'primary.default',
+      borderColor: 'primary.500',
       bg: 'transparent',
       size:'sm',
-      color: 'primary.default',
+      color: 'primary.500',
       _hover: {
-        bg: 'yellow.300',
+        bg: '#6750A414',
         color:'black',
       },
     },

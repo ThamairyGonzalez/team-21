@@ -19,43 +19,45 @@ import { MdEmail } from "react-icons/md";
 export const Footer = () => {
   const { colorMode } = useColorMode();
   return (
-    <Box
-      bg={colorMode === "dark" ? "brand.light" : "brand.dark"}
-      color="white"
-      py={8}
-      px={4}
-      fontWeight={900}
-    >
-      <Center>
-        <VStack spacing={4}  align="flex-start" maxW="container.lg" mx="auto">
-          <HStack spacing={2}>
-            <Img src="/img/logo1.png" width={"100px"} />
-           
-          </HStack>
-
-          <VStack align="flex-start" spacing={2}>
+    <>
+      <Center w="100vw" bg="primary.500" pt={"15px"}>
+        <Img src="/img/Logo.svg" width={"250px"} />
+      </Center>
+      <Box
+        bg={colorMode === "dark" ? "brand.light" : "brand.dark"}
+        color="white"
+        py={8}
+        px={4}
+       flexDir={['column','row']}
+      >
+        <Center  flexDir={['column','row']} justifyContent={'space-around'} >
+         
             <Link>Sobre nosotros</Link>
             <Link>Habitaciones</Link>
             <Link>Nuestros servicios</Link>
             <Link>Sitios de interés</Link>
             <Link>Formulario de reservas</Link>
-          </VStack>
-          <Divider/>
+          
+        </Center>
+        <Divider />
+        <Center  flexDir={['column','row']} justifyContent={'space-around'}>
           <Text p={5}>
-            <Icon as={BsGeoAlt}  mr={2}/> Mendoza, Argentina
-            </Text>
+            <Icon as={BsGeoAlt} mr={2} /> Mendoza, Argentina
+          </Text>
           <Text p={5}>
-            <Icon as={MdEmail} mr={2}/> contacto@oceanohotels.com.ar
-            </Text>
+            <Icon as={MdEmail} mr={2} /> contacto@oceanohotels.com.ar
+          </Text>
           <Text p={5}>
-            <Icon as={FaPhone} mr={2}/> (0261)-123-4567
-            </Text>
-          <Divider/>
-          <Box pt={4}>
+            <Icon as={FaPhone} mr={2} /> (0261)-123-4567
+          </Text>
+        </Center>
+        <Divider />
+        <Center >
+          <Box pt={4} >
+            <HStack spacing={4} color={"primary.default"}>
             <Text fontWeight="bold" mb={2}>
               Seguinos
             </Text>
-            <HStack spacing={4} color={"primary.default"}>
               <Link>
                 <Icon as={BsTwitterX} boxSize={6} />
               </Link>
@@ -67,12 +69,13 @@ export const Footer = () => {
               </Link>
             </HStack>
           </Box>
-
+        </Center>
+        <Center>
           <Text fontSize="sm" pt={4}>
-            © Todos los derechos reservados
+            © Producto FooTalent 2024
           </Text>
-        </VStack>
-      </Center>
-    </Box>
+        </Center>
+      </Box>
+    </>
   );
 };

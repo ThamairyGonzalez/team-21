@@ -1,5 +1,5 @@
 import { FaWifi, FaCar, FaGlassMartiniAlt, FaThermometerHalf, FaCoffee, FaLaptop } from 'react-icons/fa';
-import { SimpleGrid, Button, VStack, Center } from '@chakra-ui/react';
+import { SimpleGrid, Button, VStack, Center, useBreakpointValue } from '@chakra-ui/react';
 import { Feature } from './Feature';
 import { Link } from 'react-router-dom';
 import { ServiceRoom } from './ServiceRoom';
@@ -23,11 +23,11 @@ export const Service = () => {
       description:"Disfruta de una experiencia culinaria excepcional en nuestro restaurante. Ofrecemos un menú exquisito con una variedad de platos locales e internacionales, preparados con ingredientes frescos y de alta calidad.",
       image:"/img/restaurante.jpeg"
     },
-
   ]
-  return (
-    <VStack width="100%" maxWidth="600px" mx="auto" bg={'white'}>
-    <SimpleGrid columns={3}  width="100%" >
+   return (
+    <VStack width="100%" maxWidth={['600px','800px']} mx="auto" >
+    
+      <SimpleGrid columns={3}  width="100%" spacing={[2,10]} >
       <Feature icon={<FaLaptop size="24px" />} text="Espacio de Trabajo" />
       <Feature icon={<FaCoffee size="24px" />} text="Desayuno" />
       <Feature icon={<FaWifi size="24px" />} text="Free Wifi" />
@@ -35,6 +35,8 @@ export const Service = () => {
       <Feature icon={<FaGlassMartiniAlt size="24px" />} text="Servicio bar" />
       <Feature icon={<FaThermometerHalf size="24px" />} text="Climatización" />
     </SimpleGrid>
+    
+   
     
    {serviRoom.map((room,index)=>
       <ServiceRoom 

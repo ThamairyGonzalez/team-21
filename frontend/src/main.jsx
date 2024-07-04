@@ -1,14 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-
+import  Nosotros  from "./componets/nosotros/Nosotros.jsx";
 import { ChakraProvider } from "@chakra-ui/react";
 import { themeCustom } from "./assets/theme/themeCustom.jsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Consulta } from "./componets/consulta/Consulta.jsx";
 import { Admin } from "./componets/admin/Admin.jsx";
-import { Nosotros } from "./componets/nosotros/Nosotros.jsx";
 import { Interes } from "./componets/sitioInteres/Interes.jsx";
+import { Global, css } from "@emotion/react";
+import { Bienvenida } from "./componets/admin/Bienvenida.jsx";
+import { Service } from "./componets/service/Service.jsx";
 
 
 const router=createBrowserRouter([
@@ -21,24 +23,41 @@ const router=createBrowserRouter([
     path:'/consulta',
     element:<Consulta/>,
   },
-  {
-    path:'/cadmin',
-    element:<Admin/>,
-  },
+   
   {
     path:'/nosotros',
     element:<Nosotros/>,
   },
-
+ 
+  
   {
     path:'/interes',
     element:<Interes/>,
-  }
+  },
+  {
+    path:'/admin',
+    element:<Admin/>,
+  },
+  {
+    path:'/admin/home',
+    element:<Bienvenida/>,
+  },
 ])
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <ChakraProvider theme={themeCustom}>
+    <Global
+    styles={css`
+      @font-face{
+      font-family:'MiFuente';
+      src:url('/fonts/poppins/Poppins-Regular.ttf);
+      font-weight:normal;
+      font-style:normal;
+      
+      }
+      `}/>
     <React.StrictMode>
+      
      <RouterProvider router={router}/>
      
     </React.StrictMode>
