@@ -24,7 +24,7 @@ export const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box>
+    <Box >
       <Box>
         <Flex
           as="nav"
@@ -33,10 +33,11 @@ export const Header = () => {
           wrap="wrap"
           paddingRight="1.5rem"
           bg={colorMode === "dark" ? "brand.light" : "brand.dark"}
+          color={'secondary.500'}
         >
-          <Flex align="center" mr={5}>
+          <Flex align="center" ml={15} h='100px'>
             <Link to="/">
-              <Img src="/icons/logo.svg" alt="logo" w="150px" />
+              <Img src="/img/Logo.svg" alt="logo" w="250px" />
             </Link>
           </Flex>
 
@@ -62,7 +63,7 @@ export const Header = () => {
             aria-label="Open Menu"
             display={{ sm: "none" }}
             onClick={onOpen}
-            color={colorMode === "dark" ? "text.default" : "text.dark"}
+            color={colorMode === "dark" ? "secondary.500" : "text.dark"}
             bg={colorMode === "dark" ? "brand.default" : "brand.dark"}
           />
         </Flex>
@@ -71,7 +72,7 @@ export const Header = () => {
           <DrawerOverlay />
           <DrawerContent
             bg={colorMode === "dark" ? "brand.light" : "brand.dark"}
-            color={colorMode === "dark" ? "text.dark" : "text.default"}
+            color={colorMode === "dark" ? "secondary.500" : "text.default"}
           >
             <DrawerCloseButton />
             <DrawerHeader>Menu</DrawerHeader>
@@ -84,9 +85,7 @@ export const Header = () => {
                 <Box borderLeft={"2px solid"} borderColor={" secondary.200"}pl={25}>
                   <Link to={"/room"}>Habitaciones</Link>
                 </Box>
-                <Box borderLeft={"2px solid"} borderColor={" secondary.200"}pl={25}>
-                  <Link to={"/servicios"}>Nuestros Servicios</Link>
-                </Box>
+               
                 <Box borderLeft={"2px solid"} borderColor={" secondary.200"}pl={25}>
                   <Link to={"/interes"}>Sitios de Interes</Link>
                 </Box>

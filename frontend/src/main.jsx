@@ -10,6 +10,7 @@ import { Admin } from "./componets/admin/Admin.jsx";
 import { Interes } from "./componets/sitioInteres/Interes.jsx";
 import { Global, css } from "@emotion/react";
 import { Bienvenida } from "./componets/admin/Bienvenida.jsx";
+import { Service } from "./componets/service/Service.jsx";
 
 
 const router=createBrowserRouter([
@@ -22,6 +23,17 @@ const router=createBrowserRouter([
     path:'/consulta',
     element:<Consulta/>,
   },
+   
+  {
+    path:'/nosotros',
+    element:<Nosotros/>,
+  },
+ 
+  
+  {
+    path:'/interes',
+    element:<Interes/>,
+  },
   {
     path:'/admin',
     element:<Admin/>,
@@ -30,15 +42,6 @@ const router=createBrowserRouter([
     path:'/admin/home',
     element:<Bienvenida/>,
   },
-  {
-    path:'/nosotros',
-    element:<Nosotros/>,
-  },
-
-  {
-    path:'/interes',
-    element:<Interes/>,
-  }
 ])
 
 ReactDOM.createRoot(document.getElementById("root")).render(

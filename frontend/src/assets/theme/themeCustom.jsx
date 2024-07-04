@@ -20,25 +20,16 @@ export const themeCustom = extendTheme({
     global: (props) => ({
       fonts: {
         heading: `'Poppins','MiFuente'`,
-        body:`'MiFuente','sans-serif`,
+       
       },
-      body: {
-        bg:  "#fff",
-        fontFamily:`'MiFuente',sans-serif`,
-        // color: props.colorMode === "dark" ? "text.default" : "black",
+     
+     
+     'html, body': {
+        bg: props.colorMode === "dark" ? "brand.dark" : "brand.light",
+        color: props.colorMode === "dark" ? "text.default" : "black",
+        fontFamily:'Poppins,sans-serif',
       },
     
-      'html, body': {
-        backgroundColor: '#FFFFFF',
-        color: 'black',
-        padding: 0,
-        margin: 0,
-        boxSizing: 'border-box',
-        fontFamily: 'Poppins, sans-serif', 
-      },
-      '.custom-box': {
-       margin: '24px 20px 20px 40px', 
-      }
     }),
   },
   components: {
@@ -78,6 +69,7 @@ export const themeCustom = extendTheme({
       primary: {
         200:'#6D99ED',
         500:'#0B265B',
+        800:'#040F24',
         default: "#E8C888",
         dark: "#DACFF6",
       },
@@ -90,7 +82,7 @@ export const themeCustom = extendTheme({
       
       text: {
         dark: "#FFFFFF",
-        default: "primary.default",
+        default: "black",
       },
       buttonText: {
         default: "#0C0AFF",
@@ -102,7 +94,7 @@ export const themeCustom = extendTheme({
       },
       brand: {
         light: "primary.500",
-        dark: "#FFFfD6",
+        dark: "#FFFFFF",
       },
     },
   },
