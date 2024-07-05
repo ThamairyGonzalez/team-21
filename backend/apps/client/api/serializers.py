@@ -61,6 +61,7 @@ class CompleteClientSerializer(serializers.ModelSerializer):
         individual_data = validate_data.pop('individual', None)
         
         Client.objects.filter(id=instance.id).update(**validate_data)
+        instance.refresh_from_db()
         
         if instance.is_company:
             if company_data is not None:
@@ -70,7 +71,7 @@ class CompleteClientSerializer(serializers.ModelSerializer):
             if individual_data is not None:
                 IndividualClient.objects.update_or_create(client_id=instance, defaults=individual_data)
             CompanyClient.objects.filter(client_id=instance).delete()
-        instance.refresh_from_db()
+        
         return instance
         
         

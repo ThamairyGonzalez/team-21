@@ -13,7 +13,7 @@ class ClientViewSet(ModelViewSet):
     def destroy(self, request, *args, **kwargs):
         
         instance = self.get_object()
-        print(instance)
+       
         if instance.is_company:
             company = CompanyClient.objects.filter(client_id=instance).first()
             company.soft_delete()
