@@ -41,15 +41,15 @@ export const Interes = () => {
             </Text>
           </Box>
           <Wrap justify={"space-between"}>
-            <WrapItem w={["100", "45%"]} flexDir={"column"} >
-             <Image
+            <WrapItem w={["100", "45%"]} flexDir={"column"}>
+              <Image
                 src="/img/vinos.jpeg"
                 borderRadius={"35px"}
                 p={5}
                 w={"395px"}
                 h={"320px"}
               />
-              <Text >
+              <Text>
                 Recorre la Ruta del Vino, un circuito que te llevará por viñedos
                 centenarios, bodegas boutique y restaurantes gourmet donde
                 podrás degustar los mejores Malbec, Cabernet Sauvignon y otras

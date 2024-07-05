@@ -85,13 +85,13 @@ export const Room = () => {
         <Text as="h2" fontSize="2xl" fontWeight="bold" textAlign={"center"}>
           Conocé las habitaciones
         </Text>
-        <Text as="h3" p={2}>
+        <Text as="h3" p={2} textAlign={"center"}>
           Nuestras habitaciones combinan elegancia y confort con modernas
           comodidades, conocelas.
         </Text>
       </Box>
       {isMobile ? (
-        <Box position="relative" h={"450px"} overflow="hidden">
+        <Box position="relative" h={"450px"} overflow="hidden" >
           <motion.div
             key={currentSlide}
             initial={{ opacity: 0 }}

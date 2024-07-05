@@ -44,7 +44,7 @@ export const RoomModal = ({ name, img, service, isOpen, onClose, onOpen }) => {
           <ModalCloseButton />
           <ModalBody p={0} color={"black"} bg={"white"}>
             <VStack align="stretch" spacing={4}>
-              <Text fontSize="2xl" fontWeight="bold" p={4}>
+              <Text fontSize="2xl" fontWeight="bold" p={4} display={"inline-block"} marginTop={3} >
                 {name}
               </Text>
               <Image

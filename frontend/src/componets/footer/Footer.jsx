@@ -35,7 +35,7 @@ export const Footer = () => {
             <Link>Sobre nosotros</Link>
             <Link>Habitaciones</Link>
             <Link>Nuestros servicios</Link>
-            <Link>Sitios de interés</Link>
+            <Link to={"/interes"}>Sitios de Interes</Link>
             <Link>Formulario de reservas</Link>
           
         </Center>
@@ -55,9 +55,9 @@ export const Footer = () => {
         <Center >
           <Box pt={4} >
             <HStack spacing={4} color={"primary.default"}>
-            <Text fontWeight="bold" mb={2}>
+            {/* <Text fontWeight="bold" mb={2}>
               Seguinos
-            </Text>
+            </Text> */}
               <Link>
                 <Icon as={BsTwitterX} boxSize={6} />
               </Link>

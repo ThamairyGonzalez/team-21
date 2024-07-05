@@ -44,16 +44,14 @@ export const Carousel = ({ slides }) => {
           top="20%"
           left="5%"
           //  transform="translate(5%, 5%)"
-          
+
           color="white"
         >
           <Text fontSize="3xl" fontWeight="bold" mb={4}>
             {slides[currentSlide].title}
           </Text>
           <Button variant={"solid"} padding={"0 40px"} width={"40%"}>
-            <Link to='/consulta'>
-            {slides[currentSlide].buttonText}
-            </Link>
+            <Link to="/consulta">{slides[currentSlide].buttonText}</Link>
           </Button>
         </Box>
       </motion.div>
