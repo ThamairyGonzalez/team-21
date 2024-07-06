@@ -60,17 +60,17 @@ class CompleteClientSerializer(serializers.ModelSerializer):
         company_data = validate_data.pop('company', None)
         individual_data = validate_data.pop('individual', None)
         
-        Client.objects.filter(id=instance.id).update(**validate_data)
+        Client.active_objects.filter(id=instance.id).update(**validate_data)
         instance.refresh_from_db()
         
         if instance.is_company:
             if company_data is not None:
-                CompanyClient.objects.update_or_create(client_id=instance, defaults=company_data)
-            IndividualClient.objects.filter(client_id=instance).delete()
+                CompanyClient.active_objects.update_or_create(client_id=instance, defaults=company_data)
+            IndividualClient.active_objects.filter(client_id=instance).delete()
         else:
             if individual_data is not None:
-                IndividualClient.objects.update_or_create(client_id=instance, defaults=individual_data)
-            CompanyClient.objects.filter(client_id=instance).delete()
+                IndividualClient.active_objects.update_or_create(client_id=instance, defaults=individual_data)
+            CompanyClient.active_objects.filter(client_id=instance).delete()
         
         return instance
         
@@ -84,11 +84,11 @@ class CompleteClientSerializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
         
         if instance.is_company:
-            company = CompanyClient.objects.get(client_id=instance)
+            company = CompanyClient.active_objects.get(client_id=instance)
             company_representation = CompanyClientSerializer(company).data
             representation['company'] = company_representation
         else:
-            individual = IndividualClient.objects.get(client_id=instance)
+            individual = IndividualClient.active_objects.get(client_id=instance)
             individual_representation = IndividualClientSerializer(individual).data
             representation['individual'] = individual_representation
 
