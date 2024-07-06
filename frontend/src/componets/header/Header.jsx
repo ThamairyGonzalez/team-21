@@ -24,7 +24,7 @@ export const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box >
+    <Box>
       <Box>
         <Flex
           as="nav"
@@ -33,9 +33,9 @@ export const Header = () => {
           wrap="wrap"
           paddingRight="1.5rem"
           bg={colorMode === "dark" ? "brand.light" : "brand.dark"}
-          color={'secondary.500'}
+          color={"secondary.500"}
         >
-          <Flex align="center" ml={15} h='100px'>
+          <Flex align="center" ml={15} h="100px">
             <Link to="/">
               <Img src="/img/Logo.svg" alt="logo" w="250px" />
             </Link>
@@ -78,15 +78,27 @@ export const Header = () => {
             <DrawerHeader>Menu</DrawerHeader>
 
             <DrawerBody>
-              <VStack spacing={4} alignItems={'left'} >
-                <Box borderLeft={"2px solid"} borderColor={" secondary.200"} pl={25}>
-                  <Link to={"/nosotros"}  >Sobre Nosotros</Link>
+              <VStack spacing={4} alignItems={"left"}>
+                <Box
+                  borderLeft={"2px solid"}
+                  borderColor={" secondary.200"}
+                  pl={25}
+                >
+                  <Link to={"/nosotros"}>Sobre Nosotros</Link>
                 </Box>
-                <Box borderLeft={"2px solid"} borderColor={" secondary.200"}pl={25}>
+                <Box
+                  borderLeft={"2px solid"}
+                  borderColor={" secondary.200"}
+                  pl={25}
+                >
                   <Link to={"/room"}>Habitaciones</Link>
                 </Box>
-               
-                <Box borderLeft={"2px solid"} borderColor={" secondary.200"}pl={25}>
+
+                <Box
+                  borderLeft={"2px solid"}
+                  borderColor={" secondary.200"}
+                  pl={25}
+                >
                   <Link to={"/interes"}>Sitios de Interes</Link>
                 </Box>
 

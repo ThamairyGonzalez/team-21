@@ -1,7 +1,6 @@
 import { extendTheme } from "@chakra-ui/react";
 import { ButtonConfig } from "./ButtonConfig";
 
-
 export const themeCustom = extendTheme({
   config: {
     initialColorMode: "dark",
@@ -15,27 +14,23 @@ export const themeCustom = extendTheme({
     lg: "62em", // ~992px
     xl: "80em", // ~1280px
   },
-  
+
   styles: {
     global: (props) => ({
       fonts: {
         heading: `'Poppins','MiFuente'`,
-       
       },
-     
-     
-     'html, body': {
+
+      "html, body": {
         bg: props.colorMode === "dark" ? "brand.dark" : "brand.light",
         color: props.colorMode === "dark" ? "text.default" : "black",
-        fontFamily:'Poppins,sans-serif',
+        fontFamily: "Poppins,sans-serif",
       },
-    
     }),
   },
   components: {
- 
     Button: ButtonConfig,
-     Input: {
+    Input: {
       baseStyle: {
         field: {
           fontSize: "1.2em",
@@ -67,19 +62,20 @@ export const themeCustom = extendTheme({
   semanticTokens: {
     colors: {
       primary: {
-        200:'#6D99ED',
-        500:'#0B265B',
-        800:'#040F24',
+        200: "#6D99ED",
+        500: "#0B265B",
+        800: "#040F24",
         default: "#E8C888",
         dark: "#DACFF6",
       },
       secondary: {
-        500:'#FFDE9D',
-        600:'#FFC34D',
+        200: "#FFF1D6",
+        500: "#FFDE9D",
+        600: "#FFC34D",
         default: "#8C65AD",
         dark: "#8C65FF",
       },
-      
+
       text: {
         dark: "#FFFFFF",
         default: "black",

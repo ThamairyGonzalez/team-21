@@ -56,7 +56,7 @@ export const Room = () => {
   ];
   const [currentSlide, setCurrentSlide] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  const isMobile = useBreakpointValue({ base: true, sm:true, md: false });
   const nextSlide = useCallback(() => {
     if (!isOpen) {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -75,17 +75,17 @@ export const Room = () => {
 
   return (
     <Stack
-      width={["395px", "100%"]}
+      width={["395px", "525px", "100%"]}
       maxWidth={["430px", "100%"]}
       p={10}
       color="black"
       bg={"white"}
     >
       <Box>
-        <Text as="h2" fontSize="2xl" fontWeight="bold" textAlign={"center"}>
+        <Text as="h2" fontSize="2xl" fontWeight="bold" textAlign={"left"}>
           Conocé las habitaciones
         </Text>
-        <Text as="h3" p={2} textAlign={"center"}>
+        <Text as="h4" textAlign={"left"}>
           Nuestras habitaciones combinan elegancia y confort con modernas
           comodidades, conocelas.
         </Text>

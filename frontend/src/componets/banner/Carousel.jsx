@@ -17,7 +17,7 @@ export const Carousel = ({ slides }) => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       nextSlide();
-    }, 3000);
+    }, 7000);
     return () => clearInterval(intervalId);
   }, [nextSlide]);
 
@@ -69,12 +69,12 @@ export const Carousel = ({ slides }) => {
           />
         ))}
       </Flex>
-      <Button position="absolute" left="10px" top="85%" onClick={prevSlide}>
+      {/* <Button position="absolute" left="10px" top="85%" onClick={prevSlide}>
         &#8249;
       </Button>
       <Button position="absolute" right="10px" top="85%" onClick={nextSlide}>
         &#8250;
-      </Button>
+      </Button> */}
     </Box>
   );
 };

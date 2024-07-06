@@ -3,7 +3,7 @@ import {
   VStack,
   HStack,
   Text,
-  Link,
+
   Icon,
   Img,
   useColorMode,
@@ -15,6 +15,8 @@ import { BsGeoAlt, BsMailbox, BsTwitterX } from "react-icons/bs";
 import { FaInstagram, FaFacebook } from "react-icons/fa";
 import { FaAddressBook, FaPhone } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
+import { Link } from "react-router-dom";
+
 
 export const Footer = () => {
   const { colorMode } = useColorMode();
@@ -28,19 +30,17 @@ export const Footer = () => {
         color="white"
         py={8}
         px={4}
-       flexDir={['column','row']}
+        flexDir={["column", "row"]}
       >
-        <Center  flexDir={['column','row']} justifyContent={'space-around'} >
-         
-            <Link>Sobre nosotros</Link>
-            <Link>Habitaciones</Link>
-            <Link>Nuestros servicios</Link>
-            <Link to={"/interes"}>Sitios de Interes</Link>
-            <Link>Formulario de reservas</Link>
-          
+        <Center flexDir={["column", "row"]} justifyContent={"space-around"}>
+          <Link>Sobre nosotros</Link>
+          <Link>Habitaciones</Link>
+          <Link>Nuestros servicios</Link>
+          <Link to={"/interes"}>Sitios de Interes</Link>
+          <Link>Formulario de reservas</Link>
         </Center>
         <Divider />
-        <Center  flexDir={['column','row']} justifyContent={'space-around'}>
+        <Center flexDir={["column", "row"]} justifyContent={"space-around"}>
           <Text p={5}>
             <Icon as={BsGeoAlt} mr={2} /> Mendoza, Argentina
           </Text>
@@ -52,10 +52,10 @@ export const Footer = () => {
           </Text>
         </Center>
         <Divider />
-        <Center >
-          <Box pt={4} >
+        <Center>
+          <Box pt={4}>
             <HStack spacing={4} color={"primary.default"}>
-            {/* <Text fontWeight="bold" mb={2}>
+              {/* <Text fontWeight="bold" mb={2}>
               Seguinos
             </Text> */}
               <Link>

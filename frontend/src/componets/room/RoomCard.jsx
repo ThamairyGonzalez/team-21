@@ -15,7 +15,7 @@ import { FaPlus } from "react-icons/fa";
 export const RoomCard = ({ image, name }) => {
   return (
     <WrapItem w='30%'>
-      <Box>
+      <Box justifyContent={"center"}>
         <Image
           src={image}
           alt={name}
