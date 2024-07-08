@@ -39,6 +39,10 @@ const router=createBrowserRouter([
     element:<Admin/>,
   },
   {
+    path:'/admin/Admin2',
+    element:<Admin/>,
+  },
+  {
     path:'/admin/home',
     element:<Bienvenida/>,
   },

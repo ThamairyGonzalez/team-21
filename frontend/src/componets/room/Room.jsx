@@ -72,7 +72,8 @@ export const Room = () => {
     setSelectedRoom(null);
   }, []);
 
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  // const { isOpen, onOpen, onClose } = useDisclosure();
+  const isMobile = useBreakpointValue({ base: true, sm:true, md: false });
   const nextSlide = useCallback(() => {
     if (!isOpen) {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -85,7 +86,7 @@ export const Room = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       nextSlide();
-    }, 3000);
+    }, 7000);
     return () => clearInterval(intervalId);
   }, [nextSlide]);
 
@@ -93,29 +94,29 @@ export const Room = () => {
 
   return (
     <Stack
-      width={["395px", "100%"]}
+      width={["395px", "525px", "100%"]}
       maxWidth={["430px", "100%"]}
       p={10}
       color="black"
       bg={"white"}
     >
       <Box>
-        <Text as="h2" fontSize="2xl" fontWeight="bold" textAlign={"center"}>
+        <Text as="h2" fontSize="2xl" fontWeight="bold" textAlign={"left"}>
           Conocé las habitaciones
         </Text>
-        <Text as="h3" p={2}>
+        <Text as="h4" textAlign={"left"}>
           Nuestras habitaciones combinan elegancia y confort con modernas
           comodidades, conocelas.
         </Text>
       </Box>
       {isMobile ? (
-        <Box position="relative" h={"450px"} overflow="hidden">
+        <Box position="relative" h={"450px"} overflow="hidden" >
           <motion.div
             key={currentSlide}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 2 }}
           >
             <Image
               src={slides[currentSlide].image}
