@@ -6,7 +6,9 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { themeCustom } from "./assets/theme/themeCustom.jsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Consulta } from "./componets/consulta/Consulta.jsx";
-import { Admin } from "./componets/admin/Admin.jsx";
+import { Login } from "./componets/admin/Login.jsx";
+import { Admin2 } from "./componets/admin/Admin2.jsx";
+import { Admin1 } from "./componets/admin/Admin1.jsx";
 import { Interes } from "./componets/sitioInteres/Interes.jsx";
 import { Global, css } from "@emotion/react";
 import { Bienvenida } from "./componets/admin/Bienvenida.jsx";
@@ -35,12 +37,16 @@ const router=createBrowserRouter([
     element:<Interes/>,
   },
   {
-    path:'/admin',
-    element:<Admin/>,
+    path:'/login',
+    element:<Login/>,
+  },
+  {
+    path:'/admin/Admin1',
+    element:<Admin1/>,
   },
   {
     path:'/admin/Admin2',
-    element:<Admin/>,
+    element:<Admin2/>,
   },
   {
     path:'/admin/home',

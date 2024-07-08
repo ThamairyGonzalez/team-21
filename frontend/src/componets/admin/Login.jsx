@@ -2,7 +2,7 @@ import { Box, Button, Center, Text } from '@chakra-ui/react'
 import React from 'react'
 import "./admin.css";
 
-export const Admin = () => {
+export const Login = () => {
   return (
     <>
    
