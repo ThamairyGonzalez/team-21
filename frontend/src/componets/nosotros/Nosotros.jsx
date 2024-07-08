@@ -1,4 +1,4 @@
-import React from 'react';
+
 import {  Box, Heading, Text, VStack, Image } from '@chakra-ui/react';
 import { Header } from "../header/Header";
 import {Footer} from "../footer/Footer";
@@ -20,13 +20,13 @@ function Nosotros() {
           <Box width="139.22px" height="4px" gap="4px" ml={["auto", "0"]}>
           <Image src="/img/lines.png" alt="Lines" width="100%" height="100%" />
         </Box>
-          <Text fontSize="14px" fontWeight="bold" >
+          <Text fontSize="14px" fontWeight="bold" color={'primary.500'}>
             En Oceano Hotel, nos enorgullecemos de ofrecer una experiencia de lujo y confort en el corazón de la ciudad.
           </Text>
           <Text fontSize="14px"  >
             Nuestro compromiso con la excelencia se refleja en cada detalle, desde nuestras elegantes habitaciones y modernas instalaciones hasta el servicio personalizado que brindamos a cada huésped. Ya sea que viajes por negocios o placer, nuestro objetivo es hacer de tu estancia una experiencia memorable y placentera.
           </Text>
-          <Heading as="h2" size="14px" textAlign="left" fontWeight="bold" >
+          <Heading as="h2" size="14px" textAlign="left" fontWeight="bold"color={'primary.500'}>
             Valores
           </Heading>
 

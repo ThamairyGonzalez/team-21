@@ -2,9 +2,9 @@ import {
   AspectRatio,
   Box,
   Center,
-  Flex,
+
   Image,
-  Stack,
+
   Text,
   Wrap,
   WrapItem,
@@ -20,7 +20,7 @@ export const Interes = () => {
           <AspectRatio maxW="100%" ratio={2}>
             <iframe
               title="naruto"
-              src="https://www.youtube.com/embed/po-KkU_iBSE"
+              src="https://fast.wistia.net/embed/iframe/icpjcp6mm8"
               allowFullScreen
             />
           </AspectRatio>

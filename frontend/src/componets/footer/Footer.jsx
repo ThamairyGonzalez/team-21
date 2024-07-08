@@ -1,6 +1,6 @@
 import {
   Box,
-  VStack,
+ 
   HStack,
   Text,
   Link,
@@ -10,10 +10,10 @@ import {
   Center,
   Divider,
 } from "@chakra-ui/react";
-import { IconContext } from "react-icons";
-import { BsGeoAlt, BsMailbox, BsTwitterX } from "react-icons/bs";
+
+import { BsGeoAlt,  BsTwitterX } from "react-icons/bs";
 import { FaInstagram, FaFacebook } from "react-icons/fa";
-import { FaAddressBook, FaPhone } from "react-icons/fa6";
+import { FaPhone } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 
 export const Footer = () => {

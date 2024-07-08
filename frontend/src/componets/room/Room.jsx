@@ -20,6 +20,7 @@ import { RoomCard } from "./RoomCard";
 export const Room = () => {
   const slides = [
     {
+      id: 1,
       title: "Habitación Queen",
       image: "/img/habitacionQueen.png",
       buttonText: "Ver más",
@@ -31,6 +32,7 @@ export const Room = () => {
       ],
     },
     {
+      id: 2,
       title: "Habitación Dreams",
       image: "/img/habitacionDream.png",
       buttonText: "Ver más",
@@ -42,6 +44,7 @@ export const Room = () => {
       ],
     },
     {
+      id: 3,
       title: "Habitación Relax",
       image: "/img/habitacionRelax.png",
       buttonText: "Ver más",
@@ -55,7 +58,20 @@ export const Room = () => {
     },
   ];
   const [currentSlide, setCurrentSlide] = useState(0);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedRoom, setSelectedRoom] = useState(null);
+
+  // const {onOpen } = useDisclosure();
+  const onOpen = useCallback((room) => {
+    setSelectedRoom(room);
+    setIsOpen(true);
+  }, []);
+
+  const onClose = useCallback(() => {
+    setIsOpen(false);
+    setSelectedRoom(null);
+  }, []);
+
   const isMobile = useBreakpointValue({ base: true, md: false });
   const nextSlide = useCallback(() => {
     if (!isOpen) {
@@ -72,6 +88,8 @@ export const Room = () => {
     }, 3000);
     return () => clearInterval(intervalId);
   }, [nextSlide]);
+
+  
 
   return (
     <Stack
@@ -112,7 +130,7 @@ export const Room = () => {
           </motion.div>
           <Flex position="absolute" bottom="20px" width="100%" justify="center">
             {slides.map((_, index) => (
-              <Box
+              <Button
                 key={index}
                 as="button"
                 bg={currentSlide === index ? "white" : "whiteAlpha.400"}
@@ -148,11 +166,28 @@ export const Room = () => {
         </Box>
       ) : (
         <Center>
-          <Wrap justify={'space-between'}>
-            {slides.map((room, index) => (
-              <RoomCard key={index} name={room.title} image={room.image} />
+          <Wrap justify={"space-between"}>
+            {slides.map((room) => (
+              <RoomCard
+                key={room.id}
+                name={room.title}
+                image={room.image}
+                service={room.service}
+                onOpen={onOpen}
+              />
             ))}
+           
           </Wrap>
+          {/* {slides.map((room) => (
+            <RoomModal
+              key={room.id}
+              isOpen={openModals[room.id] || false}
+              onClose={() => handleCloseModal(room.id)}
+              name={room.title}
+              img={room.image}
+              service={room.service}
+            />
+          ))} */}
         </Center>
       )}
     </Stack>
