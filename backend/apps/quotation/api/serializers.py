@@ -1,23 +1,9 @@
 from rest_framework import serializers
 from ..models import Quotation, QuotationRoomType
-from apps.room.models import RoomType
+from django.db.models import Q
+from apps.room.models import RoomType, Room
 from apps.client.models import Client, IndividualClient, CompanyClient
-
-
-class ClientSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Client
-        fields = ['is_company', 'email', 'phone', 'zip_code']
-
-class IndividualClientSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = IndividualClient
-        fields = ['first_name', 'last_name']
-
-class CompanyClientSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CompanyClient
-        fields = ['name', 'manager', 'address']
+from apps.reservation.models import ReservationRoom
 
 class QuotationRoomTypeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,60 +15,44 @@ class QuotationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Quotation
-        fields = ['start_date', 'end_date', 'people', 'payment_method', 'status', 'room_types']
-
-class CompleteClientSerializer(serializers.Serializer):
-    client = ClientSerializer()
-    individual = IndividualClientSerializer(required=False)
-    company = CompanyClientSerializer(required=False)
-    quotation = QuotationSerializer(required=False)
-
-    def validate(self, data):
-        if data['client']['is_company'] and 'company' not in data:
-            raise serializers.ValidationError("Company data is required for company clients")
-        if not data['client']['is_company'] and 'individual' not in data:
-            raise serializers.ValidationError("Individual data is required for individual clients")
-        return data
+        fields = ['client_id', 'start_date', 'end_date', 'people', 'payment_method', 'status', 'room_types']
 
     def create(self, validated_data):
-        client_data = validated_data.pop('client')
-        client = Client.objects.create(**client_data)
-
-        if client.is_company:
-            company_data = validated_data.pop('company')
-            CompanyClient.objects.create(client_id=client, **company_data)
-        else:
-            individual_data = validated_data.pop('individual')
-            IndividualClient.objects.create(client_id=client, **individual_data)
-
-        if 'quotation' in validated_data:
-            quotation_data = validated_data.pop('quotation')
-            room_types_data = quotation_data.pop('room_types', [])
-            quotation = Quotation.objects.create(client_id=client, **quotation_data)
+        room_types_data = validated_data.pop('room_types')
+        for room in room_types_data:
+            room_type_id = room['room_type_id']
+            quantity = room['quantity']
+            quantity_available = self.is_room_available(room_type_id, validated_data['start_date'], validated_data['end_date'])
+            if quantity_available < quantity:
+                raise serializers.ValidationError(f'The room {room_type_id.type} there are {quantity_available} avaible, and you need {quantity}')
+        
+        quotation = Quotation.objects.create(**validated_data)
+        
+        for room_type_data in room_types_data:
+            QuotationRoomType.objects.create(quotation_id=quotation, **room_type_data)
             
-            for room_type_data in room_types_data:
-                QuotationRoomType.objects.create(quotation_id=quotation, **room_type_data)
-
-        return client
-
+        return quotation
+    
     def to_representation(self, instance):
+        
         representation = super().to_representation(instance)
-        client_representation = ClientSerializer(instance).data
-        representation['client'] = client_representation
+        
+        quotation_room_types = QuotationRoomType.objects.filter(quotation_id=instance)
+        quotation_room_types_represtation = QuotationRoomTypeSerializer(quotation_room_types, many=True).data
+        representation['quotation_room_types'] = quotation_room_types_represtation
 
-        if instance.is_company:
-            company = CompanyClient.objects.get(client_id=instance)
-            company_representation = CompanyClientSerializer(company).data
-            representation['company'] = company_representation
-        else:
-            individual = IndividualClient.objects.get(client_id=instance)
-            individual_representation = IndividualClientSerializer(individual).data
-            representation['individual'] = individual_representation
-
-        quotations = Quotation.objects.filter(client_id=instance)
-        if quotations.exists():
-            quotation = quotations.first()
-            quotation_representation = QuotationSerializer(quotation).data
-            representation['quotation'] = quotation_representation
-
-        return representation
+        return representation 
+        
+    def is_room_available(self, room_type_id, check_in_date, check_out_date):
+        
+        rooms_of_type = Room.active_objects.filter(room_type_id=room_type_id)
+        quantity_room_type = rooms_of_type.count()
+        
+        overlapping_bookings = ReservationRoom.active_objects.filter(
+            Q(room_id__in=rooms_of_type) &
+            Q(check_in_date__lt=check_out_date) &
+            Q(check_out_date__gt=check_in_date) &
+            Q(Q(status = 'A') | Q(status = 'R'))
+        ).count()
+        
+        return quantity_room_type - overlapping_bookings  
