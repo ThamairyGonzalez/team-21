@@ -37,7 +37,7 @@ export const Header = () => {
         >
           <Flex align="center" ml={15} h="100px">
             <Link to="/">
-              <Img src="/img/Logo.svg" alt="logo" w="250px" />
+              <Img srcset="/img/Logo.svg 1024w, /img/logo.png 480w" alt="logo" width={"250px"} />
             </Link>
           </Flex>
 
