@@ -10,7 +10,7 @@ import { Admin } from "./componets/admin/Admin.jsx";
 import { Interes } from "./componets/sitioInteres/Interes.jsx";
 import { Global, css } from "@emotion/react";
 import { Bienvenida } from "./componets/admin/Bienvenida.jsx";
-import { Service } from "./componets/service/Service.jsx";
+
 
 
 const router=createBrowserRouter([

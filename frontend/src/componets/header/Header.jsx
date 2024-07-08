@@ -20,7 +20,7 @@ import { SunIcon, MoonIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 
 export const Header = () => {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
