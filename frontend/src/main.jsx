@@ -11,8 +11,8 @@ import { Interes } from "./componets/sitioInteres/Interes.jsx";
 import { Global, css } from "@emotion/react";
 import { Bienvenida } from "./componets/admin/Bienvenida.jsx";
 import { Service } from "./componets/service/Service.jsx";
-
-
+import { Admin1 } from "./componets/admin/Admin1.jsx";
+import { Admin2 } from "./componets/admin/Admin2.jsx";
 const router=createBrowserRouter([
   { 
     path:"/",
@@ -37,6 +37,15 @@ const router=createBrowserRouter([
   {
     path:'/admin',
     element:<Admin/>,
+  },
+
+  {
+    path:'/admin1',
+    element:<Admin1/>,
+  },
+  {
+    path:'/admin2',
+    element:<Admin2/>,
   },
   {
     path:'/admin/home',
