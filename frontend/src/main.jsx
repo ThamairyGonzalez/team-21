@@ -13,6 +13,8 @@ import { Interes } from "./componets/sitioInteres/Interes.jsx";
 import { Global, css } from "@emotion/react";
 import { Bienvenida } from "./componets/admin/Bienvenida.jsx";
 import { UsuarioProvider } from "./context/UsuarioProvider.jsx";
+import { ProtectedRoute } from "./componets/security/ProtectedRoute.jsx";
+import { AdminLayout } from "./componets/admin/Layout/AdminLayout.jsx";
 
 const router = createBrowserRouter([
   {
@@ -39,16 +41,24 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "/admin/Admin1",
-    element: <Admin1 />,
-  },
-  {
-    path: "/admin/Admin2",
-    element: <Admin2 />,
-  },
-  {
-    path: "/admin/home",
-    element: <Bienvenida />,
+    path: "/admin",
+    element: (
+      <ProtectedRoute> <AdminLayout/> </ProtectedRoute>
+    ),
+    children: [
+      {
+        path: "home",
+        element: <Bienvenida />,
+      },
+      {
+        path: "habitacion",
+        element: <Admin1 />,
+      },
+      {
+        path: "Admin2",
+        element: <Admin2 />,
+      },
+    ],
   },
 ]);
 
