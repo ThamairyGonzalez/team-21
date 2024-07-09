@@ -68,6 +68,7 @@ export const themeCustom = extendTheme({
     colors: {
       primary: {
         200: "#6D99ED",
+        400: "#1444A4",
         500: "#0B265B",
         800: "#040F24",
         default: "#E8C888",

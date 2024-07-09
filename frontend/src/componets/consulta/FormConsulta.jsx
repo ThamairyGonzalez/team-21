@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, FieldArray } from "formik";
 import {
   Box,
   Button,
@@ -13,7 +13,18 @@ import {
   NumberInputField,
   FormErrorMessage,
   Center,
+  RadioGroup,
+  HStack,
+  Radio,
+  CheckboxGroup,
+  Checkbox,
+  Text,
+  Link,
+  Icon,
+  IconButton,
 } from "@chakra-ui/react";
+import HabitacionField from "./HabitacionField";
+import { MinusIcon, PlusSquareIcon } from "@chakra-ui/icons";
 
 export const FormConsulta = () => {
   const validateForm = (values) => {
@@ -34,8 +45,8 @@ export const FormConsulta = () => {
     if (!values.fechaSalida)
       errors.fechaSalida = "Fecha de salida es requerida";
     if (!values.nroNoche) errors.nroNoche = "Número de noches es requerido";
-    if (!values.tipoHab) errors.tipoHab = "Tipo de habitación es requerido";
-    if (!values.canHab) errors.canHab = "Cantidad de habitaciones es requerida";
+    // if (!values.tipoHab) errors.tipoHab = "Tipo de habitación es requerido";
+    // if (!values.canHab) errors.canHab = "Cantidad de habitaciones es requerida";
     return errors;
   };
 
@@ -47,14 +58,15 @@ export const FormConsulta = () => {
           apellido: "",
           email: "",
           telefono: "",
-          tipoReserva: "",
+          tipoReserva: "empresa",
           razonSocial: "",
           fechaIng: "",
           fechaSalida: "",
           nroNoche: "",
           tipoHab: "",
           canHab: "",
-          servicioAdicional: "",
+          habitaciones: [],
+          servicioAdicional: [],
           observacion: "",
         }}
         validate={validateForm}
@@ -72,8 +84,12 @@ export const FormConsulta = () => {
                     isInvalid={form.errors.nombre && form.touched.nombre}
                   >
                     <FormLabel htmlFor="nombre">Nombre</FormLabel>
-                    <Input {...field} id="nombre" placeholder="Nombre" _placeholder={{ color: "#909090" }}
-                    borderColor={"#707070"}
+                    <Input
+                      {...field}
+                      id="nombre"
+                      placeholder="Nombre"
+                      _placeholder={{ color: "#909090" }}
+                      borderColor={"#707070"}
                     />
                     <FormErrorMessage>{form.errors.nombre}</FormErrorMessage>
                   </FormControl>
@@ -86,8 +102,12 @@ export const FormConsulta = () => {
                     isInvalid={form.errors.apellido && form.touched.apellido}
                   >
                     <FormLabel htmlFor="apellido">Apellido</FormLabel>
-                    <Input {...field} id="apellido" placeholder="Apellido" _placeholder={{ color: "#909090" }}
-                    borderColor={"#707070"}
+                    <Input
+                      {...field}
+                      id="apellido"
+                      placeholder="Apellido"
+                      _placeholder={{ color: "#909090" }}
+                      borderColor={"#707070"}
                     />
                     <FormErrorMessage>{form.errors.apellido}</FormErrorMessage>
                   </FormControl>
@@ -119,8 +139,12 @@ export const FormConsulta = () => {
                     isInvalid={form.errors.telefono && form.touched.telefono}
                   >
                     <FormLabel htmlFor="telefono">Teléfono</FormLabel>
-                    <Input {...field} id="telefono" placeholder="Teléfono" _placeholder={{ color: "#909090" }}
-                    borderColor={"#707070"}
+                    <Input
+                      {...field}
+                      id="telefono"
+                      placeholder="Teléfono"
+                      _placeholder={{ color: "#909090" }}
+                      borderColor={"#707070"}
                     />
                     <FormErrorMessage>{form.errors.telefono}</FormErrorMessage>
                   </FormControl>
@@ -135,38 +159,49 @@ export const FormConsulta = () => {
                     }
                   >
                     <FormLabel htmlFor="tipoReserva">Tipo de Reserva</FormLabel>
-                    <Select
+                    <RadioGroup
                       {...field}
                       id="tipoReserva"
-                      placeholder="Seleccione tipo de reserva"
-                      borderColor={"#707070"}
-                    
+                      onChange={(value) =>
+                        form.setFieldValue("tipoReserva", value)
+                      }
+                      value={field.value}
                     >
-                      <option value="individual">Individual</option>
-                      <option value="grupal">Grupal</option>
-                    </Select>
+                      <HStack spacing="24px">
+                        <Radio
+                          value="empresa"
+                          borderColor={"primary.400"}
+                          defaultChecked
+                        >
+                          Empresa
+                        </Radio>
+                        <Radio value="particular" borderColor={"primary.400"}>
+                          Particular
+                        </Radio>
+                      </HStack>
+                    </RadioGroup>
                     <FormErrorMessage>
                       {form.errors.tipoReserva}
                     </FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
-
-              <Field name="razonSocial">
-                {({ field, form }) => (
-                  <FormControl>
-                    <FormLabel htmlFor="razonSocial">Razón Social</FormLabel>
-                    <Input
-                      {...field}
-                      id="razonSocial"
-                      placeholder="Razón Social"
-                      _placeholder={{ color: "#909090" }}
-                      borderColor={"#707070"}
-                    />
-                  </FormControl>
-                )}
-              </Field>
-
+              {props.values.tipoReserva === "empresa" && (
+                <Field name="razonSocial">
+                  {({ field, form }) => (
+                    <FormControl>
+                      <FormLabel htmlFor="razonSocial">Razón Social</FormLabel>
+                      <Input
+                        {...field}
+                        id="razonSocial"
+                        placeholder="Razón Social"
+                        _placeholder={{ color: "#909090" }}
+                        borderColor={"#707070"}
+                      />
+                    </FormControl>
+                  )}
+                </Field>
+              )}
               <Field name="fechaIng">
                 {({ field, form }) => (
                   <FormControl
@@ -181,7 +216,6 @@ export const FormConsulta = () => {
                       color="#909090"
                       _placeholder={{ color: "#909090" }}
                       borderColor={"#707070"}
-                      
                     />
                     <FormErrorMessage>{form.errors.fechaIng}</FormErrorMessage>
                   </FormControl>
@@ -218,50 +252,43 @@ export const FormConsulta = () => {
                   >
                     <FormLabel htmlFor="nroNoche">Número de Noches</FormLabel>
                     <NumberInput min={1} borderColor={"#707070"}>
-                      <NumberInputField {...field} id="nroNoche"  />
+                      <NumberInputField {...field} id="nroNoche" />
                     </NumberInput>
                     <FormErrorMessage>{form.errors.nroNoche}</FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
 
-              <Field name="tipoHab">
-                {({ field, form }) => (
-                  <FormControl
-                    isInvalid={form.errors.tipoHab && form.touched.tipoHab}
-                  >
-                    <FormLabel htmlFor="tipoHab">Tipo de Habitación</FormLabel>
-                    <Select
-                      {...field}
-                      id="tipoHab"
-                      placeholder="Seleccione tipo de habitación"
-                      color="#909090"
-                      borderColor={"#707070"}
-                      borderRadius={"50px"}
-                    >
-                      <option value="individual">Individual</option>
-                      <option value="doble">Doble</option>
-                      <option value="suite">Suite</option>
-                    </Select>
-                    <FormErrorMessage>{form.errors.tipoHab}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
-
-              <Field name="canHab">
-                {({ field, form }) => (
-                  <FormControl
-                    isInvalid={form.errors.canHab && form.touched.canHab}
-                  >
-                    <FormLabel htmlFor="canHab">
-                      Cantidad de Habitaciones
+              <Field name="habitaciones">
+                {({ form }) => (
+                  <FormControl>
+                    <FormLabel htmlFor="habitaciones">
+                      Tipo y Cantidad de Habitaciones
                     </FormLabel>
-                    <NumberInput min={1} _placeholder={{ color: "#909090" }}>
-                      <NumberInputField {...field} id="canHab" _placeholder={{ color: "#909090" }}
-                      borderColor={"#707070"}
-                      />
-                    </NumberInput>
-                    <FormErrorMessage>{form.errors.canHab}</FormErrorMessage>
+                    <FieldArray name="habitaciones">
+                      {({ push, remove }) => (
+                        <>
+                          {form.values.habitaciones.map((_, index) => (
+                            <HabitacionField
+                              key={index}
+                              index={index}
+                              remove={remove}
+                            />
+                          ))}
+
+                          <Text
+                            color={"primary.500"}
+                            fontWeight={900}
+                            onClick={() => push({ tipo: "", cantidad: 1 })}
+                            textDecor={"none"}
+                            cursor={'pointer'}
+                          >
+                            Agregar Habitación
+                            <PlusSquareIcon ml={15} />
+                          </Text>
+                        </>
+                      )}
+                    </FieldArray>
                   </FormControl>
                 )}
               </Field>
@@ -272,13 +299,31 @@ export const FormConsulta = () => {
                     <FormLabel htmlFor="servicioAdicional">
                       Servicio Adicional
                     </FormLabel>
-                    <Input
+                    <CheckboxGroup
                       {...field}
                       id="servicioAdicional"
-                      placeholder="Servicio Adicional"
-                      _placeholder={{ color: "#909090" }}
-                      borderColor={"#707070"}
-                    />
+                      onChange={(value) =>
+                        form.setFieldValue("servicioAdicional", value)
+                      }
+                    >
+                      <HStack spacing={5}>
+                        <Checkbox
+                          value="Desayuno incluido"
+                          borderColor={"primary.400"}
+                        >
+                          Desayuno incluido
+                        </Checkbox>
+                        <Checkbox value="Traslado" borderColor={"primary.400"}>
+                          Traslado
+                        </Checkbox>
+                        <Checkbox
+                          value="Acceso a sala de reuniones"
+                          borderColor={"primary.400"}
+                        >
+                          Acceso a sala de reuniones
+                        </Checkbox>
+                      </HStack>
+                    </CheckboxGroup>
                   </FormControl>
                 )}
               </Field>
@@ -299,12 +344,12 @@ export const FormConsulta = () => {
               </Field>
 
               <Button
-                mt={4}
-                colorScheme="teal"
+                m={4}
+                variant={"filled"}
                 isLoading={props.isSubmitting}
                 type="submit"
               >
-                Enviar
+                Pedir Presupuesto
               </Button>
             </VStack>
           </Form>
