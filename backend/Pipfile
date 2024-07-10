@@ -17,7 +17,7 @@ django-cloudinary-storage = "*"
 [dev-packages]
 
 [requires]
-python_version = "3.12"
+python_version = "3.11"
 
 [scripts]
 server          = "python manage.py runserver"
