@@ -155,10 +155,8 @@ SPECTACULAR_SETTINGS = {
 
 #Configuración de CORS
 CORS_ALLOW_CREDENTIALS = True
-<<<<<<< HEAD
 CORS_ALLOW_ALL_ORIGINS = True
 #CORS_ALLOWED_ORIGINS = [os.getenv("CORS_ALLOWED_ORIGINS"),]
-=======
 CORS_ALLOWED_ORIGINS = [os.getenv("CORS_ALLOWED_ORIGINS"),]
 
 #Configuración de Cloudinay
@@ -169,4 +167,3 @@ CLOUDINARY_STORAGE = {
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
->>>>>>> main
