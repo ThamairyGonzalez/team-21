@@ -15,6 +15,7 @@ import {
 
 import { Footer } from "../footer/Footer";
 import { FaBed, FaCalendarAlt, FaConciergeBell, FaUser } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export const Bienvenida = () => {
   return (
@@ -72,7 +73,7 @@ export const Bienvenida = () => {
               borderRadius="xl"
               _hover={{ bg: "blue.700" }}
             >
-              {item.text}
+             <Link to={'/admin/habitacion'}> {item.text}</Link>
             </Button>
           ))}
         </SimpleGrid>

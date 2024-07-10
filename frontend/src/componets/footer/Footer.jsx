@@ -8,6 +8,7 @@ import {
   useColorMode,
   Center,
   Divider,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 
 import { BsGeoAlt,  BsTwitterX } from "react-icons/bs";
@@ -18,10 +19,12 @@ import { Link } from "react-router-dom";
 
 export const Footer = () => {
   const { colorMode } = useColorMode();
+  const imgUrl = useBreakpointValue({base:"/img/logo2linea.svg", md: "/img/logo1linea.svg"})
+
   return (
     <>
       <Center w="100vw" bg="primary.500" pt={"15px"}>
-        <Img srcset="/img/Logo.svg 1024w, /img/logo.png 479w" width={"250px"} />
+        <Img src={imgUrl} width={"250px"} />
       </Center>
       <Box
         bg={colorMode === "dark" ? "brand.light" : "brand.dark"}
