@@ -1,27 +1,34 @@
 from rest_framework import serializers
-from ..models import Quotation, QuotationRoomType
+from ..models import Quotation, QuotationRoomType, QuotationServices
 from django.db.models import Q
 from apps.room.models import RoomType, Room
 from apps.client.models import Client, IndividualClient, CompanyClient
-from apps.reservation.models import ReservationRoom
+from apps.reservation.models import ReservationRoom, Service
 from apps.client.api.serializers import CompleteClientSerializer
-
+from apps.reservation.api.serializers import 
 class QuotationRoomTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuotationRoomType
+        fields = ['room_type_id', 'quantity']
+
+class QuotationServiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Service
         fields = ['room_type_id', 'quantity']
 
 class QuotationSerializer(serializers.ModelSerializer):
     room_types = QuotationRoomTypeSerializer(many=True, required=False)
     client = CompleteClientSerializer(required=True, write_only=True)
     client_details = CompleteClientSerializer(source='client_id', read_only=True)
+    services = QuotationServiceSerializer(many=True, required=False)
 
     class Meta:
         model = Quotation
-        fields = ['id', 'client', 'client_details', 'start_date', 'end_date', 'people', 'payment_method', 'status', 'room_types']
+        fields = ['id', 'client', 'client_details', 'start_date', 'end_date', 'people', 'payment_method', 'status', 'room_types', 'services']
 
     def create(self, validated_data):
         room_types_data = validated_data.pop('room_types')
+        services_data = validated_data.pop('services')
         client_data = validated_data.pop('client')
 
         # Verificar disponibilidad de habitaciones
@@ -43,6 +50,10 @@ class QuotationSerializer(serializers.ModelSerializer):
         # Crear las relaciones QuotationRoomType
         for room_type_data in room_types_data:
             QuotationRoomType.objects.create(quotation_id=quotation, **room_type_data)
+        
+        # Crear las relaciones QuotationService
+        for service_data in services_data:
+            QuotationServices.objects.create(quotation_id=quotation, **room_type_data)
             
         return quotation
     
