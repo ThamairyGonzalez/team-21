@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from ..models import Room, RoomStatus, RoomType, Photo
+from ..models import Room, RoomStatus, RoomType, RoomPhoto
 
 class RoomStatusSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,7 +9,7 @@ class RoomStatusSerializer(serializers.ModelSerializer):
 
 class PhotoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Photo
+        model = RoomPhoto
         fields = ('id', 'room_type_id', 'image',)
         
 class RoomTypeSerializer(serializers.ModelSerializer):

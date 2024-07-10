@@ -23,6 +23,7 @@ BASE_APPS = [
     'django.contrib.sessions', 
     'django.contrib.contenttypes',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
 ]
 THIRD_APPS = [
@@ -30,6 +31,7 @@ THIRD_APPS = [
     'rest_framework.authtoken',
     'drf_spectacular',
     'corsheaders',
+    'cloudinary'
 ]
 
 OWN_APPS = [
@@ -153,3 +155,12 @@ SPECTACULAR_SETTINGS = {
 #Configuración de CORS
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [os.getenv("CORS_ALLOWED_ORIGINS"),]
+
+#Configuración de Cloudinay
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUD_NAME'),
+    'API_KEY': os.getenv('API_KEY'),
+    'API_SECRET': os.getenv('API_SECRET'),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'

@@ -46,15 +46,13 @@ class CompleteClientSerializer(serializers.ModelSerializer):
         individual_data = validate_data.pop('individual', None)
         
         client = Client.objects.create(**validate_data)
-        response = ClientSerializer(client).data
+        
         if client.is_company:
-            company = CompanyClient.objects.create(client_id=client, **company_data)
-            response['company'] = CompanyClientSerializer(company).data
-            return response
+            CompanyClient.objects.create(client_id=client, **company_data)
         else:
-            individual = IndividualClient.objects.create(client_id=client, **individual_data)
-            response['individual'] = IndividualClientSerializer(individual).data
-            return response
+            IndividualClient.objects.create(client_id=client, **individual_data)
+        return client
+    
     def update(self, instance, validate_data):
         
         company_data = validate_data.pop('company', None)
@@ -64,11 +62,11 @@ class CompleteClientSerializer(serializers.ModelSerializer):
         instance.refresh_from_db()
         
         if instance.is_company:
-            if company_data is not None:
+            if company_data:
                 CompanyClient.active_objects.update_or_create(client_id=instance, defaults=company_data)
             IndividualClient.active_objects.filter(client_id=instance).delete()
         else:
-            if individual_data is not None:
+            if individual_data:
                 IndividualClient.active_objects.update_or_create(client_id=instance, defaults=individual_data)
             CompanyClient.active_objects.filter(client_id=instance).delete()
         
@@ -77,12 +75,8 @@ class CompleteClientSerializer(serializers.ModelSerializer):
         
         
     def to_representation(self, instance):
-        if isinstance(instance, dict):
-            # Si es un diccionario (resultado de create), lo devolvemos directamente
-            return instance
-        # Si es una instancia de Client (para GET requests), usamos la representación normal
         representation = super().to_representation(instance)
-        
+                
         if instance.is_company:
             company = CompanyClient.active_objects.get(client_id=instance)
             company_representation = CompanyClientSerializer(company).data
@@ -92,4 +86,4 @@ class CompleteClientSerializer(serializers.ModelSerializer):
             individual_representation = IndividualClientSerializer(individual).data
             representation['individual'] = individual_representation
 
-        return representation 
+        return representation

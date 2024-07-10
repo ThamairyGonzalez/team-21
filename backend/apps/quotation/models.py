@@ -14,7 +14,7 @@ QUOTATION_STATUS = [
 
 class Quotation(AbstractModel):
   
-  client_id = models.ForeignKey(Client, on_delete=models.CASCADE)
+  client_id = models.ForeignKey(Client, on_delete=models.CASCADE, blank=True)
   start_date = models.DateField()
   end_date = models.DateField()
   people = models.IntegerField()

@@ -4,6 +4,7 @@ from django.db.models import Q
 from apps.room.models import RoomType, Room
 from apps.client.models import Client, IndividualClient, CompanyClient
 from apps.reservation.models import ReservationRoom
+from apps.client.api.serializers import CompleteClientSerializer
 
 class QuotationRoomTypeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,22 +13,34 @@ class QuotationRoomTypeSerializer(serializers.ModelSerializer):
 
 class QuotationSerializer(serializers.ModelSerializer):
     room_types = QuotationRoomTypeSerializer(many=True, required=False)
+    client = CompleteClientSerializer(required=True, write_only=True)
+    client_details = CompleteClientSerializer(source='client_id', read_only=True)
 
     class Meta:
         model = Quotation
-        fields = ['client_id', 'start_date', 'end_date', 'people', 'payment_method', 'status', 'room_types']
+        fields = ['id', 'client', 'client_details', 'start_date', 'end_date', 'people', 'payment_method', 'status', 'room_types']
 
     def create(self, validated_data):
         room_types_data = validated_data.pop('room_types')
+        client_data = validated_data.pop('client')
+
+        # Verificar disponibilidad de habitaciones
         for room in room_types_data:
             room_type_id = room['room_type_id']
             quantity = room['quantity']
             quantity_available = self.is_room_available(room_type_id, validated_data['start_date'], validated_data['end_date'])
             if quantity_available < quantity:
-                raise serializers.ValidationError(f'The room {room_type_id.type} there are {quantity_available} avaible, and you need {quantity}')
+                raise serializers.ValidationError(f'The room {room_type_id.type} there are {quantity_available} available, and you need {quantity}')
+
+        # Crear o actualizar el cliente
+        client_serializer = CompleteClientSerializer(data=client_data)
+        client_serializer.is_valid(raise_exception=True)
+        client = client_serializer.save()
         
-        quotation = Quotation.objects.create(**validated_data)
+        # Crear la cotización
+        quotation = Quotation.objects.create(client_id=client, **validated_data)
         
+        # Crear las relaciones QuotationRoomType
         for room_type_data in room_types_data:
             QuotationRoomType.objects.create(quotation_id=quotation, **room_type_data)
             
@@ -40,7 +53,7 @@ class QuotationSerializer(serializers.ModelSerializer):
         quotation_room_types = QuotationRoomType.objects.filter(quotation_id=instance)
         quotation_room_types_represtation = QuotationRoomTypeSerializer(quotation_room_types, many=True).data
         representation['quotation_room_types'] = quotation_room_types_represtation
-
+        
         return representation 
         
     def is_room_available(self, room_type_id, check_in_date, check_out_date):

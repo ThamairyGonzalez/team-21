@@ -1,7 +1,6 @@
 from django.db import models
 from apps.abstracts.models import AbstractModel
 
-
 BED_TYPE = [
     ('Queen', 'Queen'),
     ('Single', 'Single'),
@@ -21,9 +20,9 @@ class RoomType(AbstractModel):
     def __str__(self) -> str:
         return self.type
 
-class Photo(AbstractModel):
+class RoomPhoto(AbstractModel):
     room_type_id  = models.ForeignKey(RoomType, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='hotel_oceano/images/')
     
 class RoomStatus(AbstractModel):
     status = models.CharField(max_length=50)
