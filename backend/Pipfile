@@ -9,8 +9,13 @@ drf-spectacular = "*"
 djangorestframework = "*"
 django-cors-headers = "*"
 pillow = "*"
+<<<<<<< HEAD
 gunicorn = "*"
 psycopg2 = "*"
+=======
+cloudinary = "*"
+django-cloudinary-storage = "*"
+>>>>>>> main
 
 [dev-packages]
 

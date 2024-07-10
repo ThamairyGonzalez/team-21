@@ -1,14 +1,28 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, filters
 
 from .serializers import CompleteClientSerializer
 from ..models import Client, CompanyClient, IndividualClient
+from apps.utils.paginations import CustomPagination
 
 class ClientViewSet(ModelViewSet):
     serializer_class = CompleteClientSerializer
     queryset = Client.active_objects.all()
     http_method_names = ['get', 'post', 'put', 'delete']
+    pagination_class = CustomPagination
+    
+    # Sistema de filtros
+    filter_backends = [filters.SearchFilter]
+    search_fields = [
+                    'email', 
+                    'phone', 
+                    'zip_code', 
+                    'individualclient__first_name',
+                    'individualclient__last_name',
+                    'companyclient__name',
+                    'companyclient__manager'
+                    ]
     
     def destroy(self, request, *args, **kwargs):
         
