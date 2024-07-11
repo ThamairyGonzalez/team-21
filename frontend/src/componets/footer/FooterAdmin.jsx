@@ -1,5 +1,6 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import CustomButton from "./CustomButton"; 
+import { Link } from "react-router-dom";
 
 export const FooterAdmin = () => {
   return (
@@ -35,7 +36,9 @@ export const FooterAdmin = () => {
         flexGrow="0"
         zIndex="4"
       >
+        <Link to={'/admin/habitacion'}>
         <CustomButton label="Habitaciones" imageUrl="/icons/habitaciones.png" />
+        </Link>
         <CustomButton label="Reservas" imageUrl="/icons/reservas.png" />
         <CustomButton label="Servicios" imageUrl="/icons/service.png" />
         <CustomButton label="Perfil" imageUrl="/icons/perfil.png" />

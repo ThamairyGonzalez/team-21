@@ -1,3 +1,15 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [
+    {
+      "source": "/admin/:path*",
+      "destination": "/admin/index.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/index.html",
+      "statusCode": 200
+    }
+  ]
 }

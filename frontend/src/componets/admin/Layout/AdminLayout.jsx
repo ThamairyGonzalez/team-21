@@ -6,7 +6,7 @@ export const AdminLayout = () => {
   return (
     <div>
       {/* Aquí puedes poner elementos comunes como un menú de navegación */}
-      {!isMobil&&<Text>informacion de lo que es generico a todas las capas</Text>}
+      
       <Outlet />
     </div>
   );
