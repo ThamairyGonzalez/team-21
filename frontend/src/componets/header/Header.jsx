@@ -13,6 +13,7 @@ import {
   Img,
   Text,
   VStack,
+  useBreakpointValue,
   useColorMode,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -22,6 +23,7 @@ import { Link } from "react-router-dom";
 export const Header = () => {
   const { colorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const imgUrl = useBreakpointValue({base:"/img/logo2linea.svg", md: "/img/logo1linea.svg"})
 
   return (
     <Box>
@@ -37,7 +39,7 @@ export const Header = () => {
         >
           <Flex align="center" ml={15} h="100px">
             <Link to="/">
-              <Img src="/img/Logo.svg" alt="logo" w="250px" />
+              <Img src={imgUrl} alt="logo" width={"250px"} />
             </Link>
           </Flex>
 

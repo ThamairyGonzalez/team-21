@@ -3,12 +3,12 @@ import {
  
   HStack,
   Text,
-
   Icon,
   Img,
   useColorMode,
   Center,
   Divider,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 
 import { BsGeoAlt,  BsTwitterX } from "react-icons/bs";
@@ -17,13 +17,14 @@ import { FaPhone } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-
 export const Footer = () => {
   const { colorMode } = useColorMode();
+  const imgUrl = useBreakpointValue({base:"/img/logo2linea.svg", md: "/img/logo1linea.svg"})
+
   return (
     <>
       <Center w="100vw" bg="primary.500" pt={"15px"}>
-        <Img src="/img/Logo.svg" width={"250px"} />
+        <Img src={imgUrl} width={"250px"} />
       </Center>
       <Box
         bg={colorMode === "dark" ? "brand.light" : "brand.dark"}
@@ -33,11 +34,11 @@ export const Footer = () => {
         flexDir={["column", "row"]}
       >
         <Center flexDir={["column", "row"]} justifyContent={"space-around"}>
-          <Link>Sobre nosotros</Link>
-          <Link>Habitaciones</Link>
+          <Link to={"/nosotros"}>Sobre nosotros</Link>
+          <Link to={"/room"}>Habitaciones</Link>
           <Link>Nuestros servicios</Link>
           <Link to={"/interes"}>Sitios de Interes</Link>
-          <Link>Formulario de reservas</Link>
+          <Link to={"/consulta"}>Formulario de reservas</Link>
         </Center>
         <Divider />
         <Center flexDir={["column", "row"]} justifyContent={"space-around"}>

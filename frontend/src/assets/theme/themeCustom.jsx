@@ -31,10 +31,11 @@ export const themeCustom = extendTheme({
   components: {
     Button: ButtonConfig,
     Input: {
+    
       baseStyle: {
         field: {
           fontSize: "1.2em",
-          color: "#9B959F",
+          color: "#040F24",
           borderRadius: "5px",
           fontWeight: 500,
           _focus: {
@@ -53,6 +54,10 @@ export const themeCustom = extendTheme({
             border: "1px solid black",
             borderRadius: "15px",
             fontWeight: 900,
+            _placeholder: {
+              color: 'blue.300',
+              fontStyle: 'italic',
+            },
           },
         },
       },
@@ -63,10 +68,12 @@ export const themeCustom = extendTheme({
     colors: {
       primary: {
         200: "#6D99ED",
+        400: "#1444A4",
         500: "#0B265B",
         800: "#040F24",
         default: "#E8C888",
         dark: "#DACFF6",
+        white: "#FFFFFF",
       },
       secondary: {
         200: "#FFF1D6",
@@ -75,7 +82,12 @@ export const themeCustom = extendTheme({
         default: "#8C65AD",
         dark: "#8C65FF",
       },
-
+      varios:{
+        100:"#CEC9C9",
+      },
+      negative:{
+        500:"#F2415A",
+      },
       text: {
         dark: "#FFFFFF",
         default: "black",

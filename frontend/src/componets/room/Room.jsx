@@ -7,9 +7,7 @@ import {
   Stack,
   Text,
   Wrap,
-  WrapItem,
   useBreakpointValue,
-  useDisclosure,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
@@ -59,21 +57,30 @@ export const Room = () => {
   ];
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedRoom, setSelectedRoom] = useState(null);
+  // const [selectedRoom, setSelectedRoom] = useState(null);
+  const [openModals, setOpenModals] = useState({});
+
+  const handleOpenModal = (roomId) => {
+    setOpenModals((prev) => ({ ...prev, [roomId]: true }));
+  };
+
+  const handleCloseModal = (roomId) => {
+    setOpenModals((prev) => ({ ...prev, [roomId]: false }));
+  };
 
   // const {onOpen } = useDisclosure();
-  const onOpen = useCallback((room) => {
-    setSelectedRoom(room);
-    setIsOpen(true);
-  }, []);
+  // const onOpen = useCallback((room) => {
+  //   setSelectedRoom(room);
+  //   setIsOpen(true);
+  // }, []);
 
-  const onClose = useCallback(() => {
-    setIsOpen(false);
-    setSelectedRoom(null);
-  }, []);
+  // const onClose = useCallback(() => {
+  //   setIsOpen(false);
+  //   setSelectedRoom(null);
+  // }, []);
 
   // const { isOpen, onOpen, onClose } = useDisclosure();
-  const isMobile = useBreakpointValue({ base: true, sm:true, md: false });
+  const isMobile = useBreakpointValue({ base: true, sm: true, md: false });
   const nextSlide = useCallback(() => {
     if (!isOpen) {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -85,12 +92,12 @@ export const Room = () => {
   };
   useEffect(() => {
     const intervalId = setInterval(() => {
-      nextSlide();
+      if (!Object.values(openModals).some((isOpen) => isOpen)) {
+        nextSlide();
+      }
     }, 7000);
     return () => clearInterval(intervalId);
   }, [nextSlide]);
-
-  
 
   return (
     <Stack
@@ -110,7 +117,7 @@ export const Room = () => {
         </Text>
       </Box>
       {isMobile ? (
-        <Box position="relative" h={"450px"} overflow="hidden" >
+        <Box position="relative" h={"450px"} overflow="hidden">
           <motion.div
             key={currentSlide}
             initial={{ opacity: 0 }}
@@ -154,15 +161,13 @@ export const Room = () => {
             <Text fontSize="3xl" fontWeight="bold" mb={4}>
               {slides[currentSlide].title}
             </Text>
-
-            <RoomModal
-              isOpen={isOpen}
-              onOpen={onOpen}
-              onClose={onClose}
-              name={slides[currentSlide].title}
-              img={slides[currentSlide].image}
-              service={slides[currentSlide].service}
-            />
+            <Button
+              leftIcon={<FaPlus />}
+              variant={"outline"}
+              onClick={() => handleOpenModal(slides[currentSlide].id)}
+            >
+              Ver más
+            </Button>
           </Box>
         </Box>
       ) : (
@@ -171,26 +176,26 @@ export const Room = () => {
             {slides.map((room) => (
               <RoomCard
                 key={room.id}
+                id={room.id}
                 name={room.title}
                 image={room.image}
                 service={room.service}
-                onOpen={onOpen}
+                onOpen={() => handleOpenModal(room.id)}
               />
             ))}
-           
           </Wrap>
-          {/* {slides.map((room) => (
-            <RoomModal
-              key={room.id}
-              isOpen={openModals[room.id] || false}
-              onClose={() => handleCloseModal(room.id)}
-              name={room.title}
-              img={room.image}
-              service={room.service}
-            />
-          ))} */}
         </Center>
       )}
+      {slides.map((room) => (
+        <RoomModal
+          key={room.id}
+          isOpen={openModals[room.id] || false}
+          onClose={() => handleCloseModal(room.id)}
+          name={room.title}
+          img={room.image}
+          service={room.service}
+        />
+      ))}
     </Stack>
   );
 };
