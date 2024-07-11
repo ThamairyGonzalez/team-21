@@ -84,7 +84,10 @@ export const themeCustom = extendTheme({
       },
       varios:{
         100:"#CEC9C9",
+        200:"#E2E2E2",
+       
       },
+     
       negative:{
         500:"#F2415A",
       },
