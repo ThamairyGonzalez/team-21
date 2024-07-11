@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Box,
   Button,
@@ -10,17 +9,22 @@ import {
 } from "@chakra-ui/react";
 import { Header } from "../header/Header";
 import { FooterAdmin } from "../footer/FooterAdmin";
-import { Link } from "react-router-dom";
+
 import { HabitacionCard } from "./HabitacionCard";
-import { HabitacionProvider } from "../../context/HabitacionProvider";
+import { HabitacionContext } from "../../context/HabitacionContext";
+import { useContext } from "react";
 
 export const Admin1 = () => {
+  const { rooms, imgRooms } = useContext(HabitacionContext);
+  console.log(rooms);
+  console.log(imgRooms);
+
   return (
     <>
       <Header />
 
       {/* Contenido Principal */}
-      <Box bg="#0B265B" p={4} borderRadius="lg" mb={4}>
+      <Box bg="#0B265B" p={4} borderRadius="lg" mb={4} >
         {/* Título de Habitaciones */}
         <Heading
           as="h2"
@@ -41,11 +45,16 @@ export const Admin1 = () => {
             <img src="/img/CardGrafica1.png" alt="Imagen 2" />
           </Box>
         </VStack>
-
-        {/* División con imágenes y botones de editar */}
-        <HabitacionProvider>
-          <HabitacionCard />
-        </HabitacionProvider>
+        <Flex  wrap={"wrap"} justify={"center"} bg="gray.100" flexDirection={['column','row']}>
+          {/* División con imágenes y botones de editar */}
+          {rooms.map((hab) => {
+            const imagenObj = imgRooms.find(
+              (img) => img.room_type_id === hab.id
+            );
+            const imagUrl = imagenObj ? imagenObj.image : "";
+            return <HabitacionCard key={hab.id} hab={hab} imagen={imagUrl} />;
+          })}
+        </Flex>
       </Box>
       <FooterAdmin />
     </>

@@ -1,47 +1,35 @@
-
 import { useEffect, useState } from "react";
 import { HabitacionContext } from "./HabitacionContext";
+import axios from "axios";
 
-const hab=[
-    {
-        id:1,
-        url:'/img/habitacionQueen.png',
-        nombre:"Habitacion Queen",
-        descripcion:"Habitacion 1",
-        precio:100,
+export const HabitacionProvider = ({ children }) => {
+  const [rooms, setRooms] = useState([]);
+  const [imgRooms, setImgRooms] = useState([]);
 
-    },
-    {
-        id:2,
-        url:'/img/habitacionQueen.png',
-        nombre:"Habitacion 2",
-        descripcion:"Habitacion 2",
-        precio:105,
+  const [error, setError] = useState(null);
+  const [cargando, setCargando] = useState(true);
 
-    },
+  useEffect(() => {
+    const obtenerDatos = async () => {
+      try {
+        const respuesta = await axios.get(
+          "https://hotel-oceano.onrender.com/api-room/roomtype/"
+        ); // Cambia la URL por tu endpoint
+        const imagen = await axios.get("https://hotel-oceano.onrender.com/api-room/roomphoto/");
+        setImgRooms(imagen.data);
+        setRooms(respuesta.data);
+        setCargando(false);
+      } catch (error) {
+        setError(error.message);
+        setCargando(false);
+      }
+    };
 
-]
+    obtenerDatos();
+  }, []); // Asegúrate de que el array de dependencias esté vacío
 
-
-export const HabitacionProvider = ({children}) => {
-    const [rooms, setRooms] = useState([]);
-
-    useEffect(() => {
-      // Aquí realizarías la llamada a tu API
-      const fetchRooms = async () => {
-        try {
-          const response = await fetch('https://hotel-oceano.onrender.com/api-room/roomtype/');
-          const data = await response.json();
-          setRooms(data);
-        } catch (error) {
-          console.error('Error fetching rooms:', error);
-        }
-      };
-  
-      fetchRooms();
-    }, []);
   return (
-    <HabitacionContext.Provider value={{hab,rooms}}>
+    <HabitacionContext.Provider value={{ rooms ,imgRooms}}>
       {children}
     </HabitacionContext.Provider>
   );

@@ -85,6 +85,9 @@ export const themeCustom = extendTheme({
       varios:{
         100:"#CEC9C9",
       },
+      negative:{
+        500:"#F2415A",
+      },
       text: {
         dark: "#FFFFFF",
         default: "black",

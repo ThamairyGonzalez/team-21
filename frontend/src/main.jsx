@@ -15,6 +15,7 @@ import { Bienvenida } from "./componets/admin/Bienvenida.jsx";
 import { UsuarioProvider } from "./context/UsuarioProvider.jsx";
 import { ProtectedRoute } from "./componets/security/ProtectedRoute.jsx";
 import { AdminLayout } from "./componets/admin/Layout/AdminLayout.jsx";
+import { HabitacionProvider } from "./context/HabitacionProvider.jsx";
 
 const router = createBrowserRouter([
   {
@@ -47,7 +48,10 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: (
-      <ProtectedRoute> <AdminLayout/> </ProtectedRoute>
+      <ProtectedRoute>
+        {" "}
+        <AdminLayout />{" "}
+      </ProtectedRoute>
     ),
     children: [
       {
@@ -81,7 +85,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     />
     <React.StrictMode>
       <UsuarioProvider>
-        <RouterProvider router={router} />
+        <HabitacionProvider>
+          <RouterProvider router={router} />
+        </HabitacionProvider>
       </UsuarioProvider>
     </React.StrictMode>
   </ChakraProvider>

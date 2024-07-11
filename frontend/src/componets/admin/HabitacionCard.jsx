@@ -1,160 +1,87 @@
-import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
+import {
+  Badge,
+  Box,
+  Button,
+  Center,
+  Flex,
+  Heading,
+  HStack,
+  Icon,
+  Image,
+  Spacer,
+  Text,
+} from "@chakra-ui/react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { HabitacionContext } from "../../context/HabitacionContext";
 
+import { FaBed, FaEdit, FaNewspaper, FaPlusCircle, FaRulerCombined, FaSnowflake, FaTrash, FaUser } from "react-icons/fa";
 
-export const HabitacionCard = () => {
-  const { hab, rooms } = useContext(HabitacionContext);
-  console.log(rooms);
+export const HabitacionCard = ({ hab, imagen }) => {
   return (
-
-      <Box bg={"varios.100"} p={4} borderRadius="lg" mb={4}>
-        <Heading
-          as="h2"
-          size="lg"
-          mb={4}
-          color="var(--primary-600, #091E49)"
-          fontSize="28px"
-          fontFamily="Headline/Medium"
+    <Flex w={["90vw", "329px"]} m={2}>
+      <Center>
+        <Box
+        borderRadius='10px'
+        
+        boxShadow= "0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
+          justifyContent={"space-between"}
+          border="5px"
+                 // overflow="hidden"
+       
+          bg="white"
+          p={2}
         >
-          Habitaciones
-        </Heading>
-        <Flex justify="space-between" mb={4}>
-          <Box
-            maxW="sm"
-            borderRadius="lg"
-            overflow="hidden"
-            position="relative"
-          >
-            <Text
-              position="absolute"
-              top="10px"
-              left="10px"
-              color="white"
-              bg="rgba(0, 0, 0, 0.5)"
-              p="5px"
-              borderRadius="md"
-            >
-              Habitacion Queen
+          <Box>
+            <Image src={imagen} alt={hab.description} w={"280px"} h={"110px"} />
+          </Box>
+
+          <Box p={4}  >
+            <HStack spacing={5} mb={2}>
+              <Flex flexDir={"column"} alignItems={"center"}>
+                <Icon as={FaUser} color="primary.500" />
+                <Text fontSize="sm">{hab.capacity} Personas</Text>
+              </Flex>
+              <Flex flexDir={"column"} alignItems={"center"}>
+                <Icon as={FaBed} color="primary.500" />
+                <Text fontSize="sm">{hab.beds}</Text>
+              </Flex>
+              <Flex flexDir={"column"} alignItems={"center"}>
+                <Icon as={FaRulerCombined} color="primary.500" />
+                <Text fontSize="sm">{hab.surface} m²</Text>
+              </Flex>
+              <Icon as={FaSnowflake} color="primary.500" />
+            </HStack>
+
+            <Text fontWeight="bold" fontSize="xl" mb={2}>
+              {hab.name}
             </Text>
-            <img
-              src="/img/habitacionQueen.png"
-              alt="Habitacion Queen"
-              style={{ width: "160px", height: "143px" }}
-            />
-            <Flex
-              position="absolute"
-              width="141px"
-              height="20px"
-              left="calc(50% - 70.5px)" // Simplified: 141px / 2 = 70.5px
-              top="19.5px"
-              bg="rgba(182, 204, 246, 0.2)"
-              backdropFilter="blur(10.55px)"
-              borderRadius="8px"
-              display="flex"
-              flexDirection="row"
-              justifyContent="center"
-              alignItems="center"
-              padding="0px"
-              gap="8px"
-              zIndex="1"
-              flex="none"
-              order="1"
-              flexGrow="0"
-            >
-              <Text color="white" fontSize="14px">
-                Habitacion Queen
-              </Text>
-            </Flex>
-            <Button variant={"with-shadow"}> Editar </Button>
-          </Box>
 
-          <Box
-            maxW="sm"
-            borderRadius="lg"
-            overflow="hidden"
-            position="relative"
-          >
-            <img
-              src="/img/habitacionDream.png"
-              alt="Habitacion Dream"
-              style={{ width: "160px", height: "143px" }}
-            />
-            <Flex
-              position="absolute"
-              width="141px"
-              height="20px"
-              left="calc(50% - 70.5px)" // Simplified: 141px / 2 = 70.5px
-              top="19.5px"
-              bg="rgba(182, 204, 246, 0.2)"
-              backdropFilter="blur(10.55px)"
-              borderRadius="8px"
-              display="flex"
-              flexDirection="row"
-              justifyContent="center"
-              alignItems="center"
-              padding="0px"
-              gap="8px"
-              zIndex="1"
-              flex="none"
-              order="1"
-              flexGrow="0"
-            >
-              <Text color="white" fontSize="14px">
-                Habitacion Dream
+            <HStack flexDir={"column"}>
+              <Badge color="primary.500">ID: {hab.id}</Badge>
+              <Spacer />
+              <Text color="primary.500" fontWeight="semibold">
+                Precio: ${hab.price}
               </Text>
-            </Flex>
+            </HStack>
+            <HStack mt="4" spacing={4}>
 
-            <Button variant={"with-shadow"}>
-              <Link to={"/interes"}>Editar </Link>
-            </Button>
+          
+        </HStack>
+            
+        <HStack mt="4" spacing={4}>
+        <Link to={`/nuevo/}`}>
+                <Icon as={FaPlusCircle} w={6} h={6} color={'primary.500'} />
+              </Link>
+              <Link to={`/editar/${hab.id}`}>
+                <Icon as={FaEdit} w={6} h={6} />
+              </Link>
+              <Link to={`/eliminar/${hab.id}`}>
+                <Icon as={FaTrash} w={6} h={6} color='negative.500'/>
+              </Link>
+            </HStack>
           </Box>
-          {/* nuevo card generada desde la api */}
-          <Box
-            maxW="sm"
-            borderRadius="lg"
-            overflow="hidden"
-            position="relative"
-          >
-            <img
-              src="/img/habitacionDream.png"
-              alt="Habitacion Dream"
-              style={{ width: "160px", height: "143px" }}
-            />
-            <Flex
-              position="absolute"
-              width="141px"
-              height="20px"
-              left="calc(50% - 70.5px)" // Simplified: 141px / 2 = 70.5px
-              top="19.5px"
-              bg="rgba(182, 204, 246, 0.2)"
-              backdropFilter="blur(10.55px)"
-              borderRadius="8px"
-              display="flex"
-              flexDirection="row"
-              justifyContent="center"
-              alignItems="center"
-              padding="0px"
-              gap="8px"
-              zIndex="1"
-              flex="none"
-              order="1"
-              flexGrow="0"
-            >
-              <Text color="white" fontSize="14px">
-                {rooms[0].description}
-               <p>{rooms[0].type}</p> 
-              </Text>
-            </Flex>
-
-            <Button variant={"with-shadow"}>
-              <Link to={"/interes"}>Editar </Link>
-            </Button>
-          </Box>
-          {/* fin de la card generada desde la api */}
-        </Flex>
-      </Box>
-   
+        </Box>
+      </Center>
+    </Flex>
   );
 };

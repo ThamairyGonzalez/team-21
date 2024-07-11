@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Formik, Form, Field, FieldArray } from "formik";
 import {
   Box,
@@ -25,8 +25,12 @@ import {
 } from "@chakra-ui/react";
 import HabitacionField from "./HabitacionField";
 import { MinusIcon, PlusSquareIcon } from "@chakra-ui/icons";
+import axios from "axios";
+import { HabitacionContext } from "../../context/HabitacionContext";
 
 export const FormConsulta = () => {
+ const {rooms} = useContext(HabitacionContext);
+
   const validateForm = (values) => {
     const errors = {};
     if (!values.nombre) errors.nombre = "Nombre es requerido";
@@ -49,7 +53,59 @@ export const FormConsulta = () => {
     // if (!values.canHab) errors.canHab = "Cantidad de habitaciones es requerida";
     return errors;
   };
+  const handleSubmit = async (values, { setSubmitting }) => {
+    try {
+      const formattedData = {
+        client: {
+          is_company: values.tipoReserva === 'empresa',
+          email: values.email,
+          phone: values.telefono,
+          zip_code: "0000", // No tenemos este campo en el formulario original
+          individual: values.tipoReserva === 'individual' ? {
+            first_name: values.nombre,
+            last_name: values.apellido,
+          } :{
+            first_name: values.nombre,
+            last_name: values.apellido,
+          },
+          company: values.tipoReserva === 'empresa' ? {
+            name: values.razonSocial,
+            manager: "Virili Omar", // No tenemos este campo en el formulario original
+            address: "Antonio", // No tenemos este campo en el formulario original
+          } : null,
+        },
+        start_date: values.fechaIng,
+        end_date: values.fechaSalida,
+        people: 9, // Asumiendo que nroNoche es el número de personas
+        payment_method: "s", // No tenemos este campo en el formulario original
+        status: "A",
+        room_types: values.habitaciones.map(hab => ({
+         room_type_id: hab.tipo,     
+          quantity: parseInt(hab.cantidad),
+        })),
+        
+      };
+      console.log('Datos enviados:', JSON.stringify(formattedData, null, 2));
 
+      const response = await axios.post(
+        'https://hotel-oceano.onrender.com/api-quotation/quotation/', 
+        formattedData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          }
+        }
+      );
+      console.log('Respuesta del servidor:', response.data);
+      // Aquí puedes manejar la respuesta exitosa, por ejemplo, mostrar un mensaje al usuario
+    } catch (error) {
+      console.error('Error al enviar el formulario:', error);
+      // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+    }
+    setSubmitting(false);
+  };
+  
   return (
     <Center bg="secondary.200" paddingTop={"10px"}>
       <Formik
@@ -70,10 +126,11 @@ export const FormConsulta = () => {
           observacion: "",
         }}
         validate={validateForm}
-        onSubmit={(values, actions) => {
-          console.log(values);
-          actions.setSubmitting(false);
-        }}
+        onSubmit={handleSubmit}
+        // onSubmit={(values, actions) => {
+        //   console.log(values);
+        //   actions.setSubmitting(false);
+        // }}
       >
         {(props) => (
           <Form variants="nuevo">
@@ -273,6 +330,7 @@ export const FormConsulta = () => {
                               key={index}
                               index={index}
                               remove={remove}
+                              tipoHab={rooms}
                             />
                           ))}
 

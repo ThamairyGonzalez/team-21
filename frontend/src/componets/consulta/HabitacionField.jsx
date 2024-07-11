@@ -3,7 +3,8 @@ import { Field } from "formik";
 import { Box, FormControl, FormLabel, Select, NumberInput, NumberInputField, IconButton } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 
-const HabitacionField = ({ index, remove }) => {
+const HabitacionField = ({ index, remove, tipoHab }) => {
+  console.log(tipoHab);
   return (
     <Box borderWidth="1px" borderRadius="lg" p={4} mb={4}>
       <Field name={`habitaciones[${index}].tipo`}>
@@ -16,10 +17,12 @@ const HabitacionField = ({ index, remove }) => {
               placeholder="Seleccione tipo de habitación"
               color="#909090"
               borderColor={"#707070"}
-            >
-              <option value="individual">Individual</option>
+            >{tipoHab.map((item)=>(
+              <option key={item.id} value={item.id}>{item.type}</option>
+            ))}
+              {/* <option value="individual">Individual</option>
               <option value="doble">Doble</option>
-              <option value="suite">Suite</option>
+              <option value="suite">Suite</option> */}
             </Select>
           </FormControl>
         )}
