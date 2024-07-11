@@ -4,8 +4,8 @@ from apps.abstracts.models import AbstractModel
 
 class Client(AbstractModel):
     is_company = models.BooleanField(default=False)
-    email = models.EmailField(unique=True)
-    phone = models.CharField(max_length=15, unique=True,)
+    email = models.EmailField()
+    phone = models.CharField(max_length=15)
     zip_code = models.CharField(max_length=10)
 
     def __str__(self) -> str:

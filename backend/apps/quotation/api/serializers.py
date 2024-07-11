@@ -5,7 +5,7 @@ from apps.room.models import RoomType, Room
 from apps.client.models import Client, IndividualClient, CompanyClient
 from apps.reservation.models import ReservationRoom, Service
 from apps.client.api.serializers import CompleteClientSerializer
-from apps.reservation.api.serializers import 
+
 class QuotationRoomTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuotationRoomType
@@ -13,8 +13,8 @@ class QuotationRoomTypeSerializer(serializers.ModelSerializer):
 
 class QuotationServiceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Service
-        fields = ['room_type_id', 'quantity']
+        model = QuotationServices
+        fields = ['service_id', 'quantity']
 
 class QuotationSerializer(serializers.ModelSerializer):
     room_types = QuotationRoomTypeSerializer(many=True, required=False)
@@ -40,6 +40,7 @@ class QuotationSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError(f'The room {room_type_id.type} there are {quantity_available} available, and you need {quantity}')
 
         # Crear o actualizar el cliente
+        
         client_serializer = CompleteClientSerializer(data=client_data)
         client_serializer.is_valid(raise_exception=True)
         client = client_serializer.save()
@@ -53,7 +54,7 @@ class QuotationSerializer(serializers.ModelSerializer):
         
         # Crear las relaciones QuotationService
         for service_data in services_data:
-            QuotationServices.objects.create(quotation_id=quotation, **room_type_data)
+            QuotationServices.objects.create(quotation_id=quotation, **service_data)
             
         return quotation
     
@@ -63,7 +64,10 @@ class QuotationSerializer(serializers.ModelSerializer):
         
         quotation_room_types = QuotationRoomType.objects.filter(quotation_id=instance)
         quotation_room_types_represtation = QuotationRoomTypeSerializer(quotation_room_types, many=True).data
+        quotation_service = QuotationServices.objects.filter(quotation_id=instance)
+        quotation_service_represtation = QuotationServiceSerializer(quotation_service, many=True).data
         representation['quotation_room_types'] = quotation_room_types_represtation
+        representation['quotation_service'] = quotation_service_represtation
         
         return representation 
         

@@ -2,8 +2,10 @@ from django.db import models
 from apps.abstracts.models import AbstractModel
 
 from apps.client.models import Client
-from apps.quotation.models import Quotation
 from apps.room.models import Room
+#from apps.quotation.models import Quotation
+# Importación lazy
+from django.db.models.fields.related import OneToOneField
 
 RESERVATION_STATUS = [
     ('A', 'confirmed'),
@@ -23,7 +25,7 @@ class Service(AbstractModel):
 class ReservationRoom(AbstractModel):
     room_id = models.ForeignKey(Room, on_delete=models.CASCADE)
     client_id = models.ForeignKey(Client, on_delete=models.CASCADE)
-    quotation_id = models.OneToOneField(Quotation, on_delete=models.CASCADE, null=True, blank=True)
+    quotation_id = OneToOneField('quotation.Quotation', on_delete=models.CASCADE, null=True, blank=True)
     check_in_date = models.DateField()
     check_out_date = models.DateField()
     status = models.CharField(max_length=1, choices=RESERVATION_STATUS)
