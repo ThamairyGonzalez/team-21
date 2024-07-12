@@ -34,6 +34,7 @@ export const Login = () => {
     // e.preventDefault();
     // Aquí irían las validaciones y la llamada a la API
     login({ id: 1, name: 'Admin' });
+    localStorage.setItem('usuario', JSON.stringify({ id: 1, name: 'Administrador' }));
     navigate('/admin/home');
   };
   return (
