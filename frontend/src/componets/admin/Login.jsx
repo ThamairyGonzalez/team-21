@@ -33,7 +33,8 @@ export const Login = () => {
   const handleSubmit = (e) => {
     // e.preventDefault();
     // Aquí irían las validaciones y la llamada a la API
-    login({ id: 1, name: 'Admin' });
+     login({ id: 1, name: 'Admin' });
+    
     Navigate('/admin/home');
   };
   return (
