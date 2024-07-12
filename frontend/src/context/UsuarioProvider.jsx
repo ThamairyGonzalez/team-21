@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react"
 import { UsuarioContext } from "./UsuarioContext"
 
-const usuario = {
-    nombre:'Omar',
-    tecnologia:'react'
-}
-const propio="Omar"
-
 
 export const UsuarioProvider = ({children}) => {
   const [usuario, setUsuario] = useState(null);

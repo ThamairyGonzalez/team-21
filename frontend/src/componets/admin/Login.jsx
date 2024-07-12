@@ -34,7 +34,7 @@ export const Login = () => {
     // e.preventDefault();
     // Aquí irían las validaciones y la llamada a la API
     login({ id: 1, name: 'Admin' });
-    Navigate('/admin/home');
+    navigate('/admin/home');
   };
   return (
     <Flex justifyContent={"center"} m="20px">
