@@ -13,6 +13,8 @@ import { Bienvenida } from "./componets/admin/Bienvenida.jsx";
 import { Service } from "./componets/service/Service.jsx";
 import { Admin1 } from "./componets/admin/Admin1.jsx";
 import { Admin2 } from "./componets/admin/Admin2.jsx";
+import { Reservaciones } from "./componets/admin/Reservaciones.jsx";
+
 const router=createBrowserRouter([
   { 
     path:"/",
@@ -46,6 +48,10 @@ const router=createBrowserRouter([
   {
     path:'/admin2',
     element:<Admin2/>,
+  },
+  {
+    path:'/reservaciones',
+    element:<Reservaciones/>,
   },
   {
     path:'/admin/home',
