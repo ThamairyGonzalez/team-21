@@ -39,6 +39,7 @@ OWN_APPS = [
     'apps.reservation',
     'apps.client',
     'apps.room',
+    'apps.authentication',
 ]
 
 INSTALLED_APPS = BASE_APPS + THIRD_APPS + OWN_APPS
@@ -80,15 +81,20 @@ WSGI_APPLICATION = 'Oceano.wsgi.application'
 
 DATABASES = {
     "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "mydatabase",
+            }
+    }
+""" "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.getenv("DB_NAME"),
         "USER": os.getenv("DB_USER"),
         "PASSWORD": os.getenv("DB_PASSWORD"),
         "HOST": os.getenv("DB_HOST"),
         "PORT": "5432",
-    }
+    } """
     
-}
+
 
 
 # Password validation
@@ -141,9 +147,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS':'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_AUTHENTICATION_CLASSES':(
-        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ),
 }
+#Solo envía la cookie sobre HTTPS
+CSRF_COOKIE_SECURE = True
+#Previene acceso por JavaScript
+CSRF_COOKIE_HTTPONLY = True
+#1 semana, en segundos
+SESSION_COOKIE_AGE = 604800
 
 #Espectacular Schema setting
 SPECTACULAR_SETTINGS = {
@@ -157,7 +169,6 @@ SPECTACULAR_SETTINGS = {
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = True
 #CORS_ALLOWED_ORIGINS = [os.getenv("CORS_ALLOWED_ORIGINS"),]
-CORS_ALLOWED_ORIGINS = [os.getenv("CORS_ALLOWED_ORIGINS"),]
 
 #Configuración de Cloudinay
 CLOUDINARY_STORAGE = {
@@ -165,5 +176,4 @@ CLOUDINARY_STORAGE = {
     'API_KEY': os.getenv('API_KEY'),
     'API_SECRET': os.getenv('API_SECRET'),
 }
-
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
