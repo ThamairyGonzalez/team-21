@@ -18,7 +18,7 @@ class QuotationServiceSerializer(serializers.ModelSerializer):
 
 class QuotationSerializer(serializers.ModelSerializer):
     
-    client = CompleteClientSerializer(required=True)
+    client = CompleteClientSerializer(source='client_id', required=True)
     #client_details = CompleteClientSerializer(source='client_id', read_only=True)
     room_types = QuotationRoomTypeSerializer(many=True, required=False)
     services = QuotationServiceSerializer(many=True, required=False)
@@ -28,10 +28,11 @@ class QuotationSerializer(serializers.ModelSerializer):
         fields = ['id', 'client', 'start_date', 'end_date', 'people', 'payment_method', 'status', 'room_types', 'services']
 
     def create(self, validated_data):
+       
+        client_data = validated_data.pop('client_id')
         room_types_data = validated_data.pop('room_types')
         services_data = validated_data.pop('services')
-        client_data = validated_data.pop('client')
-
+        
         # Verificar disponibilidad de habitaciones
         for room in room_types_data:
             room_type_id = room['room_type_id']
@@ -41,7 +42,6 @@ class QuotationSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError(f'The room {room_type_id.type} there are {quantity_available} available, and you need {quantity}')
 
         # Crear o actualizar el cliente
-        
         client_serializer = CompleteClientSerializer(data=client_data)
         client_serializer.is_valid(raise_exception=True)
         client = client_serializer.save()
