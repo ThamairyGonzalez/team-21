@@ -17,14 +17,15 @@ class QuotationServiceSerializer(serializers.ModelSerializer):
         fields = ['service_id', 'quantity']
 
 class QuotationSerializer(serializers.ModelSerializer):
+    
+    client = CompleteClientSerializer(required=True)
+    #client_details = CompleteClientSerializer(source='client_id', read_only=True)
     room_types = QuotationRoomTypeSerializer(many=True, required=False)
-    client = CompleteClientSerializer(required=True, write_only=True)
-    client_details = CompleteClientSerializer(source='client_id', read_only=True)
     services = QuotationServiceSerializer(many=True, required=False)
 
     class Meta:
         model = Quotation
-        fields = ['id', 'client', 'client_details', 'start_date', 'end_date', 'people', 'payment_method', 'status', 'room_types', 'services']
+        fields = ['id', 'client', 'start_date', 'end_date', 'people', 'payment_method', 'status', 'room_types', 'services']
 
     def create(self, validated_data):
         room_types_data = validated_data.pop('room_types')
@@ -66,8 +67,8 @@ class QuotationSerializer(serializers.ModelSerializer):
         quotation_room_types_represtation = QuotationRoomTypeSerializer(quotation_room_types, many=True).data
         quotation_service = QuotationServices.objects.filter(quotation_id=instance)
         quotation_service_represtation = QuotationServiceSerializer(quotation_service, many=True).data
-        representation['quotation_room_types'] = quotation_room_types_represtation
-        representation['quotation_service'] = quotation_service_represtation
+        representation['room_types'] = quotation_room_types_represtation
+        representation['services'] = quotation_service_represtation
         
         return representation 
         

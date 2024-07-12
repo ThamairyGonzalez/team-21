@@ -47,11 +47,8 @@ class CompleteClientSerializer(serializers.ModelSerializer):
         ).first()
        
         if existing_client:
-            print(existing_client)
-            print(validate_data)
             # Si el cliente existe, actualiza los datos en lugar de crear uno nuevo
             return self.update(existing_client, validate_data)
-        
         
         # Si no existe, creamos un nuevo cliente
         company_data = validate_data.pop('company', None)
