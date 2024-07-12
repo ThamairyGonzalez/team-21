@@ -17,6 +17,8 @@ import { ProtectedRoute } from "./componets/security/ProtectedRoute.jsx";
 import { AdminLayout } from "./componets/admin/Layout/AdminLayout.jsx";
 import { HabitacionProvider } from "./context/HabitacionProvider.jsx";
 
+import { Reservaciones } from "./componets/admin/Reservaciones.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -61,6 +63,10 @@ const router = createBrowserRouter([
       {
         path: "habitacion/:id",
         element: <Admin2 />,
+      },
+      {
+        path: "/reservaciones",
+        element: <Reservaciones />,
       },
     ],
   },

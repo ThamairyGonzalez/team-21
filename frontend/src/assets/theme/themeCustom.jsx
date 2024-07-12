@@ -63,7 +63,7 @@ export const themeCustom = extendTheme({
       },
     },
   },
-
+  
   semanticTokens: {
     colors: {
       primary: {
@@ -91,9 +91,15 @@ export const themeCustom = extendTheme({
       negative:{
         500:"#F2415A",
       },
+      fondo_admin:{
+        100: '#CEC9C9',
+      },
+      
       text: {
         dark: "#FFFFFF",
         default: "black",
+        gris:"#91929E",
+        verydark:"#0A1629",
       },
       buttonText: {
         default: "#0C0AFF",
@@ -106,6 +112,15 @@ export const themeCustom = extendTheme({
       brand: {
         light: "primary.500",
         dark: "#FFFFFF",
+      },
+
+      status: {
+        cancel: "#F5667A1A",
+        confirm: "#73E2A41A",
+        positive: "#27BE69",
+        negative: "#F2415A",
+        toconfirm: "#FFCD29",
+
       },
     },
   },
