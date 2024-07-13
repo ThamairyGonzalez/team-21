@@ -1,6 +1,6 @@
 import { Box, Image, Text, Grid, GridItem, Input } from '@chakra-ui/react';
 
-export const RoomCard = () => {
+export const RoomCard = ({status}) => {
     return (
         <Box
             flexDirection="column"
@@ -24,6 +24,7 @@ export const RoomCard = () => {
       <Box ml="4">
         <Box display="flex">
           {/* Título tipo de habitación */}
+         
           <Box mr="4">
             <Text fontSize="12px" fontWeight="bold" color="text.gris">
               Tipo de habitación
@@ -34,6 +35,7 @@ export const RoomCard = () => {
             </Text>
           </Box>
           {/* Código de reserva */}
+          {status=='A'&& 
           <Box>
             <Text fontSize="12px" color="text.gris" fontWeight="bold">
               Cod Reserva
@@ -43,6 +45,7 @@ export const RoomCard = () => {
               1234
             </Text>
           </Box>
+          }
         </Box>
       </Box>
     </Box>
@@ -60,6 +63,7 @@ export const RoomCard = () => {
 
             {/* Grid para N° Habitación, Confirmado y Status */}
             <Grid templateColumns="repeat(3, 1fr)" gap="10px" marginTop="16px">
+               {status=='A'&&
                 <GridItem>
                     <Text fontSize="12px" fontWeight="bold" color="text.gris">
                         N° Habitación
@@ -68,6 +72,17 @@ export const RoomCard = () => {
                         305
                     </Text>
                 </GridItem>
+                }{status!='A'&&
+                  <GridItem>
+                      <Text fontSize="12px" fontWeight="bold" color="text.gris">
+                          N° Persona
+                      </Text>
+                      <Text fontSize="14px" color="text.verydark">
+                         2
+                      </Text>
+                  </GridItem>
+                  }
+
                 <GridItem>
                     <Text fontSize="12px" fontWeight="bold" color="text.gris">
                         Confirmado

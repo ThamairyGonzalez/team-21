@@ -25,8 +25,8 @@ export const Admin1 = () => {
     md: "/img/logo1linea.svg",
   });
   const isMobile = useBreakpointValue({ base: true, sm: false, md: false });
-  console.log(rooms);
-  console.log(imgRooms);
+  // console.log(rooms);
+  // console.log(imgRooms);
 
   return (
     <>

@@ -1,10 +1,11 @@
 // src/components/admin/Reservaciones.jsx
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, Flex, Heading, Image } from '@chakra-ui/react';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import { Header } from "../header/Header";
 import { FooterAdmin } from "../footer/FooterAdmin";
 import { RoomCard } from "../admin/RoomCard";
+import { HabitacionContext } from '../../context/HabitacionContext';
 
 // Componente del Menú
 const Menu = () => {
@@ -187,6 +188,8 @@ const Menu = () => {
 };
 
 export const Reservaciones = () => {
+    const {reservas}=useContext(HabitacionContext);
+    
     return (
         <>
             <Header />
@@ -243,8 +246,11 @@ export const Reservaciones = () => {
                 <Menu />
 
            {/* Card de Reservas */}
-                        
-                <RoomCard />
+                
+                 {reservas.map((reserva)=>
+                     <RoomCard key={reserva.id} {... reserva} />
+
+                 )}       
 
             <FooterAdmin />
             </Box>

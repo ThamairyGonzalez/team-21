@@ -5,7 +5,7 @@ import axios from "axios";
 export const HabitacionProvider = ({ children }) => {
   const [rooms, setRooms] = useState([]);
   const [imgRooms, setImgRooms] = useState([]);
-
+  const [reservas,setReservas] = useState([])
   const [error, setError] = useState(null);
   const [cargando, setCargando] = useState(true);
 
@@ -27,9 +27,24 @@ export const HabitacionProvider = ({ children }) => {
 
     obtenerDatos();
   }, []); // Asegúrate de que el array de dependencias esté vacío
+//recupeacion de informacion de reservaciones para las card
+useEffect(()=>{
+  const obtenerReservas= async()=>{
+    try{
+      const response = await axios.get('https://hotel-oceano.onrender.com/api-reservation/reservationroom/');
+     
+      setReservas(response.data);
+    }catch(error){
+      setError(error.message);
+      setCargando(false);
+    }
+  };
+  obtenerReservas();
+},[])
+
 
   return (
-    <HabitacionContext.Provider value={{ rooms ,imgRooms}}>
+    <HabitacionContext.Provider value={{ rooms ,imgRooms, reservas}}>
       {children}
     </HabitacionContext.Provider>
   );

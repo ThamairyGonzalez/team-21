@@ -59,10 +59,10 @@ export const Bienvenida = () => {
         >
           <SimpleGrid columns={2} spacing={4} width="100%">
             {[
-              { icon: FaBed, text: "Habitaciones" },
-              { icon: FaCalendarAlt, text: "Reservas" },
-              { icon: FaConciergeBell, text: "Servicios" },
-              { icon: FaUser, text: "Perfil" },
+              { icon: FaBed, text: "Habitaciones" ,url:'habitacion'},
+              { icon: FaCalendarAlt, text: "Reservas" ,url:'reservaciones'},
+              { icon: FaConciergeBell, text: "Servicios",url:'servicios' },
+              { icon: FaUser, text: "Perfil",url:'perfil' },
             ].map((item, index) => (
               <Button
                 key={index}
@@ -75,7 +75,7 @@ export const Bienvenida = () => {
                 borderRadius="xl"
                 _hover={{ bg: "blue.700" }}
               >
-                <Link to={"/admin/habitacion"}> {item.text}</Link>
+                <Link to={`/admin/${item.url}`}> {item.text}</Link>
               </Button>
             ))}
           </SimpleGrid>
