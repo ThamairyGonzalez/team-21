@@ -16,8 +16,8 @@ import { UsuarioProvider } from "./context/UsuarioProvider.jsx";
 import { ProtectedRoute } from "./componets/security/ProtectedRoute.jsx";
 import { AdminLayout } from "./componets/admin/Layout/AdminLayout.jsx";
 import { HabitacionProvider } from "./context/HabitacionProvider.jsx";
+import { MenuReservas } from "./componets/admin/MenuReservas.jsx";
 
-import { Reservaciones } from "./componets/admin/Reservaciones.jsx";
 
 const router = createBrowserRouter([
   {
@@ -47,8 +47,7 @@ const router = createBrowserRouter([
     path: "/admin",
     element: (
       <ProtectedRoute>
-        {" "}
-        <AdminLayout />{" "}
+         <AdminLayout />
       </ProtectedRoute>
     ),
     children: [
@@ -65,9 +64,9 @@ const router = createBrowserRouter([
         element: <Admin2 />,
       },
       {
-        path: "/reservaciones",
-        element: <Reservaciones />,
-      },
+        path: "reservaciones",
+        element: <MenuReservas/>
+      }
     ],
   },
 ]);
