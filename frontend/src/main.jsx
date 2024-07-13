@@ -12,12 +12,15 @@ import { Admin1 } from "./componets/admin/Admin1.jsx";
 import { Interes } from "./componets/sitioInteres/Interes.jsx";
 import { Global, css } from "@emotion/react";
 import { Bienvenida } from "./componets/admin/Bienvenida.jsx";
+
+import { Service } from "./componets/service/Service.jsx";
+import { Reservaciones } from "./componets/admin/Reservaciones.jsx";
 import { UsuarioProvider } from "./context/UsuarioProvider.jsx";
 import { ProtectedRoute } from "./componets/security/ProtectedRoute.jsx";
 import { AdminLayout } from "./componets/admin/Layout/AdminLayout.jsx";
 import { HabitacionProvider } from "./context/HabitacionProvider.jsx";
 
-import { Reservaciones } from "./componets/admin/Reservaciones.jsx";
+
 
 const router = createBrowserRouter([
   {

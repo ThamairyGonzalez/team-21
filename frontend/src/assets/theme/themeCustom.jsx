@@ -82,19 +82,18 @@ export const themeCustom = extendTheme({
         default: "#8C65AD",
         dark: "#8C65FF",
       },
+
+      fondo_admin:{
+        100: '#CEC9C9',
+      },
       varios:{
         100:"#CEC9C9",
         200:"#E2E2E2",
        
       },
-     
       negative:{
         500:"#F2415A",
       },
-      fondo_admin:{
-        100: '#CEC9C9',
-      },
-      
       text: {
         dark: "#FFFFFF",
         default: "black",
