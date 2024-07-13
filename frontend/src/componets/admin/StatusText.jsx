@@ -65,10 +65,10 @@ const StatusText = ({ status, children, onAccept, onCancel }) => {
         >
           
           <Box onClick={onAccept} cursor="pointer" boxSize={22}>
-            <Image src="icons/check.png" />
+            <Image src={"/icons/check.png"} />
           </Box>
           <Box onClick={onCancel} cursor="pointer" boxSize={22} marginTop="8px"> {/* Ajuste de margen entre las imágenes */}
-            <Image src="icons/cancel.png" />
+            <Image src={"/icons/cancel.png"} />
           </Box>
         </Box>
       )}
