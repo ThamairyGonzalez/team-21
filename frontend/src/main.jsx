@@ -14,6 +14,8 @@ import { Service } from "./componets/service/Service.jsx";
 import { Admin1 } from "./componets/admin/Admin1.jsx";
 import { Admin2 } from "./componets/admin/Admin2.jsx";
 import { Reservaciones } from "./componets/admin/Reservaciones.jsx";
+import { ModalConfirm } from "./componets/admin/ModalConfirm.jsx";
+import { ModalCancel } from "./componets/admin/ModalCancel.jsx";
 
 const router=createBrowserRouter([
   { 
@@ -52,6 +54,14 @@ const router=createBrowserRouter([
   {
     path:'/reservaciones',
     element:<Reservaciones/>,
+  },
+  {
+    path:'/confirmacion',
+    element:<ModalConfirm/>,
+  },
+  {
+    path:'/cancelar',
+    element:<ModalCancel/>,
   },
   {
     path:'/admin/home',
