@@ -1,7 +1,6 @@
 import { extendTheme } from "@chakra-ui/react";
 import { ButtonConfig } from "./ButtonConfig";
 
-
 export const themeCustom = extendTheme({
   config: {
     initialColorMode: "dark",
@@ -15,31 +14,28 @@ export const themeCustom = extendTheme({
     lg: "62em", // ~992px
     xl: "80em", // ~1280px
   },
-  
+
   styles: {
     global: (props) => ({
       fonts: {
         heading: `'Poppins','MiFuente'`,
-       
       },
-     
-     
-     'html, body': {
+
+      "html, body": {
         bg: props.colorMode === "dark" ? "brand.dark" : "brand.light",
         color: props.colorMode === "dark" ? "text.default" : "black",
-        fontFamily:'Poppins,sans-serif',
+        fontFamily: "Poppins,sans-serif",
       },
-    
     }),
   },
   components: {
- 
     Button: ButtonConfig,
-     Input: {
+    Input: {
+    
       baseStyle: {
         field: {
           fontSize: "1.2em",
-          color: "#9B959F",
+          color: "#040F24",
           borderRadius: "5px",
           fontWeight: 500,
           _focus: {
@@ -58,6 +54,10 @@ export const themeCustom = extendTheme({
             border: "1px solid black",
             borderRadius: "15px",
             fontWeight: 900,
+            _placeholder: {
+              color: 'blue.300',
+              fontStyle: 'italic',
+            },
           },
         },
       },
@@ -67,22 +67,33 @@ export const themeCustom = extendTheme({
   semanticTokens: {
     colors: {
       primary: {
-        200:'#6D99ED',
-        500:'#0B265B',
-        800:'#040F24',
+        200: "#6D99ED",
+        400: "#1444A4",
+        500: "#0B265B",
+        800: "#040F24",
         default: "#E8C888",
         dark: "#DACFF6",
+        white: "#FFFFFF",
       },
       secondary: {
-        500:'#FFDE9D',
-        600:'#FFC34D',
+        200: "#FFF1D6",
+        500: "#FFDE9D",
+        600: "#FFC34D",
         default: "#8C65AD",
         dark: "#8C65FF",
       },
+
       fondo_admin:{
         100: '#CEC9C9',
       },
-      
+      varios:{
+        100:"#CEC9C9",
+        200:"#E2E2E2",
+       
+      },
+      negative:{
+        500:"#F2415A",
+      },
       text: {
         dark: "#FFFFFF",
         default: "black",

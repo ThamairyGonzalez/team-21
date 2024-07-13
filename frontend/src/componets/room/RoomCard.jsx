@@ -1,33 +1,15 @@
-import {
-  VStack,
-  Text,
-  Button,
-  Image,
-  WrapItem,
-  Flex,
-  Center,
-  Box,
-  Wrap,
-  Stack,
-} from "@chakra-ui/react";
+import { Text, Button, Image, WrapItem, Box } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
 
-export const RoomCard = ({ image, name }) => {
+export const RoomCard = ({ id, image, name, service, onOpen }) => {
   return (
-    <WrapItem w='30%'>
+    <WrapItem w="30%">
       <Box>
-        <Image
-          src={image}
-          alt={name}
-          objectFit="cover"
-          h='285px'
-          
-        />
-
+        <Image src={image} alt={name} objectFit="cover" h="285px" />
         <Text color="black" fontSize="xl" fontWeight="bold">
           {name}
         </Text>
-        <Button leftIcon={<FaPlus />} variant={"outline"}>
+        <Button leftIcon={<FaPlus />} variant={"outline"} onClick={onOpen}>
           Ver más
         </Button>
       </Box>

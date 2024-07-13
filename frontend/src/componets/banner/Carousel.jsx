@@ -17,7 +17,7 @@ export const Carousel = ({ slides }) => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       nextSlide();
-    }, 3000);
+    }, 7000);
     return () => clearInterval(intervalId);
   }, [nextSlide]);
 
@@ -28,7 +28,7 @@ export const Carousel = ({ slides }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 1 }}
       >
         <Image
           src={slides[currentSlide].image}
@@ -44,16 +44,14 @@ export const Carousel = ({ slides }) => {
           top="20%"
           left="5%"
           //  transform="translate(5%, 5%)"
-          
+
           color="white"
         >
           <Text fontSize="3xl" fontWeight="bold" mb={4}>
             {slides[currentSlide].title}
           </Text>
           <Button variant={"solid"} padding={"0 40px"} width={"40%"}>
-            <Link to='/consulta'>
-            {slides[currentSlide].buttonText}
-            </Link>
+            <Link to="/consulta">{slides[currentSlide].buttonText}</Link>
           </Button>
         </Box>
       </motion.div>
@@ -71,12 +69,12 @@ export const Carousel = ({ slides }) => {
           />
         ))}
       </Flex>
-      <Button position="absolute" left="10px" top="85%" onClick={prevSlide}>
+      {/* <Button position="absolute" left="10px" top="85%" onClick={prevSlide}>
         &#8249;
       </Button>
       <Button position="absolute" right="10px" top="85%" onClick={nextSlide}>
         &#8250;
-      </Button>
+      </Button> */}
     </Box>
   );
 };

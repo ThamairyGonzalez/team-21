@@ -1,68 +1,83 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-import  Nosotros  from "./componets/nosotros/Nosotros.jsx";
+import Nosotros from "./componets/nosotros/Nosotros.jsx";
 import { ChakraProvider } from "@chakra-ui/react";
 import { themeCustom } from "./assets/theme/themeCustom.jsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Consulta } from "./componets/consulta/Consulta.jsx";
-import { Admin } from "./componets/admin/Admin.jsx";
+import { Login } from "./componets/admin/Login.jsx";
+import { Admin2 } from "./componets/admin/Admin2.jsx";
+import { Admin1 } from "./componets/admin/Admin1.jsx";
 import { Interes } from "./componets/sitioInteres/Interes.jsx";
 import { Global, css } from "@emotion/react";
 import { Bienvenida } from "./componets/admin/Bienvenida.jsx";
+
 import { Service } from "./componets/service/Service.jsx";
-import { Admin1 } from "./componets/admin/Admin1.jsx";
-import { Admin2 } from "./componets/admin/Admin2.jsx";
 import { Reservaciones } from "./componets/admin/Reservaciones.jsx";
+import { UsuarioProvider } from "./context/UsuarioProvider.jsx";
+import { ProtectedRoute } from "./componets/security/ProtectedRoute.jsx";
+import { AdminLayout } from "./componets/admin/Layout/AdminLayout.jsx";
+import { HabitacionProvider } from "./context/HabitacionProvider.jsx";
 
-const router=createBrowserRouter([
-  { 
-    path:"/",
-    element:<App/>,
-    errorElement:<h1>Error</h1>
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <h1>Error</h1>,
   },
   {
-    path:'/consulta',
-    element:<Consulta/>,
-  },
-   
-  {
-    path:'/nosotros',
-    element:<Nosotros/>,
-  },
- 
-  
-  {
-    path:'/interes',
-    element:<Interes/>,
-  },
-  {
-    path:'/admin',
-    element:<Admin/>,
+    path: "/consulta",
+    element: <Consulta />,
   },
 
   {
-    path:'/admin1',
-    element:<Admin1/>,
+    path: "/nosotros",
+    element: <Nosotros />,
+  },
+
+  {
+    path: "/interes",
+    element: <Interes />,
   },
   {
-    path:'/admin2',
-    element:<Admin2/>,
+    path: "/login",
+    element: <Login />,
   },
   {
-    path:'/reservaciones',
-    element:<Reservaciones/>,
+    path: "/admin",
+    element: (
+      <ProtectedRoute>
+        {" "}
+        <AdminLayout />{" "}
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        path: "home",
+        element: <Bienvenida />,
+      },
+      {
+        path: "habitacion",
+        element: <Admin1 />,
+      },
+      {
+        path: "habitacion/:id",
+        element: <Admin2 />,
+      },
+      {
+       path:'reservaciones',
+      element:<Reservaciones/>,
+      },
+    ],
+
   },
-  {
-    path:'/admin/home',
-    element:<Bienvenida/>,
-  },
-])
+]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <ChakraProvider theme={themeCustom}>
     <Global
-    styles={css`
+      styles={css`
       @font-face{
       font-family:'MiFuente';
       src:url('/fonts/poppins/Poppins-Regular.ttf);
@@ -70,11 +85,14 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       font-style:normal;
       
       }
-      `}/>
+      `}
+    />
     <React.StrictMode>
-      
-     <RouterProvider router={router}/>
-     
+      <UsuarioProvider>
+        <HabitacionProvider>
+          <RouterProvider router={router} />
+        </HabitacionProvider>
+      </UsuarioProvider>
     </React.StrictMode>
   </ChakraProvider>
 );

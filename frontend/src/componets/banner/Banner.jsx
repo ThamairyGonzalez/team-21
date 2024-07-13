@@ -6,7 +6,7 @@ export const Banner = () => {
   const slides = [
     {
       image: '/img/banner1.png',
-      title: 'Rescubre el oasis que buscabas',
+      title: 'Descubre el oasis que buscabas',
       buttonText: 'Reservar'
     },
     {

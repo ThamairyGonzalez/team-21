@@ -7,9 +7,7 @@ import {
   Stack,
   Text,
   Wrap,
-  WrapItem,
   useBreakpointValue,
-  useDisclosure,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
@@ -20,6 +18,7 @@ import { RoomCard } from "./RoomCard";
 export const Room = () => {
   const slides = [
     {
+      id: 1,
       title: "Habitación Queen",
       image: "/img/habitacionQueen.png",
       buttonText: "Ver más",
@@ -31,6 +30,7 @@ export const Room = () => {
       ],
     },
     {
+      id: 2,
       title: "Habitación Dreams",
       image: "/img/habitacionDream.png",
       buttonText: "Ver más",
@@ -42,6 +42,7 @@ export const Room = () => {
       ],
     },
     {
+      id: 3,
       title: "Habitación Relax",
       image: "/img/habitacionRelax.png",
       buttonText: "Ver más",
@@ -55,8 +56,31 @@ export const Room = () => {
     },
   ];
   const [currentSlide, setCurrentSlide] = useState(0);
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  const [isOpen, setIsOpen] = useState(false);
+  // const [selectedRoom, setSelectedRoom] = useState(null);
+  const [openModals, setOpenModals] = useState({});
+
+  const handleOpenModal = (roomId) => {
+    setOpenModals((prev) => ({ ...prev, [roomId]: true }));
+  };
+
+  const handleCloseModal = (roomId) => {
+    setOpenModals((prev) => ({ ...prev, [roomId]: false }));
+  };
+
+  // const {onOpen } = useDisclosure();
+  // const onOpen = useCallback((room) => {
+  //   setSelectedRoom(room);
+  //   setIsOpen(true);
+  // }, []);
+
+  // const onClose = useCallback(() => {
+  //   setIsOpen(false);
+  //   setSelectedRoom(null);
+  // }, []);
+
+  // const { isOpen, onOpen, onClose } = useDisclosure();
+  const isMobile = useBreakpointValue({ base: true, sm: true, md: false });
   const nextSlide = useCallback(() => {
     if (!isOpen) {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -68,24 +92,26 @@ export const Room = () => {
   };
   useEffect(() => {
     const intervalId = setInterval(() => {
-      nextSlide();
-    }, 3000);
+      if (!Object.values(openModals).some((isOpen) => isOpen)) {
+        nextSlide();
+      }
+    }, 7000);
     return () => clearInterval(intervalId);
   }, [nextSlide]);
 
   return (
     <Stack
-      width={["395px", "100%"]}
+      width={["395px", "525px", "100%"]}
       maxWidth={["430px", "100%"]}
       p={10}
       color="black"
       bg={"white"}
     >
       <Box>
-        <Text as="h2" fontSize="2xl" fontWeight="bold" textAlign={"center"}>
+        <Text as="h2" fontSize="2xl" fontWeight="bold" textAlign={"left"}>
           Conocé las habitaciones
         </Text>
-        <Text as="h3" p={2}>
+        <Text as="h4" textAlign={"left"}>
           Nuestras habitaciones combinan elegancia y confort con modernas
           comodidades, conocelas.
         </Text>
@@ -97,7 +123,7 @@ export const Room = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 2 }}
           >
             <Image
               src={slides[currentSlide].image}
@@ -112,7 +138,7 @@ export const Room = () => {
           </motion.div>
           <Flex position="absolute" bottom="20px" width="100%" justify="center">
             {slides.map((_, index) => (
-              <Box
+              <Button
                 key={index}
                 as="button"
                 bg={currentSlide === index ? "white" : "whiteAlpha.400"}
@@ -135,26 +161,41 @@ export const Room = () => {
             <Text fontSize="3xl" fontWeight="bold" mb={4}>
               {slides[currentSlide].title}
             </Text>
-
-            <RoomModal
-              isOpen={isOpen}
-              onOpen={onOpen}
-              onClose={onClose}
-              name={slides[currentSlide].title}
-              img={slides[currentSlide].image}
-              service={slides[currentSlide].service}
-            />
+            <Button
+              leftIcon={<FaPlus />}
+              variant={"outline"}
+              onClick={() => handleOpenModal(slides[currentSlide].id)}
+            >
+              Ver más
+            </Button>
           </Box>
         </Box>
       ) : (
         <Center>
-          <Wrap justify={'space-between'}>
-            {slides.map((room, index) => (
-              <RoomCard key={index} name={room.title} image={room.image} />
+          <Wrap justify={"space-between"}>
+            {slides.map((room) => (
+              <RoomCard
+                key={room.id}
+                id={room.id}
+                name={room.title}
+                image={room.image}
+                service={room.service}
+                onOpen={() => handleOpenModal(room.id)}
+              />
             ))}
           </Wrap>
         </Center>
       )}
+      {slides.map((room) => (
+        <RoomModal
+          key={room.id}
+          isOpen={openModals[room.id] || false}
+          onClose={() => handleCloseModal(room.id)}
+          name={room.title}
+          img={room.image}
+          service={room.service}
+        />
+      ))}
     </Stack>
   );
 };

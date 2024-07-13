@@ -2,9 +2,9 @@ import {
   AspectRatio,
   Box,
   Center,
-  Flex,
+
   Image,
-  Stack,
+
   Text,
   Wrap,
   WrapItem,
@@ -20,7 +20,7 @@ export const Interes = () => {
           <AspectRatio maxW="100%" ratio={2}>
             <iframe
               title="naruto"
-              src="https://www.youtube.com/embed/po-KkU_iBSE"
+              src="https://fast.wistia.net/embed/iframe/icpjcp6mm8"
               allowFullScreen
             />
           </AspectRatio>
@@ -41,15 +41,15 @@ export const Interes = () => {
             </Text>
           </Box>
           <Wrap justify={"space-between"}>
-            <WrapItem w={["100", "45%"]} flexDir={"column"} >
-             <Image
+            <WrapItem w={["100", "45%"]} flexDir={"column"}>
+              <Image
                 src="/img/vinos.jpeg"
                 borderRadius={"35px"}
                 p={5}
                 w={"395px"}
                 h={"320px"}
               />
-              <Text >
+              <Text>
                 Recorre la Ruta del Vino, un circuito que te llevará por viñedos
                 centenarios, bodegas boutique y restaurantes gourmet donde
                 podrás degustar los mejores Malbec, Cabernet Sauvignon y otras
