@@ -16,7 +16,7 @@ import { useContext, useState } from "react";
 
 
 import { UsuarioContext } from "../../context/UsuarioContext";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -31,11 +31,11 @@ export const Login = () => {
     ver == "password" ? setVer("text") : setVer("password");
   }
   const handleSubmit = (e) => {
-    // e.preventDefault();
+    //e.preventDefault();
     // Aquí irían las validaciones y la llamada a la API
-     login({ id: 1, name: 'Admin' });
-    
-    Navigate('/admin/home');
+    login({ id: 1, name: 'Admin' });
+    localStorage.setItem('usuario', JSON.stringify({ id: 1, name: 'Administrador' }));
+    navigate('/admin/home');
   };
   return (
     <Flex justifyContent={"center"} m="20px">
@@ -66,6 +66,7 @@ export const Login = () => {
            
               // actualizarLogin(true)
               // console.log("entra");
+              login({ id: 1, name: 'Admin' });
               const origin = location.state?.from?.pathname || '/admin/home';
               navigate(origin);
              
