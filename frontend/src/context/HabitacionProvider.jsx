@@ -6,6 +6,7 @@ export const HabitacionProvider = ({ children }) => {
   const [rooms, setRooms] = useState([]);
   const [imgRooms, setImgRooms] = useState([]);
   const [reservas,setReservas] = useState([])
+
   const [error, setError] = useState(null);
   const [cargando, setCargando] = useState(true);
 
@@ -41,6 +42,10 @@ useEffect(()=>{
   };
   obtenerReservas();
 },[])
+
+
+
+
 
 
   return (

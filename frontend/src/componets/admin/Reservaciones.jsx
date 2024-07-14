@@ -1,86 +1,86 @@
 // src/components/admin/Reservaciones.jsx
-import React, { useContext } from 'react';
-import { Box, Flex, Heading, Image } from '@chakra-ui/react';
-import { ArrowBackIcon } from '@chakra-ui/icons';
-import { Header } from "../header/Header";
+import React, { useContext, useState } from "react";
+import { Box, Flex, Heading, Image } from "@chakra-ui/react";
+import { ArrowBackIcon } from "@chakra-ui/icons";
+
 import { FooterAdmin } from "../footer/FooterAdmin";
 import { RoomCard } from "../admin/RoomCard";
-import { MenuReservas } from './MenuReservas';
-import { HabitacionContext } from '../../context/HabitacionContext';
-
-
+import { MenuReservas } from "./MenuReservas";
+import { HabitacionContext } from "../../context/HabitacionContext";
+import Header from "./Header";
+import { Link } from "react-router-dom";
 
 export const Reservaciones = () => {
-    const {reservas}=useContext(HabitacionContext);
+  const { reservas } = useContext(HabitacionContext);
+  const [filtro, setFiltro] = useState("all");
+
+  return (
+    <>
+      
+      
+        <Header imgUrl={"/img/logo2linea.svg"} />
     
-    return (
-        <>
-            <Header />
-            <Box
-                display="flex"
-                flexDirection="column"
-                alignItems="center"
-                padding="20px"
-                minHeight="100vh"
-                bg='#CEC9C9'
-            >
-                {/* Componente del Título y Botón Volver */}
-                <Flex
-                    flexDirection="row"
-                    justifyContent="space-between"
-                    alignItems="center"
-                    width="100%"
-                    maxWidth="398px"
-                    padding="0px 10px 0px 16px"
-                    marginBottom="20px"
-                    bg="#CEC9C9"
-                >
-                     
-                    
-                    {/* Botón Volver */}
-                    <Flex
-                        alignItems="center"
-                        width="24px"
-                        height="24px"
-                        cursor="pointer"
-                    >
-                        <ArrowBackIcon color="#091E49" />
-                    </Flex>
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        padding="20px"
+        minHeight="100vh"
+        bg="#CEC9C9"
+      >
+        {/* Componente del Título y Botón Volver */}
+        <Flex
+          flexDirection="row"
+          justifyContent="space-between"
+          alignItems="center"
+          width="100%"
+          maxWidth="398px"
+          padding="0px 10px 0px 16px"
+          marginBottom="20px"
+          bg="#CEC9C9"
+        >
+          {/* Botón Volver */}
+          <Flex alignItems="center" width="24px" height="24px" cursor="pointer">
+            <Link to={'/admin/home'}>
+            <ArrowBackIcon color="primary.500" />
+            </Link>
+          </Flex>
 
-                    {/* Título Reservas */}
-                    <Heading
-                        width="127px"
-                        height="36px"
-                        fontFamily="Poppins"
-                        fontWeight="400"
-                        fontSize="28px"
-                        lineHeight="36px"
-                        color="#091E49"
-                    >
-                        Reservas
-                    </Heading>
-                </Flex>
-                <Box
-                     
-                     >
-                       <Image src="/img/ModalDatePicker.png" alt="calendar" width="395px" height="344px"  />
-                    </Box>
-                {/* Menú */}
-                <MenuReservas/>
+          {/* Título Reservas */}
+          <Heading
+            width="127px"
+            height="36px"
+            fontFamily="Poppins"
+            fontWeight="400"
+            fontSize="28px"
+            lineHeight="36px"
+            color="#091E49"
+          >
+            Reservas
+          </Heading>
+        </Flex>
+        <Box>
+          <Image
+            src="/img/ModalDatePicker.png"
+            alt="calendar"
+            width="395px"
+            height="344px"
+          />
+        </Box>
+        {/* Menú */}
+        <MenuReservas setFiltro={setFiltro} />
 
-           {/* Card de Reservas */}
-                
-                 {reservas.map((reserva)=>
-                     <RoomCard key={reserva.id} {... reserva} />
+        {/* Card de Reservas */}
+        {filtro != "all"
+          ? reservas
+              .filter((reserva) => reserva.status === filtro)
+              .map((reserva) => <RoomCard key={reserva.id} {...reserva} />)
+          : reservas.map((reserva) => (
+              <RoomCard key={reserva.id} {...reserva} />
+            ))}
 
-                 )}       
-
-            <FooterAdmin />
-            </Box>
-
-            
-        </>
-    );
+        <FooterAdmin />
+      </Box>
+    </>
+  );
 };
-
-

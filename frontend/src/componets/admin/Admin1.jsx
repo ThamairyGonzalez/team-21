@@ -17,6 +17,7 @@ import { HabitacionContext } from "../../context/HabitacionContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Footer } from "../footer/Footer";
+import Header from "./Header";
 
 export const Admin1 = () => {
   const { rooms, imgRooms } = useContext(HabitacionContext);
@@ -31,12 +32,8 @@ export const Admin1 = () => {
   return (
     <>
       {/* Contenido Principal */}
-      <Box bg="primary.500" p={4} borderRadius="lg" mb={4}>
-        <Flex align="center" ml={15} h="100px">
-          <Link to="/">
-            <Img src={imgUrl} alt="logo" width={"250px"} />
-          </Link>
-        </Flex>
+       <Header imgUrl={imgUrl}/>
+      <Box bg="primary.500" p={4} mb={4}>
         {/* Título de Habitaciones */}
         <Heading
           as="h2"

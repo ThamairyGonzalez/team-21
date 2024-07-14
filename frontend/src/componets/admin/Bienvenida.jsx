@@ -15,6 +15,7 @@ import {
 import { Footer } from "../footer/Footer";
 import { FaBed, FaCalendarAlt, FaConciergeBell, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Header from "./Header";
 
 
 export const Bienvenida = () => {
@@ -28,15 +29,8 @@ export const Bienvenida = () => {
         backgroundPosition="center"
         position="relative"
       >
-        <Flex
-          p={20}
-          justifyContent={"center"}
-          w={"100%"}
-          h={"50px"}
-          bg="primary.500"
-        >
-          <Image src="/icons/LogoAdmin.svg" alt="Oceano Hotel" h="30px" />
-        </Flex>
+        <Header imgUrl={'/img/logo2linea.svg'}/>
+        
         <Text
           fontSize="2xl"
           fontWeight="bold"
