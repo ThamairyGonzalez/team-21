@@ -15,6 +15,8 @@ import { useParams } from 'react-router-dom';
 
 export const Admin2 = () => {
   const { id } = useParams();
+  
+
   return (
     <>
       <Header />

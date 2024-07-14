@@ -83,7 +83,7 @@ export const HabitacionCard = ({ hab, imagen }) => {
                 <Link to={`/nuevo/}`}>
                   <Icon as={FaPlusCircle} w={6} h={6} color={"primary.500"} />
                 </Link>
-                <Link to={`/admin/habitacion/${hab.id}`}>
+                <Link to={`/admin/habitacion/${hab}`}>
                   <Icon as={FaEdit} w={6} h={6} />
                 </Link>
                 <Link to={`/eliminar/${hab.id}`}>

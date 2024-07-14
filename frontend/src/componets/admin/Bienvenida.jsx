@@ -15,6 +15,7 @@ import {
 import { Footer } from "../footer/Footer";
 import { FaBed, FaCalendarAlt, FaConciergeBell, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Header from "./Header";
 
 
 export const Bienvenida = () => {
@@ -28,15 +29,8 @@ export const Bienvenida = () => {
         backgroundPosition="center"
         position="relative"
       >
-        <Flex
-          p={20}
-          justifyContent={"center"}
-          w={"100%"}
-          h={"50px"}
-          bg="primary.500"
-        >
-          <Image src="/icons/LogoAdmin.svg" alt="Oceano Hotel" h="30px" />
-        </Flex>
+        <Header imgUrl={'/img/logo2linea.svg'}/>
+        
         <Text
           fontSize="2xl"
           fontWeight="bold"
@@ -59,10 +53,10 @@ export const Bienvenida = () => {
         >
           <SimpleGrid columns={2} spacing={4} width="100%">
             {[
-              { icon: FaBed, text: "Habitaciones" },
-              { icon: FaCalendarAlt, text: "Reservas" },
-              { icon: FaConciergeBell, text: "Servicios" },
-              { icon: FaUser, text: "Perfil" },
+              { icon: FaBed, text: "Habitaciones" ,url:'habitacion'},
+              { icon: FaCalendarAlt, text: "Reservas" ,url:'reservaciones'},
+              { icon: FaConciergeBell, text: "Servicios",url:'servicios' },
+              { icon: FaUser, text: "Perfil",url:'perfil' },
             ].map((item, index) => (
               <Button
                 key={index}
@@ -75,7 +69,7 @@ export const Bienvenida = () => {
                 borderRadius="xl"
                 _hover={{ bg: "blue.700" }}
               >
-                <Link to={"/admin/habitacion"}> {item.text}</Link>
+                <Link to={`/admin/${item.url}`}> {item.text}</Link>
               </Button>
             ))}
           </SimpleGrid>

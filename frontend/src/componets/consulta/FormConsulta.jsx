@@ -29,7 +29,21 @@ import axios from "axios";
 import { HabitacionContext } from "../../context/HabitacionContext";
 
 export const FormConsulta = () => {
- const {rooms} = useContext(HabitacionContext);
+  const { rooms } = useContext(HabitacionContext);
+  const servicios = [
+    {
+      id: "c0fee526-1cf7-4aac-994f-148e6648e957",
+      title: "Piscina",
+      description: "Una espaciosa piscina climatizada",
+      price: "10000.00",
+    },
+    {
+      id: "4a634447-0b29-4a1c-b05e-823b623306df",
+      title: "buffet",
+      description: "gran variedad de platos",
+      price: "10000.00",
+    },
+  ];
 
   const validateForm = (values) => {
     const errors = {};
@@ -57,55 +71,64 @@ export const FormConsulta = () => {
     try {
       const formattedData = {
         client: {
-          is_company: values.tipoReserva === 'empresa',
+          is_company: values.tipoReserva === "empresa",
           email: values.email,
           phone: values.telefono,
           zip_code: "0000", // No tenemos este campo en el formulario original
-          individual: values.tipoReserva === 'individual' ? {
-            first_name: values.nombre,
-            last_name: values.apellido,
-          } :{
-            first_name: values.nombre,
-            last_name: values.apellido,
-          },
-          company: values.tipoReserva === 'empresa' ? {
-            name: values.razonSocial,
-            manager: "Virili Omar", // No tenemos este campo en el formulario original
-            address: "Antonio", // No tenemos este campo en el formulario original
-          } : null,
+          individual:
+            values.tipoReserva === "individual"
+              ? {
+                  first_name: values.nombre,
+                  last_name: values.apellido,
+                }
+              : {
+                  first_name: values.nombre,
+                  last_name: values.apellido,
+                },
+          company:
+            values.tipoReserva === "empresa"
+              ? {
+                  name: values.razonSocial,
+                  manager: "Virili Omar", // No tenemos este campo en el formulario original
+                  address: "Antonio", // No tenemos este campo en el formulario original
+                }
+              : null,
         },
         start_date: values.fechaIng,
         end_date: values.fechaSalida,
         people: 9, // Asumiendo que nroNoche es el número de personas
         payment_method: "s", // No tenemos este campo en el formulario original
         status: "A",
-        room_types: values.habitaciones.map(hab => ({
-         room_type_id: hab.tipo,     
+        room_types: values.habitaciones.map((hab) => ({
+          room_type_id: hab.tipo,
           quantity: parseInt(hab.cantidad),
         })),
-        
+        services: values.servicioAdicional.map((ser) => ({
+          "service_id": ser.id,
+          quantity: parseInt(ser.value),
+        })),
       };
-      console.log('Datos enviados:', JSON.stringify(formattedData, null, 2));
+      console.log("Datos enviados:", JSON.stringify(formattedData, null, 2));
 
       const response = await axios.post(
-        'https://hotel-oceano.onrender.com/api-quotation/quotation/', 
+        "https://hotel-oceano.onrender.com/api-quotation/quotation/",
         formattedData,
         {
           headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          }
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
         }
       );
-      console.log('Respuesta del servidor:', response.data);
+      console.log("Respuesta del servidor:", response.data);
       // Aquí puedes manejar la respuesta exitosa, por ejemplo, mostrar un mensaje al usuario
     } catch (error) {
-      console.error('Error al enviar el formulario:', error);
+      console.error("Error al enviar el formulario:", error);
       // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje de error al usuario
     }
     setSubmitting(false);
   };
-  
+
   return (
     <Center bg="secondary.200" paddingTop={"10px"}>
       <Formik
@@ -339,7 +362,7 @@ export const FormConsulta = () => {
                             fontWeight={900}
                             onClick={() => push({ tipo: "", cantidad: 1 })}
                             textDecor={"none"}
-                            cursor={'pointer'}
+                            cursor={"pointer"}
                           >
                             Agregar Habitación
                             <PlusSquareIcon ml={15} />
@@ -365,21 +388,16 @@ export const FormConsulta = () => {
                       }
                     >
                       <HStack spacing={5}>
-                        <Checkbox
-                          value="Desayuno incluido"
-                          borderColor={"primary.400"}
-                        >
-                          Desayuno incluido
-                        </Checkbox>
-                        <Checkbox value="Traslado" borderColor={"primary.400"}>
-                          Traslado
-                        </Checkbox>
-                        <Checkbox
-                          value="Acceso a sala de reuniones"
-                          borderColor={"primary.400"}
-                        >
-                          Acceso a sala de reuniones
-                        </Checkbox>
+                        {servicios.map((servicio) => (
+                          <Field key={servicio.id} name="serviciosSeleccionados">
+                          {({ field }) => (
+                            <Checkbox {...field} value={servicio.id}>
+                              {`${servicio.title} - $${servicio.price}`}
+                            </Checkbox>
+                          )}
+                        </Field>
+                      ))}
+                       
                       </HStack>
                     </CheckboxGroup>
                   </FormControl>

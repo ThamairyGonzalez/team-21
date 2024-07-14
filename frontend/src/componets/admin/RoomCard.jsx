@@ -1,9 +1,33 @@
 import { Box, Image, Text, Grid, GridItem, Input } from '@chakra-ui/react';
 import StatusText from "./StatusText";
 
-export const RoomCard = () => {
-  const estado="porconfirmar"
-    return (
+
+import { formatDate } from '../../assets/formatDate.js';
+import { useEffect, useState } from 'react';
+
+
+export const RoomCard = ({status, id,check_in_date,check_out_date,room_id,client_id,created,updated}) => {
+  const [roomNumber, setRoomNumber] = useState('');
+  useEffect(() => {
+    const fetchRoomNumber = async () => {
+      try {
+        const response = await fetch(`https://hotel-oceano.onrender.com/api-room/room/${room_id}`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setRoomNumber(data.number);
+      } catch (error) {
+        console.error('Error fetching room number:', error);
+      }
+    };
+  
+    if (status === 'A' && room_id) {
+      fetchRoomNumber();
+    }
+  }, [status, room_id]);
+
+  return (
         <Box
             flexDirection="column"
             alignItems="center"
@@ -26,22 +50,19 @@ export const RoomCard = () => {
       <Box ml="4">
         <Box display="flex">
           {/* Título tipo de habitación */}
-
+         
           <Box mr="4">
             <Text fontSize="12px" fontWeight="bold" color="text.gris"> Tipo de habitación </Text>
             {/* Nombre del cliente */}
             <Text fontSize="14px" color="text.verydark"> Cliente </Text>
           </Box>
-
-          {/* codigo de reserva y su valor se muestra cuando el estado es confirmado */}
-          {(estado=="confirmado")&&
-           
+          {/* Código de reserva */}
+          {status=='A'&& 
           <Box>
             <Text fontSize="12px" color="text.gris" fontWeight="bold">Cod Reserva</Text>
-            <Text fontSize="14px" color="text.verydark"> 1234</Text>
+            <Text fontSize="14px" color="text.verydark"> {id.slice(-6)}</Text>
           </Box>
           }
-
         </Box>
       
       </Box>
@@ -52,16 +73,16 @@ export const RoomCard = () => {
             
         <Box display="flex" alignItems="center" justifyContent="center">
           <Image src="/icons/inactive.png" alt="calendar inactive" width="24px" height="24px" marginRight="8px" />
-          <Text fontSize="14px" color="#91929E"> In: 20/04 Out: 22/04</Text>
+          <Text fontSize="14px" color="#91929E"> In: {formatDate(check_in_date)} Out: {formatDate(check_out_date)}</Text>
         </Box>
     
     {/* Grid para N° Habitación, Confirmado y Status */}
                  
           <Grid templateColumns="repeat(3, 1fr)" gap="10px" marginTop="16px">
-          {(estado=="confirmado")?
+          {(status=="A")?
                   <GridItem>
                       <Text fontSize="12px" fontWeight="bold" color="text.gris"> N° Habitación </Text>
-                      <Text fontSize="14px" color="text.verydark"> 305</Text>
+                      <Text fontSize="14px" color="text.verydark"> {roomNumber}</Text>
                   </GridItem>
        
                :
@@ -71,24 +92,24 @@ export const RoomCard = () => {
               </GridItem>
           }           
 
-            {(estado=="porconfirmar")?
+            {(status!="A")?
                  <GridItem>
                     <Text fontSize="12px" fontWeight="bold" color="text.gris"> Solicitado </Text>
-                    <Text fontSize="14px" color="text.verydark"> 10 de abril</Text>
+                    <Text fontSize="14px" color="text.verydark"> {formatDate(created)}</Text>
                     </GridItem>
                 : 
                 <GridItem>
                   <Text fontSize="12px" fontWeight="bold" color="text.gris">Confirmado</Text>
-                  <Text fontSize="14px" color="text.verydark"> 10 de abril</Text>
+                  <Text fontSize="14px" color="text.verydark"> {formatDate(updated)}</Text>
                 </GridItem>
             }     
 
                 <GridItem >
                   <Text fontSize="12px" fontWeight="bold" color="text.gris" align="center" >Status</Text>
                  
-                    {(estado === "confirmado") && <StatusText status="confirmado">Confirmado</StatusText>}
-                    {(estado === "cancelado") && <StatusText status="cancelado">Cancelado</StatusText>}
-                    {(estado === "porconfirmar") && <StatusText status="porConfirmar">Por Confirmar</StatusText>}
+                    {(status === "A") && <StatusText status="confirmado">Confirmado</StatusText>}
+                    {(status === "C") && <StatusText status="cancelado">Cancelado</StatusText>}
+                    {(status === "R") && <StatusText status="porConfirmar">Por Confirmar</StatusText>}
                  
                 </GridItem>
                 
