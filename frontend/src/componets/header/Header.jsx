@@ -21,7 +21,7 @@ import { SunIcon, MoonIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 
 export const Header = () => {
-  const { colorMode } = useColorMode();
+ 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const imgUrl = useBreakpointValue({base:"/img/logo2linea.svg", md: "/img/logo1linea.svg"})
 
@@ -34,7 +34,7 @@ export const Header = () => {
           justify="space-between"
           wrap="wrap"
           paddingRight="1.5rem"
-          bg={colorMode === "dark" ? "brand.light" : "brand.dark"}
+          bg="brand.light" 
           color={"secondary.500"}
         >
           <Flex align="center" ml={15} h="100px">
@@ -65,16 +65,16 @@ export const Header = () => {
             aria-label="Open Menu"
             display={{ sm: "none" }}
             onClick={onOpen}
-            color={colorMode === "dark" ? "secondary.500" : "text.dark"}
-            bg={colorMode === "dark" ? "brand.default" : "brand.dark"}
+            color="secondary.500"
+            bg="brand.default" 
           />
         </Flex>
 
         <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
           <DrawerOverlay />
           <DrawerContent
-            bg={colorMode === "dark" ? "brand.light" : "brand.dark"}
-            color={colorMode === "dark" ? "secondary.500" : "text.default"}
+            bg="brand.light"
+            color= "secondary.500" 
           >
             <DrawerCloseButton />
             <DrawerHeader>Menu</DrawerHeader>
@@ -107,16 +107,7 @@ export const Header = () => {
                 <Button>
                   <Link to={"/consulta"}>Reservar</Link>
                 </Button>
-                {/* <Box>
-                  <IconButton
-                    ml={4}
-                    aria-label="Toggle Color Mode"
-                    color={colorMode === "dark" ? "text.default" : "text.dark"}
-                    bg={"transparent"}
-                    icon={colorMode === "dark" ? <MoonIcon /> : <SunIcon />}
-                    onClick={toggleColorMode}
-                  />
-                </Box> */}
+               
               </VStack>
             </DrawerBody>
           </DrawerContent>

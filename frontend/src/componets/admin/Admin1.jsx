@@ -33,7 +33,7 @@ export const Admin1 = () => {
     <>
       {/* Contenido Principal */}
        <Header imgUrl={imgUrl}/>
-      <Box bg="primary.500" p={4} mb={4}>
+      <Box bg="primary.500" p={4} mb={4} >
         {/* Título de Habitaciones */}
         <Heading
           as="h2"
@@ -54,7 +54,9 @@ export const Admin1 = () => {
             <img src="/img/CardGrafica1.png" alt="Imagen 2" />
           </Box>
         </VStack>
-        <Center bg="varios.200" flexDirection={["column", "column", "row"]}>
+        <Center bg="varios.200" flexDirection={["column", "column", "row"]}
+        display={'flex'}
+         flexWrap={'wrap'}>
           {/* División con imágenes y botones de editar */}
           {rooms.map((hab) => {
             const imagenObj = imgRooms.find(

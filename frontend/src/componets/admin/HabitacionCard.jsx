@@ -8,10 +8,18 @@ import {
   HStack,
   Icon,
   Image,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Spacer,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
 import {
@@ -24,11 +32,40 @@ import {
   FaTrash,
   FaUser,
 } from "react-icons/fa";
+import axios from "axios";
+import { HabitacionContext } from "../../context/HabitacionContext";
 
 export const HabitacionCard = ({ hab, imagen }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isDeleting, setIsDeleting] = useState(false);
+  const {setUpdateRoom} = useContext(HabitacionContext);
+  const onDelete = async (id) => {
+    try {
+      await axios.delete(`https://hotel-oceano.onrender.com/api-room/roomtype/${id}`);
+      setUpdateRoom(true);
+      // setHabitaciones(habitaciones.filter(hab => hab.id !== id));
+    } catch (error) {
+      console.error('Error al eliminar la habitación:', error);
+    
+    }
+  };
+
+  const handleDelete = async () => {
+    setIsDeleting(true);
+    try {
+      await onDelete(hab.id);
+      onClose();
+    } catch (error) {
+      console.error("Error al eliminar la habitación:", error);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+  
+  
   return (
     <Center>
-      <Flex m={2}>
+      <Flex m={2} >
         <Center>
           <Box
             borderRadius="10px"
@@ -49,7 +86,7 @@ export const HabitacionCard = ({ hab, imagen }) => {
               />
             </Box>
 
-            <Box p={4}>
+            <Box p={4} w={'320px'}>
               <HStack spacing={5} mb={2}>
                 <Flex flexDir={"column"} alignItems={"center"}>
                   <Icon as={FaUser} color="primary.500" />
@@ -86,12 +123,44 @@ export const HabitacionCard = ({ hab, imagen }) => {
                 <Link to={`/admin/habitacion/${hab.id}`}>
                   <Icon as={FaEdit} w={6} h={6} />
                 </Link>
-                <Link to={`/eliminar/${hab.id}`}>
+                <Icon
+                  as={FaTrash}
+                  w={6}
+                  h={6}
+                  color="negative.500"
+                  cursor="pointer"
+                  onClick={onOpen}
+                />
+                {/* <Link to={`/eliminar/${hab.id}`}>
                   <Icon as={FaTrash} w={6} h={6} color="negative.500" />
-                </Link>
+                </Link> */}
               </HStack>
             </Box>
           </Box>
+          {/* Modal de confirmación */}
+          <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>Confirmar eliminación</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                ¿Estás seguro de que quieres eliminar esta habitación?
+              </ModalBody>
+
+              <ModalFooter>
+                <Button colorScheme="blue" mr={3} onClick={onClose}>
+                  Cancelar
+                </Button>
+                <Button
+                  colorScheme="red"
+                  onClick={handleDelete}
+                  isLoading={isDeleting}
+                >
+                  Eliminar
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
         </Center>
       </Flex>
     </Center>

@@ -1,11 +1,12 @@
 import { extendTheme } from "@chakra-ui/react";
 import { ButtonConfig } from "./ButtonConfig";
+import { InputCustom } from "./InputCustom"
 
 export const themeCustom = extendTheme({
-  config: {
-    initialColorMode: "dark",
-    useSystemColorMode: false,
-  },
+  // config: {
+  //   initialColorMode: "dark",
+  //   useSystemColorMode: false,
+  // },
 
   breakpoints: {
     base: "0em", // 0px
@@ -22,48 +23,18 @@ export const themeCustom = extendTheme({
       },
 
       "html, body": {
-        bg: props.colorMode === "dark" ? "brand.dark" : "brand.light",
-        color: props.colorMode === "dark" ? "text.default" : "black",
+        bg: "brand.dark",
+        color: "text.default",
         fontFamily: "Poppins,sans-serif",
       },
     }),
   },
   components: {
     Button: ButtonConfig,
-    Input: {
-    
-      baseStyle: {
-        field: {
-          fontSize: "1.2em",
-          color: "#040F24",
-          borderRadius: "5px",
-          fontWeight: 500,
-          _focus: {
-            border: "1px solid purple",
-          },
-          _hover: {
-            border: "1px solid purple",
-          },
-        },
-      },
-      variants: {
-        nuevo: {
-          field: {
-            fontSize: "1em",
-            color: "purple",
-            border: "1px solid black",
-            borderRadius: "15px",
-            fontWeight: 900,
-            _placeholder: {
-              color: 'blue.300',
-              fontStyle: 'italic',
-            },
-          },
-        },
-      },
-    },
+    Input: InputCustom,
+   
   },
-  
+
   semanticTokens: {
     colors: {
       primary: {
@@ -83,23 +54,25 @@ export const themeCustom = extendTheme({
         dark: "#8C65FF",
       },
 
-      fondo_admin:{
+      fondo_admin: {
         100: '#CEC9C9',
       },
-      varios:{
-        100:"#CEC9C9",
-        200:"#E2E2E2",
-        300:"#FFDE9D73"
-       
+      varios: {
+        100: "#CEC9C9",
+        200: "#E2E2E2",
+        300: "#FFDE9D73",
+        400:"#707070",
+        500:"#909090"
+
       },
-      negative:{
-        500:"#F2415A",
+      negative: {
+        500: "#F2415A",
       },
       text: {
         dark: "#FFFFFF",
         default: "black",
-        gris:"#91929E",
-        verydark:"#0A1629",
+        gris: "#91929E",
+        verydark: "#0A1629",
       },
       buttonText: {
         default: "#0C0AFF",

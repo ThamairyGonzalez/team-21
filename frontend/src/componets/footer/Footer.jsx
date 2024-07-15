@@ -18,7 +18,7 @@ import { MdEmail } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 export const Footer = () => {
-  const { colorMode } = useColorMode();
+  
   const imgUrl = useBreakpointValue({base:"/img/logo2linea.svg", md: "/img/logo1linea.svg"})
 
   return (
@@ -27,7 +27,7 @@ export const Footer = () => {
         <Img src={imgUrl} width={"250px"} />
       </Center>
       <Box
-        bg={colorMode === "dark" ? "brand.light" : "brand.dark"}
+        bg="brand.light" 
         color="white"
         py={8}
         px={4}

@@ -189,8 +189,7 @@ export const FormConsulta = () => {
                       {...field}
                       id="nombre"
                       placeholder="Nombre"
-                      _placeholder={{ color: "#909090" }}
-                      borderColor={"#707070"}
+                     
                     />
                     <FormErrorMessage>{form.errors.nombre}</FormErrorMessage>
                   </FormControl>
@@ -206,8 +205,7 @@ export const FormConsulta = () => {
                       {...field}
                       id="apellido"
                       placeholder="Apellido"
-                      _placeholder={{ color: "#909090" }}
-                      borderColor={"#707070"}
+                    
                     />
                     <FormErrorMessage>{form.errors.apellido}</FormErrorMessage>
                   </FormControl>
@@ -224,8 +222,7 @@ export const FormConsulta = () => {
                       id="email"
                       placeholder="Email"
                       type="email"
-                      _placeholder={{ color: "#909090" }}
-                      borderColor={"#707070"}
+                    
                     />
                     <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                   </FormControl>
@@ -241,8 +238,7 @@ export const FormConsulta = () => {
                       {...field}
                       id="telefono"
                       placeholder="Teléfono"
-                      _placeholder={{ color: "#909090" }}
-                      borderColor={"#707070"}
+                     
                     />
                     <FormErrorMessage>{form.errors.telefono}</FormErrorMessage>
                   </FormControl>
@@ -292,8 +288,7 @@ export const FormConsulta = () => {
                         {...field}
                         id="razonSocial"
                         placeholder="Razón Social"
-                        _placeholder={{ color: "#909090" }}
-                        borderColor={"#707070"}
+                        
                       />
                     </FormControl>
                   )}
@@ -310,9 +305,9 @@ export const FormConsulta = () => {
                       id="fechaIng"
                       placeholder="Fecha de Ingreso"
                       type="date"
-                      color="#909090"
-                      _placeholder={{ color: "#909090" }}
-                      borderColor={"#707070"}
+                    
+                    
+                     
                       onChange={(e) => {
                         form.setFieldValue('fechaIng', e.target.value);
                         const noches = calcularNoches(e.form.values, form.values.fechaSalida);
@@ -336,8 +331,8 @@ export const FormConsulta = () => {
                       id="fechaSalida"
                       placeholder="Fecha de Salida"
                       type="date"
-                      color="#909090"
-                      borderColor={"#707070"}
+                     
+                    
                       onChange={(e) => {
                         form.setFieldValue('fechaSalida', e.target.value);
                         const noches = calcularNoches(form.values.fechaIng, e.target.value);
@@ -356,7 +351,7 @@ export const FormConsulta = () => {
                     isInvalid={form.errors.nroNoche && form.touched.nroNoche}
                   >
                     <FormLabel htmlFor="nroNoche">Número de Noches</FormLabel>
-                    <NumberInput min={1} borderColor={"#707070"} value={field.value || ''}>
+                    <NumberInput min={1} value={field.value || ''}>
                       <NumberInputField {...field} id="nroNoche" readOnly />
                     </NumberInput>
                     <FormErrorMessage>{form.errors.nroNoche}</FormErrorMessage>
@@ -443,8 +438,7 @@ export const FormConsulta = () => {
                       {...field}
                       id="observacion"
                       placeholder="Observación"
-                      _placeholder={{ color: "#909090" }}
-                      borderColor={"#707070"}
+                    
                     />
                   </FormControl>
                 )}

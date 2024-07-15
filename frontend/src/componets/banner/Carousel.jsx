@@ -50,7 +50,7 @@ export const Carousel = ({ slides }) => {
           <Text fontSize="3xl" fontWeight="bold" mb={4}>
             {slides[currentSlide].title}
           </Text>
-          <Button variant={"solid"} padding={"0 40px"} width={"40%"}>
+          <Button variant={"filled"} padding={"0 40px"} width={"40%"}>
             <Link to="/consulta">{slides[currentSlide].buttonText}</Link>
           </Button>
         </Box>

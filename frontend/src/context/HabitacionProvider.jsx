@@ -6,7 +6,7 @@ export const HabitacionProvider = ({ children }) => {
   const [rooms, setRooms] = useState([]);
   const [imgRooms, setImgRooms] = useState([]);
   const [reservas,setReservas] = useState([])
-
+  const [updateRoom, setUpdateRoom]=useState(false)
   const [error, setError] = useState(null);
   const [cargando, setCargando] = useState(true);
 
@@ -27,7 +27,7 @@ export const HabitacionProvider = ({ children }) => {
     };
 
     obtenerDatos();
-  }, []); // Asegúrate de que el array de dependencias esté vacío
+  }, [updateRoom]); // Asegúrate de que el array de dependencias esté vacío
 //recupeacion de informacion de reservaciones para las card
 useEffect(()=>{
   const obtenerReservas= async()=>{
@@ -49,7 +49,7 @@ useEffect(()=>{
 
 
   return (
-    <HabitacionContext.Provider value={{ rooms ,imgRooms, reservas}}>
+    <HabitacionContext.Provider value={{ rooms ,imgRooms, reservas,setUpdateRoom}}>
       {children}
     </HabitacionContext.Provider>
   );

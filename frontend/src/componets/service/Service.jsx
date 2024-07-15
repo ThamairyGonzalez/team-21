@@ -64,7 +64,7 @@ export const Service = () => {
       ))}
 
       <Center width="100%">
-        <Button mb={2} variant={"solid"} marginBottom={4}>
+        <Button mb={2} variant={"filled"} marginBottom={4}>
           <Link to={"/consulta"}>RESERVA CON NOSOTROS</Link>
         </Button>
       </Center>
