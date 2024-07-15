@@ -20,6 +20,7 @@ import { ProtectedRoute } from "./componets/security/ProtectedRoute.jsx";
 import { AdminLayout } from "./componets/admin/Layout/AdminLayout.jsx";
 import { HabitacionProvider } from "./context/HabitacionProvider.jsx";
 import { MenuReservas } from "./componets/admin/MenuReservas.jsx";
+import { NuevaHabitacion } from "./componets/admin/NuevaHabitacion.jsx";
 
 
 const router = createBrowserRouter([
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
       {
         path: "habitacion/:id",
         element: <Admin2 />,
+      },
+      {
+        path: "nueva",
+        element: <NuevaHabitacion />,
       },
       {
         path: "reservaciones",

@@ -1,82 +1,57 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 import { Footer } from "../footer/Footer";
-import { 
-  Box, 
-  Button, 
-  FormControl, 
-  FormLabel, 
-  Input, 
-  NumberInput, 
-  NumberInputField, 
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  NumberInput,
+  NumberInputField,
   Checkbox,
-  VStack 
-} from '@chakra-ui/react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import Header from './Header';
+  VStack,
+  useBreakpointValue,
+  Flex,
+} from "@chakra-ui/react";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
+import Header from "./Header";
+import { ArrowBackIcon } from "@chakra-ui/icons";
 
-export const Admin2 = () => {
+export const NuevaHabitacion = () => {
+  const imgUrl = useBreakpointValue({
+    base: "/img/logo2linea.svg",
+    md: "/img/logo1linea.svg",
+  });
   const { id } = useParams();
-  const [csrfToken, setCsrfToken] = useState('');
+  const [csrfToken, setCsrfToken] = useState("");
 
   const [formData, setFormData] = useState({
-    type: '',
-    description: '',
+    type: "Queen",
+    description: "",
     capacity: 0,
-    beds: '',
+    beds: "",
     surface: 0,
     safe_deposit_box: false,
     air_conditioner: false,
-    price: ''
+    price: "",
   });
-
-  useEffect(() => {
- 
-    const fetchRoomData = async () => {
-      try {
-        const response = await fetch(`https://hotel-oceano.onrender.com/api-room/roomtype/${id}`);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        setFormData(data);
-      } catch (error) {
-        console.error('Error fetching room data:', error);
-      }
-    };
-  
-    fetchRoomData();
-  }, [id]);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prevData => ({
+    setFormData((prevData) => ({
       ...prevData,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
   const handleNumberInputChange = (name, value) => {
-    setFormData(prevData => ({
+    setFormData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: value,
     }));
   };
-  useEffect(() => {
-    const fetchCSRFToken = async () => {
-      try {
-        const response = await axios.get('https://hotel-oceano.onrender.com/get-csrf-token/');
-        axios.defaults.headers.common['X-CSRFTOKEN'] = response.data.csrfToken;
-      } catch (error) {
-        console.error('Error al obtener el token CSRF:', error);
-      }
-    };
-  
-    fetchCSRFToken();
-  }, []);
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -88,31 +63,48 @@ export const Admin2 = () => {
         // price: Number(formData.price),
       };
       delete datosAEnviar.id;
-  
-      console.log("Estructura por enviar:", JSON.stringify(datosAEnviar, null, 2))
 
-      const response = await axios.put(`https://hotel-oceano.onrender.com/api-room/roomtype/${id}`,
-        datosAEnviar,{
-          headers: {
-            'accept': 'application/json',
-            'Content-Type': 'application/json',
-            'X-CSRFTOKEN': csrfToken
-          }
-        });
-       
-        
-      console.log('Data updated successfully:', response.data);
+      console.log(
+        "Estructura por enviar:",
+        JSON.stringify(datosAEnviar, null, 2)
+      );
+
+      const response = await axios.post(`https://hotel-oceano.onrender.com/api-room/roomtype/`,
+        datosAEnviar,
+        // {
+        //   headers: {
+        //     accept: "application/json",
+        //     "Content-Type": "application/json",
+        //      "X-CSRFTOKEN": "iGIXa23ixcFa9r3rzxH9FCaYdRNo9GBIj0CS1KHyexXHQ4QLRll4FrPpCWs5BRw9",
+        //   },
+        // }
+      );
+
+      console.log("Data updated successfully:", response.data);
       // You might want to show a success message to the user here
     } catch (error) {
-      console.error('Error updating data:', error);
+      console.error("Error updating data:", error);
       // You might want to show an error message to the user here
     }
   };
 
   return (
     <>
-     <Header />
-      <Box p={4} maxW="sm" mx="auto" borderWidth="1px" borderRadius="lg" bg="#FFDE9D73" >
+      <Header imgUrl={imgUrl} />
+
+      <Box
+        p={4}
+        maxW="sm"
+        mx="auto"
+        borderWidth="1px"
+        borderRadius="lg"
+        bg="varios.300"
+      >
+        <Flex alignItems="center" width="24px" height="24px" cursor="pointer">
+          <Link to={"/admin/habitacion"}>
+            <ArrowBackIcon color="primary.500" />
+          </Link>
+        </Flex>
         <form onSubmit={handleSubmit}>
           <VStack spacing={4}>
             <FormControl>
@@ -141,7 +133,7 @@ export const Admin2 = () => {
                 min={0}
                 max={32767}
                 value={formData.capacity}
-                onChange={(value) => handleNumberInputChange('capacity', value)}
+                onChange={(value) => handleNumberInputChange("capacity", value)}
               >
                 <NumberInputField />
               </NumberInput>
@@ -163,7 +155,7 @@ export const Admin2 = () => {
                 min={0}
                 max={32767}
                 value={formData.surface}
-                onChange={(value) => handleNumberInputChange('surface', value)}
+                onChange={(value) => handleNumberInputChange("surface", value)}
               >
                 <NumberInputField />
               </NumberInput>
@@ -199,7 +191,9 @@ export const Admin2 = () => {
               />
             </FormControl>
 
-            <Button type="submit" variant={'filled'}>Guardar</Button>
+            <Button type="submit" variant={"filled"}>
+              Guardar
+            </Button>
           </VStack>
         </form>
       </Box>
@@ -210,15 +204,15 @@ export const Admin2 = () => {
 // import React, { useEffect, useState } from 'react';
 // import { Header } from "../header/Header";
 // import { Footer } from "../footer/Footer";
-// import { 
-//   Box, 
-//   Button, 
-//   FormControl, 
-//   FormLabel, 
-//   Input, 
-//   NumberInput, 
-//   NumberInputField, 
-//   VStack 
+// import {
+//   Box,
+//   Button,
+//   FormControl,
+//   FormLabel,
+//   Input,
+//   NumberInput,
+//   NumberInputField,
+//   VStack
 // } from '@chakra-ui/react';
 // import { useParams } from 'react-router-dom';
 // import axios from 'axios';
@@ -247,7 +241,7 @@ export const Admin2 = () => {
 //         console.error('Error fetching room number:', error);
 //       }
 //     };
-  
+
 //     fetchRoomNumber();
 //   }, [id]);
 
@@ -255,7 +249,7 @@ export const Admin2 = () => {
 //     e.preventDefault();
 //     try {
 //       const response = await axios.put(`https://hotel-oceano.onrender.com/api-room/roomtype/${id}`, {
-        
+
 //         price: parseFloat(precio),
 //         capacity: parseInt(capacidad),
 //         type: tipo,
@@ -277,11 +271,11 @@ export const Admin2 = () => {
 //           <FormControl id="titulo">
 //             <FormLabel>TIPO DE HABITACION</FormLabel>
 //           </FormControl>
-          
+
 //           <FormControl id="imagen">
 //             <FormLabel>Cargar Imagen</FormLabel>
-//             <Input 
-//               type="text" 
+//             <Input
+//               type="text"
 //               placeholder="URL de la imagen"
 //               value={imagen}
 //               onChange={(e) => setImagen(e.target.value)}
@@ -322,8 +316,8 @@ export const Admin2 = () => {
 //           <FormControl id="precio">
 //             <FormLabel fontFamily="Inter" fontSize="14px">Precio:</FormLabel>
 //             <NumberInput min={0} precision={2} value={precio} onChange={(valueString) => setPrecio(valueString)}>
-//               <NumberInputField 
-//                 placeholder="Establece un precio" 
+//               <NumberInputField
+//                 placeholder="Establece un precio"
 //                 bg="#FFFFFF"
 //                 border="1px solid #E2E2E2"
 //                 fontSize="14px"
@@ -346,8 +340,8 @@ export const Admin2 = () => {
 //           <FormControl id="capacidad">
 //             <FormLabel fontFamily="Inter" fontSize="14px">Capacidad:</FormLabel>
 //             <NumberInput min={0} value={capacidad} onChange={(valueString) => setCapacidad(valueString)}>
-//               <NumberInputField 
-//                 placeholder="1" 
+//               <NumberInputField
+//                 placeholder="1"
 //                 bg="#FFFFFF"
 //                 border="1px solid #E2E2E2"
 //                 fontSize="14px"
@@ -365,7 +359,7 @@ export const Admin2 = () => {
 
 //           <FormControl id="type">
 //             <FormLabel fontFamily="Inter" fontSize="14px">Tipo:</FormLabel>
-//             <Input 
+//             <Input
 //               value={tipo}
 //               onChange={(e) => setTipo(e.target.value)}
 //               bg="#FFFFFF"
@@ -379,7 +373,7 @@ export const Admin2 = () => {
 //               borderRight="0"
 //               borderBottom="0"
 //               borderLeft="0"
-//               placeholder="3" 
+//               placeholder="3"
 //             />
 //           </FormControl>
 
