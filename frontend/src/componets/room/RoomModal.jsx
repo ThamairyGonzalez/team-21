@@ -6,7 +6,6 @@ import {
   ModalHeader,
   ModalBody,
   ModalCloseButton,
-  useDisclosure,
   Image,
   VStack,
   Text,
@@ -14,37 +13,30 @@ import {
   Icon,
   Box,
   Flex,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { FaUser, FaBed, FaRulerCombined, FaSnowflake } from "react-icons/fa";
 import { ArrowDownIcon, ArrowUpIcon } from "@chakra-ui/icons";
-import { FaPlus } from "react-icons/fa6";
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export const RoomModal = ({ name, img, service, isOpen, onClose, onOpen }) => {
+export const RoomModal = ({ name, img, service, isOpen, onClose }) => {
   const [show, setShow] = useState(false);
+  const modalSize = useBreakpointValue({ base: "full", md: "2xl", lg: "4xl" });
   return (
     <>
-      <Button 
-      onClick={onOpen} 
-      variant={"outline"} 
-      leftIcon={<FaPlus />}
-      borderColor={'primary.500'}
-      color={'primary.500'}
-      >
-        Ver más
-      </Button>
-
-      <Modal isOpen={isOpen} onClose={onClose} size="full">
-        <ModalOverlay />
+     
+      <Modal isOpen={isOpen} onClose={onClose} size={modalSize}>
+        <ModalOverlay  />
         <ModalContent>
           <ModalHeader bg="brand.light" color="white" minH={"50px"}>
-            <Image src="/img/logo.png" />
+            <Image src="/img/logo2linea.svg" />
           </ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton color='secondary.500'/>
           <ModalBody p={0} color={"black"} bg={"white"}>
             <VStack align="stretch" spacing={4}>
-              <Text fontSize="2xl" fontWeight="bold" p={4}>
+              <Text fontSize="2xl" fontWeight="bold" p={4} display={"inline-block"} marginTop={3} >
                 {name}
               </Text>
               <Image

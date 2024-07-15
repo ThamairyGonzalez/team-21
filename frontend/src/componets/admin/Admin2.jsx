@@ -11,8 +11,10 @@ import {
   NumberInputField, 
   VStack 
 } from '@chakra-ui/react';
+import { useParams } from 'react-router-dom';
 
 export const Admin2 = () => {
+  const { id } = useParams();
   return (
     <>
       <Header />
@@ -35,7 +37,7 @@ export const Admin2 = () => {
             <Input
               placeholder="ROOM ID"
               bg="#FFFFFF"
-              border="1px solid #E2E2E2"
+              border="1px solid varios.200"
               fontSize="14px"
               width="365px"
               height="40px"
@@ -45,7 +47,7 @@ export const Admin2 = () => {
               borderRight="0"
               borderBottom="0"
               borderLeft="0"
-              
+              value={id}
             />
           </FormControl>
 

@@ -13,6 +13,7 @@ import {
   Img,
   Text,
   VStack,
+  useBreakpointValue,
   useColorMode,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -20,11 +21,12 @@ import { SunIcon, MoonIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 
 export const Header = () => {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const imgUrl = useBreakpointValue({base:"/img/logo2linea.svg", md: "/img/logo1linea.svg"})
 
   return (
-    <Box >
+    <Box>
       <Box>
         <Flex
           as="nav"
@@ -33,11 +35,11 @@ export const Header = () => {
           wrap="wrap"
           paddingRight="1.5rem"
           bg={colorMode === "dark" ? "brand.light" : "brand.dark"}
-          color={'secondary.500'}
+          color={"secondary.500"}
         >
-          <Flex align="center" ml={15} h='100px'>
+          <Flex align="center" ml={15} h="100px">
             <Link to="/">
-              <Img src="/img/Logo.svg" alt="logo" w="250px" />
+              <Img src={imgUrl} alt="logo" width={"250px"} />
             </Link>
           </Flex>
 
@@ -78,15 +80,27 @@ export const Header = () => {
             <DrawerHeader>Menu</DrawerHeader>
 
             <DrawerBody>
-              <VStack spacing={4} alignItems={'left'} >
-                <Box borderLeft={"2px solid"} borderColor={" secondary.200"} pl={25}>
-                  <Link to={"/nosotros"}  >Sobre Nosotros</Link>
+              <VStack spacing={4} alignItems={"left"}>
+                <Box
+                  borderLeft={"2px solid"}
+                  borderColor={" secondary.200"}
+                  pl={25}
+                >
+                  <Link to={"/nosotros"}>Sobre Nosotros</Link>
                 </Box>
-                <Box borderLeft={"2px solid"} borderColor={" secondary.200"}pl={25}>
+                <Box
+                  borderLeft={"2px solid"}
+                  borderColor={" secondary.200"}
+                  pl={25}
+                >
                   <Link to={"/room"}>Habitaciones</Link>
                 </Box>
-               
-                <Box borderLeft={"2px solid"} borderColor={" secondary.200"}pl={25}>
+
+                <Box
+                  borderLeft={"2px solid"}
+                  borderColor={" secondary.200"}
+                  pl={25}
+                >
                   <Link to={"/interes"}>Sitios de Interes</Link>
                 </Box>
 
