@@ -36,7 +36,7 @@ export const HabitacionCard = ({ hab, imagen }) => {
             justifyContent={"space-between"}
             border="5px"
             // overflow="hidden"
-
+            flexWrap={'wrap'}
             bg="white"
             p={2}
           >
@@ -80,10 +80,10 @@ export const HabitacionCard = ({ hab, imagen }) => {
               <HStack mt="4" spacing={4}></HStack>
 
               <HStack mt="4" spacing={4}>
-                <Link to={`/nuevo/}`}>
+                <Link to={`/admin/nueva/`}>
                   <Icon as={FaPlusCircle} w={6} h={6} color={"primary.500"} />
                 </Link>
-                <Link to={`/admin/habitacion/${hab}`}>
+                <Link to={`/admin/habitacion/${hab.id}`}>
                   <Icon as={FaEdit} w={6} h={6} />
                 </Link>
                 <Link to={`/eliminar/${hab.id}`}>

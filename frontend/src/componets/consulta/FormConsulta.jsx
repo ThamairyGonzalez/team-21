@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Formik, Form, Field, FieldArray } from "formik";
 import {
   Box,
@@ -22,6 +22,13 @@ import {
   Link,
   Icon,
   IconButton,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
 } from "@chakra-ui/react";
 import HabitacionField from "./HabitacionField";
 import { MinusIcon, PlusSquareIcon } from "@chakra-ui/icons";
@@ -29,23 +36,31 @@ import axios from "axios";
 import { HabitacionContext } from "../../context/HabitacionContext";
 
 export const FormConsulta = () => {
+
   const { rooms } = useContext(HabitacionContext);
-  const servicios = [
-    {
-      id: "c0fee526-1cf7-4aac-994f-148e6648e957",
-      title: "Piscina",
-      description: "Una espaciosa piscina climatizada",
-      price: "10000.00",
-    },
-    {
-      id: "4a634447-0b29-4a1c-b05e-823b623306df",
-      title: "buffet",
-      description: "gran variedad de platos",
-      price: "10000.00",
-    },
-  ];
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [submissionStatus, setSubmissionStatus] = useState(null);
+  const [servicios, setServicios]= useState([])
+
+  useEffect(()=>{
+    const obtenerServicio=async()=>{
+     try{
+      const res = await axios.get('https://hotel-oceano.onrender.com/api-reservation/service/')
+     
+      setServicios(res.data);
+
+    }catch(error){
+      console.log(error)
+    } 
+    }
+    obtenerServicio()
+  },[])
+
+ 
+
 
   const validateForm = (values) => {
+
     const errors = {};
     if (!values.nombre) errors.nombre = "Nombre es requerido";
     if (!values.apellido) errors.apellido = "Apellido es requerido";
@@ -75,24 +90,21 @@ export const FormConsulta = () => {
           email: values.email,
           phone: values.telefono,
           zip_code: "0000", // No tenemos este campo en el formulario original
-          individual:
-            values.tipoReserva === "individual"
-              ? {
-                  first_name: values.nombre,
-                  last_name: values.apellido,
-                }
-              : {
-                  first_name: values.nombre,
-                  last_name: values.apellido,
-                },
-          company:
-            values.tipoReserva === "empresa"
-              ? {
+          ...(values.tipoReserva === "empresa"
+            ? {
+                company: {
                   name: values.razonSocial,
-                  manager: "Virili Omar", // No tenemos este campo en el formulario original
-                  address: "Antonio", // No tenemos este campo en el formulario original
+                  manager: `${values.nombre} ${values.apellido}`,
+                  address: "Sin Dato",
                 }
-              : null,
+              }
+            : {
+                individual: {
+                  first_name: values.nombre,
+                  last_name: values.apellido,
+                }
+              }
+          )
         },
         start_date: values.fechaIng,
         end_date: values.fechaSalida,
@@ -103,12 +115,10 @@ export const FormConsulta = () => {
           room_type_id: hab.tipo,
           quantity: parseInt(hab.cantidad),
         })),
-        services: values.servicioAdicional.map((ser) => ({
-          "service_id": ser.id,
-          quantity: parseInt(ser.value),
-        })),
+        services: values.servicioAdicional,
       };
-      console.log("Datos enviados:", JSON.stringify(formattedData, null, 2));
+
+      // console.log("Datos enviados:", JSON.stringify(formattedData, null, 2));
 
       const response = await axios.post(
         "https://hotel-oceano.onrender.com/api-quotation/quotation/",
@@ -120,15 +130,26 @@ export const FormConsulta = () => {
           },
         }
       );
-      console.log("Respuesta del servidor:", response.data);
+    
       // Aquí puedes manejar la respuesta exitosa, por ejemplo, mostrar un mensaje al usuario
+      setSubmissionStatus('success');
+      onOpen(); // 
     } catch (error) {
       console.error("Error al enviar el formulario:", error);
       // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+      setSubmissionStatus('error');
+      onOpen(); 
     }
     setSubmitting(false);
   };
-
+  //funcion para calcular las noches 
+  const calcularNoches = (fechaIngreso, fechaSalida) => {
+    if (!fechaIngreso || !fechaSalida) return '';
+    const ingreso = new Date(fechaIngreso);
+    const salida = new Date(fechaSalida);
+    const diferencia = salida.getTime() - ingreso.getTime();
+    return Math.ceil(diferencia / (1000 * 3600 * 24));
+  };
   return (
     <Center bg="secondary.200" paddingTop={"10px"}>
       <Formik
@@ -163,7 +184,7 @@ export const FormConsulta = () => {
                   <FormControl
                     isInvalid={form.errors.nombre && form.touched.nombre}
                   >
-                    <FormLabel htmlFor="nombre">Nombre</FormLabel>
+                    <FormLabel htmlFor="nombre">Nombre <Text display={'inline-block'}color={'red'}>*</Text></FormLabel>
                     <Input
                       {...field}
                       id="nombre"
@@ -175,13 +196,12 @@ export const FormConsulta = () => {
                   </FormControl>
                 )}
               </Field>
-
               <Field name="apellido">
                 {({ field, form }) => (
                   <FormControl
                     isInvalid={form.errors.apellido && form.touched.apellido}
                   >
-                    <FormLabel htmlFor="apellido">Apellido</FormLabel>
+                    <FormLabel htmlFor="apellido">Apellido <Text display={'inline-block'}color={'red'}>*</Text></FormLabel>
                     <Input
                       {...field}
                       id="apellido"
@@ -193,13 +213,12 @@ export const FormConsulta = () => {
                   </FormControl>
                 )}
               </Field>
-
               <Field name="email">
                 {({ field, form }) => (
                   <FormControl
                     isInvalid={form.errors.email && form.touched.email}
                   >
-                    <FormLabel htmlFor="email">Email</FormLabel>
+                    <FormLabel htmlFor="email">Email <Text display={'inline-block'}color={'red'}>*</Text></FormLabel>
                     <Input
                       {...field}
                       id="email"
@@ -212,13 +231,12 @@ export const FormConsulta = () => {
                   </FormControl>
                 )}
               </Field>
-
               <Field name="telefono">
                 {({ field, form }) => (
                   <FormControl
                     isInvalid={form.errors.telefono && form.touched.telefono}
                   >
-                    <FormLabel htmlFor="telefono">Teléfono</FormLabel>
+                    <FormLabel htmlFor="telefono">Teléfono <Text display={'inline-block'}color={'red'}>*</Text></FormLabel>
                     <Input
                       {...field}
                       id="telefono"
@@ -230,7 +248,6 @@ export const FormConsulta = () => {
                   </FormControl>
                 )}
               </Field>
-
               <Field name="tipoReserva">
                 {({ field, form }) => (
                   <FormControl
@@ -238,7 +255,7 @@ export const FormConsulta = () => {
                       form.errors.tipoReserva && form.touched.tipoReserva
                     }
                   >
-                    <FormLabel htmlFor="tipoReserva">Tipo de Reserva</FormLabel>
+                    <FormLabel htmlFor="tipoReserva">Tipo de Reserva <Text display={'inline-block'}color={'red'}>*</Text></FormLabel>
                     <RadioGroup
                       {...field}
                       id="tipoReserva"
@@ -270,7 +287,7 @@ export const FormConsulta = () => {
                 <Field name="razonSocial">
                   {({ field, form }) => (
                     <FormControl>
-                      <FormLabel htmlFor="razonSocial">Razón Social</FormLabel>
+                      <FormLabel htmlFor="razonSocial">Razón Social <Text display={'inline-block'}color={'red'}>*</Text></FormLabel>
                       <Input
                         {...field}
                         id="razonSocial"
@@ -287,7 +304,7 @@ export const FormConsulta = () => {
                   <FormControl
                     isInvalid={form.errors.fechaIng && form.touched.fechaIng}
                   >
-                    <FormLabel htmlFor="fechaIng">Fecha de Ingreso</FormLabel>
+                    <FormLabel htmlFor="fechaIng">Fecha de Ingreso <Text display={'inline-block'}color={'red'}>*</Text></FormLabel>
                     <Input
                       {...field}
                       id="fechaIng"
@@ -296,12 +313,16 @@ export const FormConsulta = () => {
                       color="#909090"
                       _placeholder={{ color: "#909090" }}
                       borderColor={"#707070"}
+                      onChange={(e) => {
+                        form.setFieldValue('fechaIng', e.target.value);
+                        const noches = calcularNoches(e.form.values, form.values.fechaSalida);
+                        form.setFieldValue('nroNoche', noches);
+                      }}
                     />
                     <FormErrorMessage>{form.errors.fechaIng}</FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
-
               <Field name="fechaSalida">
                 {({ field, form }) => (
                   <FormControl
@@ -309,7 +330,7 @@ export const FormConsulta = () => {
                       form.errors.fechaSalida && form.touched.fechaSalida
                     }
                   >
-                    <FormLabel htmlFor="fechaSalida">Fecha de Salida</FormLabel>
+                    <FormLabel htmlFor="fechaSalida">Fecha de Salida <Text display={'inline-block'}color={'red'}>*</Text></FormLabel>
                     <Input
                       {...field}
                       id="fechaSalida"
@@ -317,6 +338,11 @@ export const FormConsulta = () => {
                       type="date"
                       color="#909090"
                       borderColor={"#707070"}
+                      onChange={(e) => {
+                        form.setFieldValue('fechaSalida', e.target.value);
+                        const noches = calcularNoches(form.values.fechaIng, e.target.value);
+                        form.setFieldValue('nroNoche', noches);
+                      }}
                     />
                     <FormErrorMessage>
                       {form.errors.fechaSalida}
@@ -324,21 +350,19 @@ export const FormConsulta = () => {
                   </FormControl>
                 )}
               </Field>
-
               <Field name="nroNoche">
                 {({ field, form }) => (
                   <FormControl
                     isInvalid={form.errors.nroNoche && form.touched.nroNoche}
                   >
                     <FormLabel htmlFor="nroNoche">Número de Noches</FormLabel>
-                    <NumberInput min={1} borderColor={"#707070"}>
-                      <NumberInputField {...field} id="nroNoche" />
+                    <NumberInput min={1} borderColor={"#707070"} value={field.value || ''}>
+                      <NumberInputField {...field} id="nroNoche" readOnly />
                     </NumberInput>
                     <FormErrorMessage>{form.errors.nroNoche}</FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
-
               <Field name="habitaciones">
                 {({ form }) => (
                   <FormControl>
@@ -373,33 +397,40 @@ export const FormConsulta = () => {
                   </FormControl>
                 )}
               </Field>
-
+              jsxCopy
               <Field name="servicioAdicional">
                 {({ field, form }) => (
                   <FormControl>
                     <FormLabel htmlFor="servicioAdicional">
                       Servicio Adicional
                     </FormLabel>
-                    <CheckboxGroup
-                      {...field}
-                      id="servicioAdicional"
-                      onChange={(value) =>
-                        form.setFieldValue("servicioAdicional", value)
-                      }
-                    >
-                      <HStack spacing={5}>
-                        {servicios.map((servicio) => (
-                          <Field key={servicio.id} name="serviciosSeleccionados">
-                          {({ field }) => (
-                            <Checkbox {...field} value={servicio.id}>
-                              {`${servicio.title} - $${servicio.price}`}
-                            </Checkbox>
+                    <VStack align="start" spacing={2}>
+                      {servicios.map((servicio) => (
+                        <Checkbox
+                          key={servicio.id}
+                          onChange={(e) => {
+                            const updatedServicios = e.target.checked
+                              ? [
+                                  ...form.values.servicioAdicional,
+                                  { service_id: servicio.id, quantity: 1 },
+                                ]
+                              : form.values.servicioAdicional.filter(
+                                  (s) => s.service_id !== servicio.id
+                                );
+                            form.setFieldValue(
+                              "servicioAdicional",
+                              updatedServicios
+                            );
+                          }}
+                          isChecked={form.values.servicioAdicional.some(
+                            (s) => s.service_id === servicio.id
                           )}
-                        </Field>
+                          borderColor={"primary.400"}
+                        >
+                          {servicio.title}
+                        </Checkbox>
                       ))}
-                       
-                      </HStack>
-                    </CheckboxGroup>
+                    </VStack>
                   </FormControl>
                 )}
               </Field>
@@ -418,7 +449,6 @@ export const FormConsulta = () => {
                   </FormControl>
                 )}
               </Field>
-
               <Button
                 m={4}
                 variant={"filled"}
@@ -428,6 +458,29 @@ export const FormConsulta = () => {
                 Pedir Presupuesto
               </Button>
             </VStack>
+            <Modal isOpen={isOpen} onClose={onClose}>
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>
+                  {submissionStatus === 'success' ? 'Éxito' : 'Error'}
+                </ModalHeader>
+                <ModalBody>
+                  {submissionStatus === 'success'
+                    ? 'Tu solicitud de presupuesto ha sido enviada con éxito.'
+                    : 'Hubo un error al enviar tu solicitud. Por favor, intenta de nuevo.'}
+                </ModalBody>
+                <ModalFooter>
+                  <Button colorScheme="blue" mr={3} onClick={() => {
+                    onClose();
+                    if (submissionStatus === 'success') {
+                      props.resetForm();
+                    }
+                  }}>
+                    Cerrar
+                  </Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
           </Form>
         )}
       </Formik>
