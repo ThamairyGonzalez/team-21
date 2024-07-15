@@ -18,7 +18,7 @@ const statusStyles = {
   },
 };
 
-const StatusText = ({ status, children, onAccept, onCancel }) => {
+const StatusText = ({ status, children, onAccept, onCancel, mostrarIconos = true }) => {
   const styles = statusStyles[status] || {};
 
   return (
@@ -51,7 +51,7 @@ const StatusText = ({ status, children, onAccept, onCancel }) => {
         {children}
       </Text>
      
-      {status === "porConfirmar" && (
+      {status === "porConfirmar" && mostrarIconos && (
         <Box
           sx={{
             position: "relative",
