@@ -25,7 +25,7 @@ export const StatusText = ({ status, children, mostrarIconos = true }) => {
 
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
-
+  console.log(children)
   const openConfirmModal = () => {
     setIsConfirmModalOpen(true);
   };

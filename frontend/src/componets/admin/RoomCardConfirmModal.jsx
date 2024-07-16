@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -13,51 +13,93 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalCloseButton
- 
+  ModalCloseButton,
+  Select
+
 } from '@chakra-ui/react';
-import {StatusText} from './StatusText';
+import { StatusText } from './StatusText';
+import axios from 'axios';
+import { formatDate } from '../../assets/formatDate';
 
 
 export const RoomCardConfirmModal = ({ isOpen, onClose, estado }) => {
-  
+  const URL_BASE = 'https://hotel-oceano.onrender.com'
+  const [rooms, setRooms] = useState([])
+  const [room, setRoom] = useState([])
+  const [selectedRoomId, setSelectedRoomId] = useState(''); // Nuevo estado para el ID de la habitación seleccionada
+
+  useEffect(() => {
+    // Cargar las habitaciones cuando el modal se abra
+    if (isOpen) {
+      getRooms();
+    }
+  }, [isOpen]);
+
+  //para obtener todas las habitaciones y cargar el select
+  const getRooms = async () => {
+    try {
+      const response = await axios.get('https://hotel-oceano.onrender.com/api-room/room/');
+      setRooms(response.data);
+    } catch (error) {
+      console.log("Se genero error al obtener las room");
+    }
+  }
+  //al elegir la habitacion obtengo el resto de valores
+  const handlRoom =(e)=>{
+    setSelectedRoomId(e.target.value)
+    const room = rooms.find(r => r.id === e.target.value);
+    getRoomType(room.room_type_id); 
+    //console.log(room);
+  }
+ //para el tipo de habitacion especifico segun la seleccion
+ const getRoomType = async (id) => {
+  try {
+    const response = await axios.get(`${URL_BASE}/api-room/roomtype/${id}`);
+    setRoom(response.data)
+    // console.log("data de roomtype")
+    // console.log(response.data)
+
+  } catch (error) {
+    console.log("Se genero error al obtener las room type");
+  }
+}
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent bg="#FFFFFF">
         <ModalHeader>
-        <Box display="flex" flexDirection="column" alignItems="center" mb="10px">
-                <Image src="/icons/check2.png" alt="icon" width="66px" height="66px" />
-            </Box>
+          <Box display="flex" flexDirection="column" alignItems="center" mb="10px">
+            <Image src="/icons/check2.png" alt="icon" width="66px" height="66px" />
+          </Box>
         </ModalHeader>
         <Box width="100%" display="flex" flexDirection="column" alignItems="center" mb="20px" position="relative">
-                <Image src="/img/habconfirmar.png" alt="banner" width="100%" height="85px" />
-                <Heading
-                    position="absolute"
-                    top="50%"
-                    left="50%"
-                    transform="translate(-50%, -50%)"
-                    width="100%"
-                    height="40px"
-                    background="rgba(255, 234, 194, 0.35)"
-                    boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
-                    backdropFilter="blur(2px)"
-                    textAlign="center"
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    padding="0px"
-                    zIndex="5"
-                    textColor="#0B265B"
-                    size="32px"
-                >
-                    Confirmación
-                </Heading>
-            </Box>
+          <Image src="/img/habconfirmar.png" alt="banner" width="100%" height="85px" />
+          <Heading
+            position="absolute"
+            top="50%"
+            left="50%"
+            transform="translate(-50%, -50%)"
+            width="100%"
+            height="40px"
+            background="rgba(255, 234, 194, 0.35)"
+            boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+            backdropFilter="blur(2px)"
+            textAlign="center"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            padding="0px"
+            zIndex="5"
+            textColor="#0B265B"
+            size="32px"
+          >
+            Confirmación
+          </Heading>
+        </Box>
         <ModalCloseButton />
         <ModalBody>
-        
+
 
           <Box
             flexDirection="column"
@@ -78,7 +120,7 @@ export const RoomCardConfirmModal = ({ isOpen, onClose, estado }) => {
                       Tipo de habitación
                     </Text>
                     <Text fontSize="14px" color="text.verydark">
-                      Cliente
+                     {room.type}
                     </Text>
                   </Box>
                   {estado === 'porConfirmar' && (
@@ -102,7 +144,7 @@ export const RoomCardConfirmModal = ({ isOpen, onClose, estado }) => {
                 marginRight="8px"
               />
               <Text fontSize="14px" color="#91929E">
-                In: 20/04 Out: 22/04
+                In:  {formatDate(date_in)} Out: {formatDate(date_out)}
               </Text>
             </Box>
 
@@ -111,7 +153,19 @@ export const RoomCardConfirmModal = ({ isOpen, onClose, estado }) => {
                 <Text fontSize="12px" fontWeight="bold" color="text.gris">
                   N° Habitación
                 </Text>
-                <Input fontSize="14px" color="text.verydark" defaultValue="---------" />
+                <Select
+                  value={selectedRoomId}
+                  onChange={(e) => handlRoom(e)}
+                  fontSize="14px"
+                  color="text.verydark"
+                >
+                  <option value="">Seleccione una habitación</option>
+                  {rooms.map((room) => (
+                    <option key={room.id} value={room.id}>
+                      {room.number}
+                    </option>
+                  ))}
+                </Select>
               </GridItem>
               <GridItem>
                 <Text fontSize="12px" fontWeight="bold" color="text.gris">
@@ -158,14 +212,14 @@ export const RoomCardConfirmModal = ({ isOpen, onClose, estado }) => {
               />
             </Box>
           </Box>
-          <Button mt="24px" 
-          
-          colorScheme="blue" width="100%" backgroundColor="#FFDE9D">
-                Confirmar
-            </Button>
+          <Button mt="24px"
+            onClick={() => { console.log('Habitación seleccionada:', selectedRoomId); }}
+            colorScheme="blue" width="100%" backgroundColor="#FFDE9D">
+            Confirmar
+          </Button>
         </ModalBody>
       </ModalContent>
-     
+
     </Modal>
   );
 };
