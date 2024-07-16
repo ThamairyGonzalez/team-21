@@ -25,8 +25,6 @@ import { Link } from "react-router-dom";
 import {
   FaBed,
   FaEdit,
-  FaNewspaper,
-  FaPlusCircle,
   FaRulerCombined,
   FaSnowflake,
   FaTrash,
@@ -34,19 +32,22 @@ import {
 } from "react-icons/fa";
 import axios from "axios";
 import { HabitacionContext } from "../../context/HabitacionContext";
+import { Login } from "./Login";
+import { BiBox } from "react-icons/bi";
 
 export const HabitacionCard = ({ hab, imagen }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isDeleting, setIsDeleting] = useState(false);
-  const {setUpdateRoom} = useContext(HabitacionContext);
+  const { setUpdateRoom } = useContext(HabitacionContext);
   const onDelete = async (id) => {
     try {
-      await axios.delete(`https://hotel-oceano.onrender.com/api-room/roomtype/${id}`);
+      await axios.delete(
+        `https://hotel-oceano.onrender.com/api-room/roomtype/${id}`
+      );
       setUpdateRoom(true);
       // setHabitaciones(habitaciones.filter(hab => hab.id !== id));
     } catch (error) {
-      console.error('Error al eliminar la habitación:', error);
-    
+      console.error("Error al eliminar la habitación:", error);
     }
   };
 
@@ -61,11 +62,10 @@ export const HabitacionCard = ({ hab, imagen }) => {
       setIsDeleting(false);
     }
   };
-  
-  
+
   return (
     <Center>
-      <Flex m={2} >
+      <Flex m={2}>
         <Center>
           <Box
             borderRadius="10px"
@@ -73,11 +73,11 @@ export const HabitacionCard = ({ hab, imagen }) => {
             justifyContent={"space-between"}
             border="5px"
             // overflow="hidden"
-            flexWrap={'wrap'}
+            flexWrap={"wrap"}
             bg="white"
             p={2}
           >
-            <Box>
+            <Box display={"flex"} justifyContent={"center"}>
               <Image
                 src={imagen}
                 alt={hab.description}
@@ -86,7 +86,7 @@ export const HabitacionCard = ({ hab, imagen }) => {
               />
             </Box>
 
-            <Box p={4} w={'320px'}>
+            <Box p={4} w={"320px"}>
               <HStack spacing={5} mb={2}>
                 <Flex flexDir={"column"} alignItems={"center"}>
                   <Icon as={FaUser} color="primary.500" />
@@ -100,7 +100,18 @@ export const HabitacionCard = ({ hab, imagen }) => {
                   <Icon as={FaRulerCombined} color="primary.500" />
                   <Text fontSize="sm">{hab.surface} m²</Text>
                 </Flex>
-                <Icon as={FaSnowflake} color="primary.500" />
+                {hab.air_conditioner && (
+                  <Flex flexDir={"column"} alignItems={"center"}>
+                    <Icon as={FaSnowflake} color="primary.500" />
+                    <Text>Air</Text>
+                  </Flex>
+                )}
+                {hab.safe_deposit_box && (
+                  <Flex flexDir={"column"} alignItems={"center"}>
+                    <Icon as={BiBox} color="primary.500" />
+                    <Text>Caja</Text>
+                  </Flex>
+                )}
               </HStack>
 
               <Text fontWeight="bold" fontSize="xl" mb={2}>
@@ -108,7 +119,18 @@ export const HabitacionCard = ({ hab, imagen }) => {
               </Text>
 
               <HStack flexDir={"column"}>
-                <Badge color="primary.500">ID: {hab.id}</Badge>
+                {/* <Badge color="primary.500">ID: {hab.id}</Badge> */}
+                <Text
+                  as={"h3"}
+                  textAlign={"center"}
+                  fontSize={"2em"}
+                  color={"text.verydark"}
+                  bg={'secondary.200'}
+                  p={'0px 15px'}
+                  borderRadius={'20px'}
+                >
+                  {hab.type}
+                </Text>
                 <Spacer />
                 <Text color="primary.500" fontWeight="semibold">
                   Precio: ${hab.price}
@@ -117,16 +139,15 @@ export const HabitacionCard = ({ hab, imagen }) => {
               <HStack mt="4" spacing={4}></HStack>
 
               <HStack mt="4" spacing={4}>
-                <Link to={`/admin/nueva/`}>
-                  <Icon as={FaPlusCircle} w={6} h={6} color={"primary.500"} />
-                </Link>
                 <Link to={`/admin/habitacion/${hab.id}`}>
-                  <Icon as={FaEdit} w={6} h={6} />
+                  <Icon 
+                  as={FaEdit} w={6} h={6}
+                  color="secondary.600" />
                 </Link>
                 <Icon
                   as={FaTrash}
-                  w={6}
-                  h={6}
+                  w={5}
+                  h={5}
                   color="negative.500"
                   cursor="pointer"
                   onClick={onOpen}

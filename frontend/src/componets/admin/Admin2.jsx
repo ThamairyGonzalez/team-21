@@ -96,7 +96,7 @@ export const Admin2 = () => {
           headers: {
             'accept': 'application/json',
             'Content-Type': 'application/json',
-            'X-CSRFTOKEN': csrfToken
+            // 'X-CSRFTOKEN': csrfToken
           }
         });
        
