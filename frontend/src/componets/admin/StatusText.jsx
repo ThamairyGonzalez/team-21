@@ -1,5 +1,7 @@
 
-import { Text, Box, Image } from "@chakra-ui/react";
+import { Text, Box, Image, useDisclosure } from "@chakra-ui/react";
+import {ConfirmationModal} from './ConfirmationModal';
+import {CancellationModal} from './CancellationModal';
 
 const statusStyles = {
   cancelado: {
@@ -18,8 +20,12 @@ const statusStyles = {
   },
 };
 
-const StatusText = ({ status, children, onAccept, onCancel, mostrarIconos = true }) => {
+export const StatusText = ({ status, children, onAccept, onCancel, mostrarIconos = true }) => {
+  const { isOpen: isConfirmOpen, onOpen: onConfirmOpen, onClose: onConfirmClose } = useDisclosure();
+  const { isOpen: isCancelOpen, onOpen: onCancelOpen, onClose: onCancelClose } = useDisclosure();
+
   const styles = statusStyles[status] || {};
+
 
   return (
     <Box
@@ -64,16 +70,21 @@ const StatusText = ({ status, children, onAccept, onCancel, mostrarIconos = true
           }}
         >
           
-          <Box onClick={onAccept} cursor="pointer" boxSize={22}>
+          <Box 
+          onClick={onConfirmOpen} 
+          cursor="pointer" 
+          boxSize={22}>
             <Image src={"/icons/check.png"} />
           </Box>
-          <Box onClick={onCancel} cursor="pointer" boxSize={22} marginTop="8px"> {/* Ajuste de margen entre las imágenes */}
+          <Box onClick={onCancelOpen} cursor="pointer" boxSize={22} marginTop="8px"> {/* Ajuste de margen entre las imágenes */}
             <Image src={"/icons/cancel.png"} />
           </Box>
         </Box>
       )}
+       <ConfirmationModal isOpen={isConfirmOpen} onClose={onConfirmClose} onAccept={onAccept} />
+      <CancellationModal isOpen={isCancelOpen} onClose={onCancelClose} onCancel={onCancel} />
+    
     </Box>
   );
 };
 
-export default StatusText;

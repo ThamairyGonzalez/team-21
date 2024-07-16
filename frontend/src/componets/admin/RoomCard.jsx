@@ -1,22 +1,29 @@
 import { Box, Image, Text, Grid, GridItem, Input } from '@chakra-ui/react';
-import StatusText from "./StatusText";
+import {StatusText} from "./StatusText";
 
 
 import { formatDate } from '../../assets/formatDate.js';
 import { useEffect, useState } from 'react';
 
 
-export const RoomCard = ({status, id,check_in_date,check_out_date,room_id,client_id,created,updated}) => {
+export const RoomCard = ({status,id,check_in_date,check_out_date,room_id,client_id,created,updated}) => {
+  const BASE_URL = 'https://hotel-oceano.onrender.com'; 
   const [roomNumber, setRoomNumber] = useState('');
+  const [roomType, setRoomType] = useState('');
   useEffect(() => {
     const fetchRoomNumber = async () => {
       try {
-        const response = await fetch(`https://hotel-oceano.onrender.com/api-room/room/${room_id}`);
+        const response = await fetch(`${BASE_URL}/api-room/room/${room_id}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
         setRoomNumber(data.number);
+        const res = await fetch(`${BASE_URL}/api-room/roomtype/${data.room_type_id}`);
+        const roomTypeId = await res.json();
+        setRoomType(roomTypeId.type)
+        
+        
       } catch (error) {
         console.error('Error fetching room number:', error);
       }
@@ -54,7 +61,7 @@ export const RoomCard = ({status, id,check_in_date,check_out_date,room_id,client
           <Box mr="4">
             <Text fontSize="12px" fontWeight="bold" color="text.gris"> Tipo de habitación </Text>
             {/* Nombre del cliente */}
-            <Text fontSize="14px" color="text.verydark"> Cliente </Text>
+            <Text fontSize="14px" color="text.verydark">{roomType}  </Text>
           </Box>
           {/* Código de reserva */}
           {status=='A'&& 
@@ -108,8 +115,11 @@ export const RoomCard = ({status, id,check_in_date,check_out_date,room_id,client
                   <Text fontSize="12px" fontWeight="bold" color="text.gris" align="center" >Status</Text>
                  
                     {(status === "A") && <StatusText status="confirmado">Confirmado</StatusText>}
-                    {(status === "C") && <StatusText status="cancelado">Cancelado</StatusText>}
-                    {(status === "R") && <StatusText status="porConfirmar">Por Confirmar</StatusText>}
+                    {(status === "C") && <StatusText status="cancelado"
+                    >Cancelado</StatusText>}
+                    {(status === "R") && <StatusText status="porConfirmar" 
+                   onAccept={()=>alert("aceptado")} onCancel={()=>alert("cancelado")}
+                    >Por Confirmar</StatusText>}
                  
                 </GridItem>
                 

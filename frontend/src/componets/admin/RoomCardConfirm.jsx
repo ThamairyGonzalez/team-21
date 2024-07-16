@@ -1,5 +1,5 @@
 import { Box, Image, Text, Grid, GridItem, Input } from '@chakra-ui/react';
-import StatusText from "./StatusText";
+import {StatusText} from "./StatusText";
 
 export const RoomCardConfirm = () => {
   const estado="porconfirmar"
