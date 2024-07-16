@@ -1,5 +1,7 @@
-
+import React, { useState } from 'react';
 import { Text, Box, Image } from "@chakra-ui/react";
+import {RoomCardConfirmModal} from './RoomCardConfirmModal';
+import {RoomCardCancelModal} from './RoomCardCancelModal';
 
 const statusStyles = {
   cancelado: {
@@ -18,61 +20,82 @@ const statusStyles = {
   },
 };
 
-const StatusText = ({ status, children, onAccept, onCancel, mostrarIconos = true }) => {
+const StatusText = ({ status, children, mostrarIconos = true }) => {
   const styles = statusStyles[status] || {};
 
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
+
+  const openConfirmModal = () => {
+    setIsConfirmModalOpen(true);
+  };
+
+  const closeConfirmModal = () => {
+    setIsConfirmModalOpen(false);
+  };
+
+  const openCancelModal = () => {
+    setIsCancelModalOpen(true);
+  };
+
+  const closeCancelModal = () => {
+    setIsCancelModalOpen(false);
+  };
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "8px",
-        
-      }}
-    >
-      <Text
+    <>
+      <Box
         sx={{
-          width: "91px",
-          height: "30px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          flex: "none",
-          order: "1",
-          flexGrow: "0",
-          fontSize: "12px",
-          ...styles,
-          overflow: "hidden",
-          borderRadius: "8px",
-          
+          gap: "8px",
         }}
       >
-        {children}
-      </Text>
-     
-      {status === "porConfirmar" && mostrarIconos && (
-        <Box
+        <Text
           sx={{
-            position: "relative",
-            right: "0",
-            top: "100%",
+            width: "91px",
+            height: "30px",
             display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-end",
-            
+            alignItems: "center",
+            justifyContent: "center",
+            flex: "none",
+            order: "1",
+            flexGrow: "0",
+            fontSize: "12px",
+            ...styles,
+            overflow: "hidden",
+            borderRadius: "8px",
           }}
         >
-          
-          <Box onClick={onAccept} cursor="pointer" boxSize={22}>
-            <Image src="icons/check.png" />
+          {children}
+        </Text>
+
+        {status === "porConfirmar" && mostrarIconos && (
+          <Box
+            sx={{
+              position: "relative",
+              right: "0",
+              top: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-end",
+            }}
+          >
+            <Box onClick={openConfirmModal} cursor="pointer" boxSize={22}>
+              <Image src="icons/check.png" alt="check" />
+            </Box>
+            <Box onClick={openCancelModal} cursor="pointer" boxSize={22} marginTop="8px">
+              <Image src="icons/cancel.png" alt="cancel" />
+            </Box>
           </Box>
-          <Box onClick={onCancel} cursor="pointer" boxSize={22} marginTop="8px"> {/* Ajuste de margen entre las imágenes */}
-            <Image src="icons/cancel.png" />
-          </Box>
-        </Box>
-      )}
-    </Box>
+        )}
+      </Box>
+
+      {/* Modales */}
+      <RoomCardConfirmModal isOpen={isConfirmModalOpen} onClose={closeConfirmModal} estado={status} />
+      <RoomCardCancelModal isOpen={isCancelModalOpen} onClose={closeCancelModal} estado={status}/>
+    </>
   );
 };
 
