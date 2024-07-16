@@ -15,8 +15,7 @@ import { Bienvenida } from "./componets/admin/Bienvenida.jsx";
 
 import { Service } from "./componets/service/Service.jsx";
 import { Reservaciones } from "./componets/admin/Reservaciones.jsx";
-import { ModalConfirm } from "./componets/admin/ModalConfirm.jsx";
-import { ModalCancel } from "./componets/admin/ModalCancel.jsx";
+
 import { UsuarioProvider } from "./context/UsuarioProvider.jsx";
 import { ProtectedRoute } from "./componets/security/ProtectedRoute.jsx";
 import { AdminLayout } from "./componets/admin/Layout/AdminLayout.jsx";
@@ -80,13 +79,10 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path:'/confirmacion',
-    element:<ModalConfirm/>,
-  },
-  {
-    path:'/cancelar',
-    element:<ModalCancel/>,
-  },
+    path:'reservaciones',
+   element:<Reservaciones/>,
+   },
+   
   {
     path:'/admin/home',
     element:<Bienvenida/>,
