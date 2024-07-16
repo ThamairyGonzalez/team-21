@@ -14,6 +14,15 @@ import {
   useBreakpointValue,
   Flex,
 } from "@chakra-ui/react";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Header from "./Header";
@@ -69,8 +78,9 @@ export const NuevaHabitacion = () => {
         JSON.stringify(datosAEnviar, null, 2)
       );
 
-      const response = await axios.post(`https://hotel-oceano.onrender.com/api-room/roomtype/`,
-        datosAEnviar,
+      const response = await axios.post(
+        `https://hotel-oceano.onrender.com/api-room/roomtype/`,
+        datosAEnviar
         // {
         //   headers: {
         //     accept: "application/json",
@@ -87,6 +97,32 @@ export const NuevaHabitacion = () => {
       // You might want to show an error message to the user here
     }
   };
+
+  function ModalGuardar() {
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    return (
+      <>
+        <Button onClick={onOpen}>Open Modal</Button>
+  
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Modal Title</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Lorem count={2} />
+            </ModalBody>
+  
+            <ModalFooter>
+              <Button colorScheme='blue' mr={3} onClick={onClose}>
+                Close
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </>
+    )
+  }
 
   return (
     <>
@@ -191,7 +227,7 @@ export const NuevaHabitacion = () => {
               />
             </FormControl>
 
-            <Button type="submit" variant={"filled"}>
+            <Button type="submit" variant={"filled"} onClick={"ModalGuardar"} >
               Guardar
             </Button>
           </VStack>
