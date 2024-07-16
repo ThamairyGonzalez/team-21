@@ -117,8 +117,7 @@ export const RoomCard = ({status,id,check_in_date,check_out_date,room_id,client_
                     {(status === "A") && <StatusText status="confirmado">Confirmado</StatusText>}
                     {(status === "C") && <StatusText status="cancelado"
                     >Cancelado</StatusText>}
-                    {(status === "R") && <StatusText status="porConfirmar" 
-                   onAccept={()=>alert("aceptado")} onCancel={()=>alert("cancelado")}
+                    {(status === "R") && <StatusText status="porConfirmar"                  
                     >Por Confirmar</StatusText>}
                  
                 </GridItem>

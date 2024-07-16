@@ -20,7 +20,7 @@ const statusStyles = {
   },
 };
 
-const StatusText = ({ status, children, mostrarIconos = true }) => {
+export const StatusText = ({ status, children, mostrarIconos = true }) => {
   const styles = statusStyles[status] || {};
 
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
@@ -83,10 +83,10 @@ const StatusText = ({ status, children, mostrarIconos = true }) => {
             }}
           >
             <Box onClick={openConfirmModal} cursor="pointer" boxSize={22}>
-              <Image src="icons/check.png" alt="check" />
+              <Image src="/icons/check.png" alt="check" />
             </Box>
             <Box onClick={openCancelModal} cursor="pointer" boxSize={22} marginTop="8px">
-              <Image src="icons/cancel.png" alt="cancel" />
+              <Image src={'/icons/cancel.png'} alt="cancel" />
             </Box>
           </Box>
         )}

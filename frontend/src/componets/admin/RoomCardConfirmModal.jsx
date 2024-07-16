@@ -16,7 +16,7 @@ import {
   ModalCloseButton
  
 } from '@chakra-ui/react';
-import StatusText from './StatusText';
+import {StatusText} from './StatusText';
 
 
 export const RoomCardConfirmModal = ({ isOpen, onClose, estado }) => {
@@ -158,7 +158,9 @@ export const RoomCardConfirmModal = ({ isOpen, onClose, estado }) => {
               />
             </Box>
           </Box>
-          <Button mt="24px" colorScheme="blue" width="100%" backgroundColor="#FFDE9D">
+          <Button mt="24px" 
+          
+          colorScheme="blue" width="100%" backgroundColor="#FFDE9D">
                 Confirmar
             </Button>
         </ModalBody>
