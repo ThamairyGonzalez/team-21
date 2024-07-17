@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text, Box, Image } from "@chakra-ui/react";
-import {RoomCardConfirmModal} from './RoomCardConfirmModal';
+import { RoomReservaConfirmModal } from './RoomReservaConfirmModal';
 import {RoomCardCancelModal} from './RoomCardCancelModal';
 
 const statusStyles = {
@@ -18,14 +18,21 @@ const statusStyles = {
     textAlign: "center",
     fontFamily: "Nunito Sans",
   },
+  reservado: {
+    color: "#FFCD29",
+    fontSize: "12px",
+    textAlign: "center",
+    fontFamily: "Nunito Sans",
+    bg:'primary.400'
+  },
 };
 
-export const StatusText = ({ status, children, mostrarIconos = true }) => {
+export const StatusText = ({dataModal,cliente,status ,children, mostrarIconos = true }) => {
   const styles = statusStyles[status] || {};
 
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
-  console.log(children)
+  
   const openConfirmModal = () => {
     setIsConfirmModalOpen(true);
   };
@@ -41,7 +48,7 @@ export const StatusText = ({ status, children, mostrarIconos = true }) => {
   const closeCancelModal = () => {
     setIsCancelModalOpen(false);
   };
-
+  console.log(cliente);
   return (
     <>
       <Box
@@ -93,7 +100,19 @@ export const StatusText = ({ status, children, mostrarIconos = true }) => {
       </Box>
 
       {/* Modales */}
-      <RoomCardConfirmModal isOpen={isConfirmModalOpen} onClose={closeConfirmModal} estado={status} />
+      <RoomReservaConfirmModal 
+      isOpen={isConfirmModalOpen} 
+      onClose={closeConfirmModal} 
+      estado={status} 
+      
+      date_in={dataModal.date_in}
+      date_out={dataModal.date_out}
+      // client = {cliente.is_company ? cliente.company.manager : client.individual?.first_name}
+      client_id={dataModal.client_id}
+      codRes = {dataModal.quotation_id}
+      id={dataModal.id}
+     
+      />
       <RoomCardCancelModal isOpen={isCancelModalOpen} onClose={closeCancelModal} estado={status}/>
     </>
   );

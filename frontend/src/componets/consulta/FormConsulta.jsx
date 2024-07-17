@@ -41,7 +41,7 @@ export const FormConsulta = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [submissionStatus, setSubmissionStatus] = useState(null);
   const [servicios, setServicios]= useState([])
-
+  const [cantPersona, setCantPersona]=useState(1)
   useEffect(()=>{
     const obtenerServicio=async()=>{
      try{
@@ -84,6 +84,8 @@ export const FormConsulta = () => {
   };
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
+      
+
       const formattedData = {
         client: {
           is_company: values.tipoReserva === "empresa",
@@ -108,12 +110,13 @@ export const FormConsulta = () => {
         },
         start_date: values.fechaIng,
         end_date: values.fechaSalida,
-        people: 9, // Asumiendo que nroNoche es el número de personas
+        people: 2, // Asumiendo que nroNoche es el número de personas
         payment_method: "s", // No tenemos este campo en el formulario original
         status: "A",
         room_types: values.habitaciones.map((hab) => ({
           room_type_id: hab.tipo,
           quantity: parseInt(hab.cantidad),
+          
         })),
         services: values.servicioAdicional,
       };

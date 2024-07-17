@@ -1,17 +1,18 @@
 // src/components/admin/Reservaciones.jsx
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Box, Flex, Heading, Image } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 
 import { FooterAdmin } from "../footer/FooterAdmin";
-import { RoomCard } from "../admin/RoomCard";
+import { RoomCardConsulta } from "./RoomCardConsulta";
+import { RoomCardReserva } from "./RoomCardReserva";
 import { MenuReservas } from "./MenuReservas";
 import { HabitacionContext } from "../../context/HabitacionContext";
 import Header from "./Header";
 import { Link } from "react-router-dom";
 
 export const Reservaciones = () => {
-  const { reservas } = useContext(HabitacionContext);
+  const { reservas,consultas } = useContext(HabitacionContext);
   const [filtro, setFiltro] = useState("all");
 
   return (
@@ -70,14 +71,15 @@ export const Reservaciones = () => {
         {/* Menú */}
         <MenuReservas setFiltro={setFiltro} />
 
-        {/* Card de Reservas */}
-        {filtro != "all"
-          ? reservas
+       
+         {filtro == "all"
+            ?  consultas.map((consulta) => (
+            <RoomCardConsulta key={consulta.id} consulta={consulta} />))
+            : reservas
               .filter((reserva) => reserva.status === filtro)
-              .map((reserva) => <RoomCard key={reserva.id} {...reserva} />)
-          : reservas.map((reserva) => (
-              <RoomCard key={reserva.id} {...reserva} />
-            ))}
+              .map((reserva) => <RoomCardReserva key={reserva.id} {...reserva} />)
+         
+          }
 
         <FooterAdmin />
       </Box>

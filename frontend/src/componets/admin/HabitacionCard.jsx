@@ -42,7 +42,7 @@ export const HabitacionCard = ({ hab, imagen }) => {
   const onDelete = async (id) => {
     try {
       await axios.delete(
-        `https://hotel-oceano.onrender.com/api-room/roomtype/${id}`
+        `https://hotel-oceano.onrender.com/api-room/roomtype/${id}/`
       );
       setUpdateRoom(true);
       // setHabitaciones(habitaciones.filter(hab => hab.id !== id));

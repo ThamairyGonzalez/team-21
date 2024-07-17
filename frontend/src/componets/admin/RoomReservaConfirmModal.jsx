@@ -20,7 +20,8 @@ import { StatusText } from "./StatusText";
 import axios from "axios";
 import { formatDate } from "../../assets/formatDate";
 
-export const RoomCardConfirmModal = ({
+export const RoomReservaConfirmModal = ({
+  id,
   date_in,
   date_out,
   client,
@@ -76,7 +77,7 @@ export const RoomCardConfirmModal = ({
       is_active: true,
       check_in_date: date_in,
       check_out_date: date_out,
-      status: "R",
+      status: "A",
       room_id: selectedRoomId,
       client_id: client_id,
       quotation_id: codRes,
@@ -84,14 +85,15 @@ export const RoomCardConfirmModal = ({
     
     try {
       console.log(JSON.stringify(formData));
-      const response = await axios.post(
-        `${URL_BASE}/api-reservation/reservationroom/`,
+     
+      const response = await axios.put(
+        `${URL_BASE}/api-reservation/reservationroom/${id}/`,
         JSON.stringify(formData),
         {
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-          },
+        },
         }
       );
 
