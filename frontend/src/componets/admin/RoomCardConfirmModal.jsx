@@ -94,8 +94,9 @@ export const RoomCardConfirmModal = ({
           },
         }
       );
-
-      console.log(response.data);
+      alert("Confirmación correctamente");
+      onClose();
+     
     } catch (error) {
       console.log("algo salio mal al confirmar");
     }

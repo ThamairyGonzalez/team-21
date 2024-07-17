@@ -27,6 +27,7 @@ export const RoomCardReserva = ({
       const responseCli = await axios.get(`${BASE_URL}/api-client/client/${client_id}`);
       const cli = responseCli.data;
       setClient(cli);
+      
     } catch (error) {
       console.error("Error fetching client:", error);
     }
@@ -92,12 +93,14 @@ export const RoomCardReserva = ({
               <Text fontSize="12px" fontWeight="bold" color="text.gris"> Tipo de habitación </Text>
               <Text fontSize="14px" color="text.verydark">{roomType}</Text>
             </Box>
-            {status === 'R' && (
+           
               <Box>
-                <Text fontSize="12px" color="text.gris" fontWeight="bold">Cod Reserva</Text>
-                <Text fontSize="14px" color="text.verydark">{id}</Text>
+                <Text fontSize="12px" color="text.gris" fontWeight="bold">Cliente</Text>
+                {client &&
+                <Text fontSize="14px" color="text.verydark"> {client?.is_company ? `${client.company.manager}`:`${client.individual.first_name}`}</Text>
+                }
               </Box>
-            )}
+          
           </Box>
         </Box>
       </Box>

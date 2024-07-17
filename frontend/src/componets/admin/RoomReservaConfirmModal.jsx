@@ -96,8 +96,9 @@ export const RoomReservaConfirmModal = ({
         },
         }
       );
-
-      console.log(response.data);
+      alert("La reserva fue Confirmada");
+      onClose();
+      
     } catch (error) {
       console.log("algo salio mal al confirmar");
     }
