@@ -19,7 +19,6 @@ class QuotationServiceSerializer(serializers.ModelSerializer):
 class QuotationSerializer(serializers.ModelSerializer):
     
     client = CompleteClientSerializer(source='client_id', required=True)
-    #client_details = CompleteClientSerializer(source='client_id', read_only=True)
     room_types = QuotationRoomTypeSerializer(many=True, required=False)
     services = QuotationServiceSerializer(many=True, required=False)
 
@@ -62,7 +61,7 @@ class QuotationSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         
         representation = super().to_representation(instance)
-        
+        #Agrega a representation la llave room_types y services con los objetos relacionados
         quotation_room_types = QuotationRoomType.objects.filter(quotation_id=instance)
         quotation_room_types_represtation = QuotationRoomTypeSerializer(quotation_room_types, many=True).data
         quotation_service = QuotationServices.objects.filter(quotation_id=instance)

@@ -1,6 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework import status, filters
+from drf_spectacular.utils import extend_schema
 
 from .serializers import CompleteClientSerializer
 from ..models import Client, CompanyClient, IndividualClient
@@ -25,9 +26,10 @@ class ClientViewSet(ModelViewSet):
                     'companyclient__name',
                     'companyclient__manager'
                     ]
-    
+    @extend_schema(
+    description=('logical deletion of the client and company or individual model as appropriate'))
     def destroy(self, request, *args, **kwargs):
-        #Borrado logico
+        #Borrado logico en Client y el modelo que corresponda Company o Individual 
         instance = self.get_object()
        
         if instance.is_company:

@@ -55,7 +55,7 @@ class CompleteClientSerializer(serializers.ModelSerializer):
         company_data = validate_data.pop('company', None)
         individual_data = validate_data.pop('individual', None)
         client = Client.objects.create(**validate_data)
-        
+        #Creamos el modelo relacionado que corresponda, Company o Individual
         if client.is_company:
             CompanyClient.objects.create(client_id=client, **company_data)
         else:
@@ -66,10 +66,10 @@ class CompleteClientSerializer(serializers.ModelSerializer):
         
         company_data = validate_data.pop('company', None)
         individual_data = validate_data.pop('individual', None)
-        
+        #Actualizamos el modelo Client y refrescamos la instancia con los datos de DB
         Client.active_objects.filter(id=instance.id).update(**validate_data)
         instance.refresh_from_db()
-        
+        #Actualizamos el modelo que corresponda y borramos el que no, si is_company cambio de estado
         if instance.is_company:
             if company_data:
                 CompanyClient.active_objects.update_or_create(client_id=instance, defaults=company_data)
@@ -85,7 +85,7 @@ class CompleteClientSerializer(serializers.ModelSerializer):
         
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-                
+        #Agrega a representation la llave que corresponda Company o Individual        
         if instance.is_company:
             company = CompanyClient.active_objects.filter(client_id=instance).first()
             company_representation = CompanyClientSerializer(company).data

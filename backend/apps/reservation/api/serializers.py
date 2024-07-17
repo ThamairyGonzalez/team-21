@@ -14,6 +14,8 @@ class ReservationRoomSerializer(serializers.ModelSerializer):
     def validate(self, data):
         check_in_date = data.get('check_in_date')
         check_out_date = data.get('check_out_date')
+        #Chequea si checkin es mayor a la fecha actual y 
+        #checkout sea mayor a checkin y si hay habitaciones disponibles
         if check_in_date >= date.today():
             if check_out_date > check_in_date:
                 if self.is_room_available(data['room_id'], check_in_date, check_out_date):
@@ -26,6 +28,7 @@ class ReservationRoomSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('The admission date must be after today')
         
     def is_room_available(self, room, check_in_date, check_out_date):
+        #Si encuentra alguna habitacion reservada o confirmada en esa fecha devuelve False
         overlapping_bookings = ReservationRoom.active_objects.filter(
             Q(room_id=room) &
             Q(check_in_date__lt=check_out_date) &
@@ -44,14 +47,15 @@ class ReservationServiceSerializer(serializers.ModelSerializer):
         
         start_date = data['start_date']
         end_date = data['end_date']
+        #Busca la reserva de la habitacion a la que esta relacionada
         reservation_room = ReservationRoom.active_objects.filter(id=data['reservation_room_id'].id).first()
         
         if not reservation_room:
             raise serializers.ValidationError('The specified reservation room does not exist.')
-        
+         
         if start_date > end_date:
             raise serializers.ValidationError('Start date must be before or equal to end date.')
-        
+        #Comapara las fechas de la reserva de servicio este dentro de la fecha de la habitacion
         if start_date < reservation_room.check_in_date:
             raise serializers.ValidationError('The start date is before the reservation room check-in date.')
         
