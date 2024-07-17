@@ -141,7 +141,7 @@ export const MenuReservas = ({setFiltro}) => {
                         cursor={'pointer'}
                         onClick={()=>setFiltro('R')}
                     >
-                        Por confirmar
+                       Reservadas
                     </Box>
                 </Box>
 
