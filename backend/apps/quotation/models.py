@@ -21,7 +21,7 @@ class Quotation(AbstractModel):
   people = models.IntegerField()
   payment_method = models.CharField(max_length=1)
   status = models.CharField(max_length=1, choices=QUOTATION_STATUS)
-  
+  comment = models.TextField(null=True, blank=True)
   
   def __str__(self) -> str:
     return f'{self.client_id.email} {self.status}'

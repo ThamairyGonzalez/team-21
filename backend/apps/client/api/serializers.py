@@ -31,7 +31,8 @@ class CompleteClientSerializer(serializers.ModelSerializer):
             ]
         
     def validate(self, data):
-        
+        #Si el campo is_company es verdadero revisa que los datos esten en la variable company
+        #Sino revisa que los datos esten en la variable individual
         if data['is_company'] and 'company' not in data:
             raise serializers.ValidationError("Company data is required for company clients")
         if not data['is_company'] and 'individual' not in data:

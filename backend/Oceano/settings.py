@@ -82,10 +82,11 @@ WSGI_APPLICATION = 'Oceano.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "mydatabase",
+        "NAME": "db.sqlite3",
             }
     }
-""" "default": {
+""" Para procuccion
+    "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.getenv("DB_NAME"),
         "USER": os.getenv("DB_USER"),
@@ -146,9 +147,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #Rest framework setting
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS':'drf_spectacular.openapi.AutoSchema',
-    'DEFAULT_AUTHENTICATION_CLASSES':(
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        #'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-    ),
+    ]
 }
 #Solo envía la cookie sobre HTTPS
 CSRF_COOKIE_SECURE = True

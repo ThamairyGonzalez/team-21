@@ -5,12 +5,14 @@ from rest_framework import status, filters
 from .serializers import CompleteClientSerializer
 from ..models import Client, CompanyClient, IndividualClient
 from apps.utils.paginations import CustomPagination
+from rest_framework.permissions import IsAuthenticated
 
 class ClientViewSet(ModelViewSet):
     serializer_class = CompleteClientSerializer
     queryset = Client.active_objects.all()
     http_method_names = ['get', 'post', 'put', 'delete']
     pagination_class = CustomPagination
+    permission_classes = [IsAuthenticated]
     
     # Sistema de filtros
     filter_backends = [filters.SearchFilter]
@@ -25,7 +27,7 @@ class ClientViewSet(ModelViewSet):
                     ]
     
     def destroy(self, request, *args, **kwargs):
-        
+        #Borrado logico
         instance = self.get_object()
        
         if instance.is_company:

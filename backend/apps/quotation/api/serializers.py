@@ -25,7 +25,7 @@ class QuotationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Quotation
-        fields = ['id', 'client', 'start_date', 'end_date', 'people', 'payment_method', 'status', 'room_types', 'services']
+        fields = ['id', 'client', 'start_date', 'end_date', 'people', 'payment_method', 'status', 'room_types', 'services', 'comment']
 
     def create(self, validated_data):
        

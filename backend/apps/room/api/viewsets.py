@@ -1,5 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExample
@@ -12,6 +13,7 @@ class RoomStatusViewSet(ModelViewSet):
     serializer_class = RoomStatusSerializer
     queryset = RoomStatus.active_objects.all()
     http_method_names = ['get', 'post', 'put', 'delete']
+    permission_classes = [IsAuthenticated]
     
     def destroy(self, request, *args, **kwargs):
         
@@ -36,6 +38,7 @@ class PhotoViewSet(ModelViewSet):
     queryset = RoomPhoto.active_objects.all()
     parser_classes = (MultiPartParser, FormParser)
     http_method_names = ['get', 'post', 'delete']
+    permission_classes = [IsAuthenticated]
     
     def destroy(self, request, *args, **kwargs):
         
@@ -47,6 +50,7 @@ class PhotoViewSet(ModelViewSet):
 class RoomTypeViewSet(ModelViewSet):
     serializer_class = RoomTypeSerializer
     queryset = RoomType.active_objects.all()
+    permission_classes = [IsAuthenticated]
     
     def destroy(self, request, *args, **kwargs):
         
@@ -58,6 +62,7 @@ class RoomTypeViewSet(ModelViewSet):
 class RoomViewSet(ModelViewSet):
     serializer_class = RoomSerializer
     queryset = Room.active_objects.all()
+    permission_classes = [IsAuthenticated]
     
     def destroy(self, request, *args, **kwargs):
         

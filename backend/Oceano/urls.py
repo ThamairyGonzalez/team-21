@@ -13,8 +13,7 @@ urlpatterns = [
     path('api-client/', include('apps.client.api.routers')),
     path('api-reservation/', include('apps.reservation.api.routers')),
     path('api-quotation/', include('apps.quotation.api.routers')),
-    path('api-auth/', include('apps.authentication.urls')),
-    
-]
+    path('api-auth/', include('apps.authentication.urls')),   
+    ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

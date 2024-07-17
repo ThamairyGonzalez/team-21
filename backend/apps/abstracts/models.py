@@ -4,10 +4,12 @@ from django.http import Http404
 import uuid
 
 class AbstractActiveManager(models.Manager):
+    #Devuelve solos objetos activos
     def get_queryset(self):
         return super().get_queryset().filter(is_active=True)
 
 class AbstractManager(models.Manager):
+    #Devuelve el objeto con el id dado, sino devuelve un 404
     def get_object_by_id(self, id):
         try:
             instance = self.get(id=id)
@@ -17,11 +19,11 @@ class AbstractManager(models.Manager):
     
 class AbstractModel(models.Model):
     """
-    Abstract model providing basic fields such as:
-    - id: Unique identifier for the model.
-    - is_active: Boolean field for logical deletion.
-    - created: Date and time when the object was created.
-    - updated: Date and time when the object was last updated.
+    Abstract model provee campos basicos como:
+    - id: Identificador unico para el modelo.
+    - is_active: Campo booleano para el borrado logico.
+    - created: Fecha y hora cuando el objetos es creado.
+    - updated: Fecha y hora cuando el objetos es modificado por ultima vez.
     """
     id = models.UUIDField(
         primary_key=True, db_index=True, unique=True, editable=False, default=uuid.uuid4
@@ -33,10 +35,12 @@ class AbstractModel(models.Model):
     objects = AbstractManager()
     
     def soft_delete(self):
+        #Borra el objeto de manera logica
         self.is_active = False
         self.save()
         
     def restore(self):
+        #Restaura el objeto borrado de manera logica
         self.is_active = True
         self.save()
         

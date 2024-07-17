@@ -42,3 +42,11 @@ $ pyenv global 3.12.3
 2. `pipenv run migrate`
 
 3. `pipenv run server`
+
+### Crear variables de entorno
+
+1. Crear archivo .env
+
+2. Copiar el contenido del archivo .env.example que esta en la carpeta backend
+
+3. Pegar el contenido dentro del archivo .env
