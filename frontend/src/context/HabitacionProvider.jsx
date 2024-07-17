@@ -57,7 +57,7 @@ const obtenerReservas= async()=>{
 useEffect(()=>{
   obtenerReservas();
   obtenerConsultas();
-},[])
+},[updateRoom])
 
 
 
@@ -65,7 +65,7 @@ useEffect(()=>{
 
 
   return (
-    <HabitacionContext.Provider value={{ rooms ,imgRooms, reservas,consultas,setUpdateRoom}}>
+    <HabitacionContext.Provider value={{ rooms ,imgRooms, reservas,consultas,setUpdateRoom,updateRoom}}>
       {children}
     </HabitacionContext.Provider>
   );

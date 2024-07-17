@@ -8,12 +8,22 @@ import {
   Button,
   Flex,
   Center,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
 } from "@chakra-ui/react";
 import { StatusText } from "./StatusText.jsx";
 
 import { formatDate } from "../../assets/formatDate.js";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { RoomCardConfirmModal } from "./RoomCardConfirmModal.jsx";
+import { HabitacionContext } from "../../context/HabitacionContext.jsx";
+import axios from "axios";
 
 export const RoomCardConsulta = ({
   // id,
@@ -29,15 +39,16 @@ export const RoomCardConsulta = ({
   const BASE_URL = "https://hotel-oceano.onrender.com";
   const [roomNumber, setRoomNumber] = useState("");
   const [roomTipo, setRoomTypes] = useState({});
-
-  console.log(consulta);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isDeleting, setIsDeleting] = useState(false);
+  const { setUpdateRoom, updateRoom} = useContext(HabitacionContext);
 
   const getRoomType= async(id)=>{
     try{
-      const res = await fetch(`${BASE_URL}/api-room/roomtype/${id}`);
+      const res = await fetch(`${BASE_URL}/api-room/roomtype/${id}/`);
       const room = await res.json();
       return room
-      // setRoomType(room)
+      
     }catch(error){
       console.log("error al obtner datos del roomtype");
     }
@@ -69,7 +80,34 @@ export const RoomCardConsulta = ({
     setIsConfirmModalOpen(false);
   };
   const cliente = consulta.client.is_company? consulta.client.company.name : consulta.client.individual.first_name;
+  
+  
+  const onDelete = async (id) => {
+    try {
+     
+      await axios.delete(
+        `${BASE_URL}/api-quotation/quotation/${id}/`
+      );
+      
+      setUpdateRoom(true);
+      // setHabitaciones(habitaciones.filter(hab => hab.id !== id));
+    } catch (error) {
+      console.error("Error al eliminar la consulta:", error);
+    }
+  };
 
+  const handleDelete = async () => {
+    
+    setIsDeleting(true);
+    try {
+      await onDelete(consulta.id);
+      onClose();
+    } catch (error) {
+      console.error("Error al eliminar la consulta:", error);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
   return (
     <Box
       flexDirection="column"
@@ -153,7 +191,7 @@ export const RoomCardConsulta = ({
           <Button varian="filled" m={2} onClick={openConfirmModal}>
             Reservar
           </Button>
-          <Button varian="filled" m={2}>
+          <Button varian="filled" m={2}  onClick={onOpen}>
             Cancelar
           </Button>
         </Flex>
@@ -195,6 +233,30 @@ export const RoomCardConsulta = ({
       client_id={consulta.client.id}
       codRes = {consulta.id}
       />
+       {/* Modal de confirmación para eliminar una consulta */}
+       <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>Confirmar eliminación</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                ¿Estás seguro de que quieres eliminar la consulta?
+              </ModalBody>
+
+              <ModalFooter>
+                <Button colorScheme="blue" mr={3} onClick={onClose}>
+                  Cancelar
+                </Button>
+                <Button
+                  colorScheme="red"
+                  onClick={handleDelete}
+                  isLoading={isDeleting}
+                >
+                  Eliminar
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
     </Box>
     
   );
