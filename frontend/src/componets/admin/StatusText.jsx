@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Text, Box, Image } from "@chakra-ui/react";
 import { RoomReservaConfirmModal } from './RoomReservaConfirmModal';
 import {RoomCardCancelModal} from './RoomCardCancelModal';
+import axios from 'axios';
+import { HabitacionContext } from '../../context/HabitacionContext';
 
 const statusStyles = {
   cancelado: {
@@ -29,6 +31,8 @@ const statusStyles = {
 
 export const StatusText = ({dataModal,cliente,status ,children, mostrarIconos = true }) => {
   const styles = statusStyles[status] || {};
+  const BASE_URL = "https://hotel-oceano.onrender.com";
+  const {setUpdateRoom} = useContext(HabitacionContext);
 
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
@@ -48,7 +52,20 @@ export const StatusText = ({dataModal,cliente,status ,children, mostrarIconos = 
   const closeCancelModal = () => {
     setIsCancelModalOpen(false);
   };
-  console.log(cliente);
+  const anularReserva=async (id)=>{
+    try {
+     
+      await axios.delete(
+        `${BASE_URL}/api-reservation/reservationroom/${id}/`
+      );
+      alert("La eliminacion fue correcta")
+      setUpdateRoom(true)
+      // setHabitaciones(habitaciones.filter(hab => hab.id !== id));
+    } catch (error) {
+      console.error("Error al eliminar la consulta:", error);
+    }
+  }
+  
   return (
     <>
       <Box
@@ -92,7 +109,8 @@ export const StatusText = ({dataModal,cliente,status ,children, mostrarIconos = 
             <Box onClick={openConfirmModal} cursor="pointer" boxSize={22}>
               <Image src="/icons/check.png" alt="check" />
             </Box>
-            <Box onClick={openCancelModal} cursor="pointer" boxSize={22} marginTop="8px">
+            {/* <Box onClick={openCancelModal} cursor="pointer" boxSize={22} marginTop="8px"> */}
+            <Box onClick={()=>anularReserva(dataModal.id)} cursor="pointer" boxSize={22} marginTop="8px">
               <Image src={'/icons/cancel.png'} alt="cancel" />
             </Box>
           </Box>
@@ -113,7 +131,7 @@ export const StatusText = ({dataModal,cliente,status ,children, mostrarIconos = 
       id={dataModal.id}
      
       />
-      <RoomCardCancelModal isOpen={isCancelModalOpen} onClose={closeCancelModal} estado={status}/>
+      {/* <RoomCardCancelModal isOpen={isCancelModalOpen} onClose={closeCancelModal} estado={status}/> */}
     </>
   );
 };
