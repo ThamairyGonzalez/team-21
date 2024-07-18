@@ -13,6 +13,7 @@ import {
   VStack,
   useBreakpointValue,
   Flex,
+  Select,
 } from "@chakra-ui/react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
@@ -64,20 +65,14 @@ export const NuevaHabitacion = () => {
       };
       delete datosAEnviar.id;
 
-      console.log(
-        "Estructura por enviar:",
-        JSON.stringify(datosAEnviar, null, 2)
-      );
+      // console.log(
+      //   "Estructura por enviar:",
+      //   JSON.stringify(datosAEnviar, null, 2)
+      // );
 
       const response = await axios.post(`https://hotel-oceano.onrender.com/api-room/roomtype/`,
         datosAEnviar,
-        // {
-        //   headers: {
-        //     accept: "application/json",
-        //     "Content-Type": "application/json",
-        //      "X-CSRFTOKEN": "iGIXa23ixcFa9r3rzxH9FCaYdRNo9GBIj0CS1KHyexXHQ4QLRll4FrPpCWs5BRw9",
-        //   },
-        // }
+       
       );
 
       console.log("Data updated successfully:", response.data);
@@ -141,12 +136,16 @@ export const NuevaHabitacion = () => {
 
             <FormControl>
               <FormLabel>Tipo de Camas</FormLabel>
-              <Input
+              <Select
                 name="beds"
                 value={formData.beds}
                 onChange={handleInputChange}
-                placeholder="Ej: Queen"
-              />
+                placeholder="Seleccione tipo cama"
+              >
+              <option value='Twin'>Twin</option>
+              <option value='Queen'>Queen</option>
+              <option value='Single'>Single</option>
+              </Select>
             </FormControl>
 
             <FormControl>
@@ -197,7 +196,7 @@ export const NuevaHabitacion = () => {
           </VStack>
         </form>
       </Box>
-      <Footer />
+      
     </>
   );
 };

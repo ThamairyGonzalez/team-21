@@ -4,9 +4,9 @@ import { Box, FormControl, FormLabel, Select, NumberInput, NumberInputField, Ico
 import { DeleteIcon } from "@chakra-ui/icons";
 
 const HabitacionField = ({ index, remove, tipoHab }) => {
-  console.log(tipoHab);
+ 
   return (
-    <Box borderWidth="1px" borderRadius="lg" p={4} mb={4}>
+    <Box borderWidth="1px" borderRadius="lg" p={4} mb={4} >
       <Field name={`habitaciones[${index}].tipo`}>
         {({ field, form }) => (
           <FormControl>
@@ -15,9 +15,11 @@ const HabitacionField = ({ index, remove, tipoHab }) => {
               {...field}
               id={`habitaciones[${index}].tipo`}
               placeholder="Seleccione tipo de habitación"
-              color="#909090"
+              color="primary.800"
+              
               borderColor={"#707070"}
             >{tipoHab.map((item)=>(
+             
               <option key={item.id} value={item.id}>{item.type}</option>
             ))}
               {/* <option value="individual">Individual</option>
@@ -43,7 +45,7 @@ const HabitacionField = ({ index, remove, tipoHab }) => {
         aria-label="Eliminar habitación"
         icon={<DeleteIcon />}
         mt={4}
-        colorScheme="red"
+       
         onClick={() => remove(index)}
       />
     </Box>

@@ -35,6 +35,7 @@ import { HabitacionContext } from "../../context/HabitacionContext";
 import { Login } from "./Login";
 import { BiBox } from "react-icons/bi";
 
+
 export const HabitacionCard = ({ hab, imagen }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isDeleting, setIsDeleting] = useState(false);
@@ -66,6 +67,7 @@ export const HabitacionCard = ({ hab, imagen }) => {
   return (
     <Center>
       <Flex m={2}>
+        
         <Center>
           <Box
             borderRadius="10px"

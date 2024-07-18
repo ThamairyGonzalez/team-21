@@ -41,6 +41,7 @@ export const themeCustom = extendTheme({
         200: "#6D99ED",
         400: "#1444A4",
         500: "#0B265B",
+        600: "#091E49",
         800: "#040F24",
         default: "#E8C888",
         dark: "#DACFF6",

@@ -39,7 +39,9 @@ export const FooterAdmin = () => {
         <Link to={'/admin/habitacion'}>
         <CustomButton label="Habitaciones" imageUrl="/icons/habitaciones.png" />
         </Link>
+        <Link to={'/admin/reservaciones'}>
         <CustomButton label="Reservas" imageUrl="/icons/reservas.png" />
+        </Link>
         <CustomButton label="Servicios" imageUrl="/icons/service.png" />
         <CustomButton label="Perfil" imageUrl="/icons/perfil.png" />
       </Flex>
