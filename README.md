@@ -21,7 +21,7 @@
     <a href="https://hotel-oceano.onrender.com/api/schema/swagger-ui/" target="_blank">
           <img  src="https://img.shields.io/badge/VER_API-3378FF?style=for-the-badge&logo=swagger&logoColor=%23343B4E"/>
       </a>
-    <a href="https://github.com/No-Country/s14-21-n-python/issues" target="_blank">
+    <a href="https://drive.google.com/drive/folders/1Xp0IIv3I7muF1XkMz8vMQUnjogG9geFg?usp=drive_link" target="_blank">
           <img  src="https://img.shields.io/badge/DOCUMENTACION_QA-343B4E?style=for-the-badge"/>
       </a>
 </div>
@@ -227,7 +227,7 @@ Puedes probar una versión demo del Gestor de Inventario en línea [aquí](URL_D
             <tr>
               <td>Roger Parra</td>
               <td>
-                  <a href="https://www.linkedin.com/in/oscar-araujo-05303a30/" target="_blank">
+                  <a href="https://www.linkedin.com/in/roger-parra/" target="_blank">
                   <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
                 </a>
               </td>
@@ -277,7 +277,33 @@ Puedes probar una versión demo del Gestor de Inventario en línea [aquí](URL_D
             <tr>
               <td>Ángeles G. Jana Da Silva</td>
               <td>
-                  <a href="https://www.linkedin.com/in/oscar-araujo-05303a30/" target="_blank">
+                  <a href="https://www.linkedin.com/in/angeles-galarza/" target="_blank">
+                  <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </dd>
+      <dd>
+    </dl>
+  <dd>
+   <dd>
+    <h3>🗣 Diseñadores UX/UI</h3>
+    <dl>
+      <dd>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>LinkedIn</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Jana Da Silva</td>
+              <td>
+                  <a href="https://www.linkedin.com/in/-jana-da-silva/" target="_blank">
                   <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
                 </a>
               </td>
@@ -303,7 +329,7 @@ Puedes probar una versión demo del Gestor de Inventario en línea [aquí](URL_D
             <tr>
               <td>Oscar Araujo</td>
               <td>
-                  <a href="https://www.linkedin.com/in/oscar-araujo-05303a30/" target="_blank">
+                  <a href="https://www.linkedin.com/in/oscar-araujogarcia/" target="_blank">
                   <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
                 </a>
               </td>
@@ -329,7 +355,7 @@ Puedes probar una versión demo del Gestor de Inventario en línea [aquí](URL_D
             <tr>
               <td>Lucía Florencia Gangi</td>
               <td>
-                  <a href="https://www.linkedin.com/in/oscar-araujo-05303a30/" target="_blank">
+                  <a href="https://www.linkedin.com/in/luciagangi/" target="_blank">
                   <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
                 </a>
               </td>
