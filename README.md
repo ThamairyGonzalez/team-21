@@ -40,11 +40,15 @@ Oceano hotel es una solución innovadora diseñada para simplificar la vision y 
 <h1> Tecnologias Usadas</h1>
 <h3>Front-End</h3>
 
-![Skills](https://skillicons.dev/icons?i=html,css,js,react,ChakraUI,Vercel)
+![Skills](https://skillicons.dev/icons?i=html,css,js,react,vercel)
+
+<h2>HTML - CSS -JS - REACT - CHAKRAUI - VERCEL</h2>
 
 <h3>Back-End</h3>
 
-![Skills](https://skillicons.dev/icons?i=python,Django,postgresql,rest framework,render)
+![Skills](https://skillicons.dev/icons?i=py,django,posgres)
+
+<h2>PYTHON - DJANGO - REST FRAMEWORK - POSTGRESQL - RENDER</h2>
 
 <h3>QA</h3>
 
