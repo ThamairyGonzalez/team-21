@@ -1,8 +1,8 @@
 import { Box, Flex } from "@chakra-ui/react";
 
 // Componente del Menú
-export const MenuReservas = ({setFiltro}) => {
-    
+export const MenuReservas = ({setFiltro,filtro}) => {
+  
     return (
         <Flex
             flexDirection="column"
@@ -39,7 +39,7 @@ export const MenuReservas = ({setFiltro}) => {
                         right="0"
                         top="95%"
                         height="2px"
-                        bg="#172635"
+                        bg={filtro==='all'?"#172635":'white'}
                     />
                     {/* Label */}
                     <Box
@@ -78,7 +78,7 @@ export const MenuReservas = ({setFiltro}) => {
                         right="0"
                         top="95%"
                         height="2px"
-                        bg="#FFFFFF"
+                        bg={filtro==='A'?"#172635":'white'}
                     />
                     {/* Label */}
                     <Box
@@ -118,7 +118,7 @@ export const MenuReservas = ({setFiltro}) => {
                         right="0"
                         top="95%"
                         height="2px"
-                        bg="#FFFFFF"
+                        bg={filtro==='R'?"#172635":'white'}
                     />
                     {/* Label */}
                     <Box
@@ -158,7 +158,7 @@ export const MenuReservas = ({setFiltro}) => {
                         right="0"
                         top="95%"
                         height="2px"
-                        bg="#FFFFFF"
+                        bg={filtro==='C'?"#172635":'white'}
                     />
                     {/* Label */}
                     <Box

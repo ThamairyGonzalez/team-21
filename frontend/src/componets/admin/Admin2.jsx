@@ -10,11 +10,14 @@ import {
   NumberInput, 
   NumberInputField, 
   Checkbox,
-  VStack 
+  VStack, 
+  Flex,
+  Icon
 } from '@chakra-ui/react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Header from './Header';
+import { ArrowBackIcon } from '@chakra-ui/icons';
 
 export const Admin2 = () => {
   const { id } = useParams();
@@ -35,7 +38,7 @@ export const Admin2 = () => {
  
     const fetchRoomData = async () => {
       try {
-        const response = await fetch(`https://hotel-oceano.onrender.com/api-room/roomtype/${id}`);
+        const response = await fetch(`https://hotel-oceano.onrender.com/api-room/roomtype/${id}/`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -63,18 +66,18 @@ export const Admin2 = () => {
       [name]: value
     }));
   };
-  useEffect(() => {
-    const fetchCSRFToken = async () => {
-      try {
-        const response = await axios.get('https://hotel-oceano.onrender.com/get-csrf-token/');
-        axios.defaults.headers.common['X-CSRFTOKEN'] = response.data.csrfToken;
-      } catch (error) {
-        console.error('Error al obtener el token CSRF:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchCSRFToken = async () => {
+  //     try {
+  //       const response = await axios.get('https://hotel-oceano.onrender.com/get-csrf-token/');
+  //       axios.defaults.headers.common['X-CSRFTOKEN'] = response.data.csrfToken;
+  //     } catch (error) {
+  //       console.error('Error al obtener el token CSRF:', error);
+  //     }
+  //   };
   
-    fetchCSRFToken();
-  }, []);
+  //   fetchCSRFToken();
+  // }, []);
 
 
 
@@ -91,16 +94,16 @@ export const Admin2 = () => {
   
       console.log("Estructura por enviar:", JSON.stringify(datosAEnviar, null, 2))
 
-      const response = await axios.put(`https://hotel-oceano.onrender.com/api-room/roomtype/${id}`,
+      const response = await axios.put(`https://hotel-oceano.onrender.com/api-room/roomtype/${id}/`,
         datosAEnviar,{
           headers: {
             'accept': 'application/json',
             'Content-Type': 'application/json',
-            // 'X-CSRFTOKEN': csrfToken
+           
           }
         });
        
-        
+      alert("los datos se guardaron")  
       console.log('Data updated successfully:', response.data);
       // You might want to show a success message to the user here
     } catch (error) {
@@ -112,7 +115,14 @@ export const Admin2 = () => {
   return (
     <>
      <Header />
+     {/* Botón Volver */}
+     
       <Box p={4} maxW="sm" mx="auto" borderWidth="1px" borderRadius="lg" bg="#FFDE9D73" >
+      <Flex alignItems="center" width="24px" height="24px" cursor="pointer" m={2}>
+          <Link to={"/admin/habitacion"}>
+            <Icon as={ArrowBackIcon} w={8} h={8}  color="primary.600" />
+          </Link>
+        </Flex>
         <form onSubmit={handleSubmit}>
           <VStack spacing={4}>
             <FormControl>

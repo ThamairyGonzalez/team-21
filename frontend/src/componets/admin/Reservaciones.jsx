@@ -1,6 +1,6 @@
 // src/components/admin/Reservaciones.jsx
 import React, { useContext, useEffect, useState } from "react";
-import { Box, Flex, Heading, Image } from "@chakra-ui/react";
+import { Box, Flex, Heading, Image, useBreakpointValue } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 
 import { FooterAdmin } from "../footer/FooterAdmin";
@@ -10,17 +10,16 @@ import { MenuReservas } from "./MenuReservas";
 import { HabitacionContext } from "../../context/HabitacionContext";
 import Header from "./Header";
 import { Link } from "react-router-dom";
+import { Footer } from "../footer/Footer";
 
 export const Reservaciones = () => {
-  const { reservas,consultas } = useContext(HabitacionContext);
+  const { reservas, consultas } = useContext(HabitacionContext);
   const [filtro, setFiltro] = useState("all");
-
+  const isMobile= useBreakpointValue({base:true,sm:false,md:false,xl:false})
   return (
     <>
-      
-      
-        <Header imgUrl={"/img/logo2linea.svg"} />
-    
+      <Header imgUrl={"/img/logo2linea.svg"} />
+
       <Box
         display="flex"
         flexDirection="column"
@@ -42,8 +41,8 @@ export const Reservaciones = () => {
         >
           {/* Botón Volver */}
           <Flex alignItems="center" width="24px" height="24px" cursor="pointer">
-            <Link to={'/admin/home'}>
-            <ArrowBackIcon color="primary.500" />
+            <Link to={"/admin/home"}>
+              <ArrowBackIcon color="primary.500" />
             </Link>
           </Flex>
 
@@ -69,19 +68,19 @@ export const Reservaciones = () => {
           />
         </Box>
         {/* Menú */}
-        <MenuReservas setFiltro={setFiltro} />
+        <MenuReservas setFiltro={setFiltro} filtro={filtro} />
 
-       
-         {filtro == "all"
-            ?  consultas.map((consulta) => (
-            <RoomCardConsulta key={consulta.id} consulta={consulta} />))
-            : reservas
+        {filtro == "all"
+          ? consultas.map((consulta) => (
+              <RoomCardConsulta key={consulta.id} consulta={consulta} />
+            ))
+          : reservas
               .filter((reserva) => reserva.status === filtro)
-              .map((reserva) => <RoomCardReserva key={reserva.id} {...reserva} />)
-         
-          }
+              .map((reserva) => (
+                <RoomCardReserva key={reserva.id} {...reserva} />
+              ))}
+        {isMobile ? <FooterAdmin /> : <Box w='100vw'> <Footer /></Box>}
 
-        <FooterAdmin />
       </Box>
     </>
   );

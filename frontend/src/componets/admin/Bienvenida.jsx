@@ -25,16 +25,19 @@ export const Bienvenida = () => {
       backgroundImage="url('/img/fondoAdmin.jpeg')"
       backgroundSize="cover"
       backgroundPosition="center"
+      display={'flex'}
+      flexDirection={'column'}
       position="relative"
     >
       <Header imgUrl={"/img/logo2linea.svg"} />
 
       <Text
-        fontSize="2xl"
+        fontSize="3em"
         fontWeight="bold"
-        color="black"
-        textAlign={"center"}
+        color="primary.600"
+        letterSpacing={'-0.25px'}
         pb={10}
+        pl={5}
         mt={10}
       >
         Bienvenido
@@ -42,12 +45,16 @@ export const Bienvenida = () => {
 
       <VStack
         spacing={8}
-        justifyContent={"space-around"}
-        bg="rgba(255,255,255,0.7)"
+        flex={1}
+        justifyContent={"center"}
         borderRadius="3xl"
         mx={5}
         mb={20}
         p={10}
+        bg='rgba(255, 234, 194, 0.20)'
+        
+        backdropFilter='blur(11.75px)'
+
       >
         <SimpleGrid
           columns={2}
@@ -82,7 +89,7 @@ export const Bienvenida = () => {
           ))}
         </SimpleGrid>
       </VStack>
-      <Footer />
+      
     </Box>
   );
 };
