@@ -15,14 +15,17 @@ class RoomStatusViewSet(ModelViewSet):
     http_method_names = ['get', 'post', 'put', 'delete']
     permission_classes = [IsAuthenticated]
     
+    @extend_schema(
+    description=('logical deletion of the Service model'))
     def destroy(self, request, *args, **kwargs):
-        
+        #Borrado logico en el modelo RoomStatus
         instance = self.get_object()
         instance.soft_delete()
         
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @extend_schema(
+        description="Load the room´s photo to cloudinary platform",
         request={
             'multipart/form-data': {
                 'type': 'object',
@@ -40,8 +43,10 @@ class PhotoViewSet(ModelViewSet):
     http_method_names = ['get', 'post', 'delete']
     permission_classes = [IsAuthenticated]
     
+    @extend_schema(
+    description=('logical deletion of the Service model'))
     def destroy(self, request, *args, **kwargs):
-        
+        #Borrado logico en el modelo RoomStatus
         instance = self.get_object()
         instance.soft_delete()
         
@@ -52,8 +57,10 @@ class RoomTypeViewSet(ModelViewSet):
     queryset = RoomType.active_objects.all()
     permission_classes = [IsAuthenticated]
     
+    @extend_schema(
+    description=('logical deletion of the RoomType model'))
     def destroy(self, request, *args, **kwargs):
-        
+        #Borrado logico en el modelo RoomType
         instance = self.get_object()
         instance.soft_delete()
         
@@ -64,8 +71,10 @@ class RoomViewSet(ModelViewSet):
     queryset = Room.active_objects.all()
     permission_classes = [IsAuthenticated]
     
+    @extend_schema(
+    description=('logical deletion of the Room model'))
     def destroy(self, request, *args, **kwargs):
-        
+        #Borrado logico en el modelo Room
         instance = self.get_object()
         instance.soft_delete()
         

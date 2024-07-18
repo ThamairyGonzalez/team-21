@@ -165,6 +165,9 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'Api para consultar la disponibilidad y cotizacion de habitaciones',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
+    'SECURITY': [{'SessionAuth': []}],
+    'COMPONENT_SPLIT_REQUEST': True,
+    'POSTPROCESSING_HOOKS': ['drf_spectacular.hooks.postprocess_schema_enums'],
 }
 
 #Configuración de CORS
