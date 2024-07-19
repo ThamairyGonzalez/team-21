@@ -241,133 +241,80 @@ Puedes probar una versión demo del Gestor de Inventario en línea [aquí](URL_D
       </dd>
     </dl>
 <dd>
-    <h3>🗣 Analista Funcional</h3>
-    <dl>
-      <dd>
-        <table>
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>LinkedIn</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td> Carla Ocampo Terceros</td>
-              <td>
-                  <a href="https://www.linkedin.com/in/oscar-araujo-05303a30/" target="_blank">
-                  <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </dd>
-      <dd>
-    </dl>
-  <dd>
-  <dd>
-    <h3>🗣 Diseñadores UX/UI</h3>
-    <dl>
-      <dd>
-        <table>
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>LinkedIn</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Ángeles G. Jana Da Silva</td>
-              <td>
+     <h3>🗣 Analista Funcional</h3>
+      <dl>
+        <dd>
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>LinkedIn</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td> Carla Ocampo Terceros</td>
+                <td>
+                    <a href="https://www.linkedin.com/in/carla-ocampo/" target="_blank">
+                    <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </dd>
+        <dd>
+      </dl>
+    <dd>
+    <dd>
+      <h3>🗣 Diseñadores UX/UI</h3>
+      <dl>
+        <dd>
+        
+        </dd>
+        <dd>
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>LinkedIn</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td> Ángeles Galarza</td>
+                <td>
                   <a href="https://www.linkedin.com/in/angeles-galarza/" target="_blank">
-                  <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </dd>
-      <dd>
-    </dl>
-  <dd>
-   <dd>
-    <h3>🗣 Diseñadores UX/UI</h3>
-    <dl>
-      <dd>
-        <table>
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>LinkedIn</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Jana Da Silva</td>
-              <td>
+                    <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>Jana Da Silva</td>
+                <td>
                   <a href="https://www.linkedin.com/in/-jana-da-silva/" target="_blank">
-                  <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </dd>
-      <dd>
-    </dl>
-  <dd>
-  <dd>
-    <h3>🗣 Diseñadores UX/UI</h3>
-    <dl>
-      <dd>
-        <table>
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>LinkedIn</th>
-           </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Oscar Araujo</td>
-              <td>
-                  <a href="https://www.linkedin.com/in/oscar-araujogarcia/" target="_blank">
-                  <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </dd>
-      <dd>
-    </dl>
-  <dd>
-  <dd>
-    <h3>🗣 Diseñadores UX/UI</h3>
-    <dl>
-      <dd>
-        <table>
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>LinkedIn</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Lucía Florencia Gangi</td>
-              <td>
+                    <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>Lucía Florencia Gangi</td>
+                <td>
                   <a href="https://www.linkedin.com/in/luciagangi/" target="_blank">
-                  <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </dd>
-      <dd>
-    </dl>
-  <dd>
-<br>
+                    <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td>Oscar Araujo</td>
+                <td>
+                  <a href="https://www.linkedin.com/in/oscar-araujogarcia/" target="_blank">
+                    <img src="https://img.shields.io/badge/linkedin-%230A66C2.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>        
+      </dl>
+    <dd>
+   
